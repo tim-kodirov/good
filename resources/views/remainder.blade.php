@@ -20,12 +20,6 @@
                     $("input[type='checkbox'][name='"+id+"']").attr('checked', true);
                 }
             });
-
-            var countries = [
-                { value: 'Andorra', data: 'AD' },
-                { value: 'Zimbabwe', data: 'ZZ' }
-            ];
-
         });
 </script>
 
@@ -79,13 +73,8 @@
                                         <tr>
                                             <th>От кого</th>
                                             <td>
-                                                <input type = "text" class = "form-control"  id="autocomplete"/>
-                                                <div class="autocomplete-suggestions">
-                                                    <div class="autocomplete-group"><strong>NHL</strong></div>
-                                                    <div class="autocomplete-suggestion autocomplete-selected">...</div>
-                                                    <div class="autocomplete-suggestion">...</div>
-                                                    <div class="autocomplete-suggestion">...</div>
-                                                </div>
+                                                <input type = "text" class = "form-control" />
+                                                
                                             </td>
                                         </tr>
                                     </tbody>
@@ -203,7 +192,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Заявка на приход</h4>
+                                <h4 class="modal-title text-center">Заявки на приход</h4>
                             </div>
                             <div class="modal-body">
                                 <table class = "table table-hover">
@@ -211,7 +200,7 @@
                                         <tr>
                                             <th></th>
                                             <th>Товар</th>
-                                            <th>Кому</th>
+                                            <th>От кого</th>
                                             <th>Дата</th>
                                             <th>Кол-во</th>
                                         </tr>

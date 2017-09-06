@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('remainder');
+Route::get('/', function()
+{
+	return view('remainder');
 });
+
+Route::get('/store',  'StoreHouseController@getIndex')->name('store');
+
+Route::get('/store/export', 'StoreHouseController@getExport')->name('store.export');
+
+Route::get('/store/import', 'StoreHouseController@getImport')->name('store.import');

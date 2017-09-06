@@ -1,0 +1,37 @@
+.my-btn
+{
+	border-radius: 50%;
+
+}
+.my-btn:focus
+{
+	outline: none;
+}
+.my-btn:focus, a:focus
+{
+	outline: none;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
+{
+	vertical-align: middle;
+} 
+tr[id^='request']
+{
+	cursor: pointer;
+}
+
+.margin-top-30
+{
+	margin-top: 30px;
+}
+
+@media(min-width: 768px)
+{
+	.new-good
+	{
+		position: absolute;
+		bottom: 50px;
+		left: 50px;
+		display: inline;
+	}
+}

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}">
     
     @yield('styles')
 
@@ -34,14 +34,51 @@
             <div class="row margin-top-30">
                 <div class="col-sm-2">
                     <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="20">
-                      <li class="active"><a href="#">Остаток</a></li>
-                      <li><a href="#">Расходы</a></li>
-                      <li><a href="#">Приходы</a></li>
+                      <li class="active"><a href="{{ route('store') }}">Остаток</a></li>
+                      <li><a href="{{ route('store.export') }}">Расходы</a></li>
+                      <li><a href="{{ route('store.import') }}">Приходы</a></li>
                     </ul>
                 </div>
 
                 <div class="col-sm-10">
                     @yield('content')
+                </div>
+            </div>
+
+            <div class = "new-good">
+                <button class = "my-btn btn btn-primary btn-lg" data-toggle="modal" data-target="#addGood"><span class = "glyphicon glyphicon-plus"></span></button>
+                    
+                <div class="modal fade" id="addGood">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title text-center">Добавить товар</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class = "table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Полное название товара</th>
+
+                                            <td>
+                                                <input type = "text" class = "form-control" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-info btn-block" >Создать</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
