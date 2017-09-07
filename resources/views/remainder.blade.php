@@ -24,7 +24,6 @@
 </script>
 
 @endsection
-@section('active-menu-1', 'active')
 @section('content')
 
 <table class = "table table-striped table-hover">
