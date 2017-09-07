@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row margin-top-30">
                 <div class="col-sm-2">
-                    <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="20">
+                    <ul class="nav nav-pills nav-stacked">
                       <li class="active"><a href="{{ route('store') }}">Остаток</a></li>
                       <li><a href="{{ route('store.export') }}">Расходы</a></li>
                       <li><a href="{{ route('store.import') }}">Приходы</a></li>

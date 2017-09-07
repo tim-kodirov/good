@@ -2,7 +2,10 @@
 
 @section('scripts')
 
+<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+
 <script type="text/javascript">
+
     $(document).ready(function()
         {
             
@@ -20,12 +23,53 @@
                     $("input[type='checkbox'][name='"+id+"']").attr('checked', true);
                 }
             });
+
+            
+            
+            
+
+        });
+
+        var app = angular.module('myApp', []);
+
+        app.controller('myCtrl', function($scope) {
+            $scope.goods = [
+                { name: 'Audi 02/3421/23', number: 234, requests: {up: false, down: false} },
+                { name: 'Daewoo 02/3213/23', number: 200, 
+                    requests: {
+                    up: [
+                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
+                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
+                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
+                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01}], 
+                    down: [
+                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+                    ]} },
+                { name: 'Honda 02/3213/23', number: 100, 
+                    requests: { 
+                    down: [
+                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+                    ]} }
+            ]
         });
 </script>
 
 @endsection
 
 @section('content')
+
+<div ng-app = "myApp" ng-controller="myCtrl">
+<div class="row">
+    <div class="col-sm-4">
+        <input type = "text" ng-model = "filt" class = "form-control" />
+    </div>
+</div>
 
 <table class = "table table-striped table-hover">
     <thead>
@@ -39,16 +83,116 @@
     </thead>
 
     <tbody>
-        <tr>
-            <th>1</th>
-            <td>Audi 02/3421/23</td>
-            <td></td>
-            <td>234</td>
+        <tr ng-repeat = "good in goods | filter : { name : filt }">
+            <th>@{{ $index+1 }}</th>
+            <td>@{{ good.name }}</td>
             <td>
-                <button data-toggle="modal" data-target="#download" class = "my-btn btn btn-default btn-sm"><span  class = "glyphicon glyphicon-arrow-down"></span></button>
+                <span ng-if = "good.requests.up">
+                    <button data-toggle="modal" data-target="#modalUp@{{$index}}" class = "my-btn btn btn-danger btn-sm"><span class="glyphicon glyphicon-envelope"></span></button>
+
+                    <div class="modal fade" id="modalUp@{{$index}}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title text-center">Заявки на расход</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class = "table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Товар</th>
+                                                <th>Кому</th>
+                                                <th>Дата</th>
+                                                <th>Кол-во</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat = "up in good.requests.up" id = "requestUp@{{$parent.$index+'-'+$index}}">
+                                                <td><input name = "requestUp@{{$parent.$index+'-'+$index}}" type="checkbox"/></td>
+                                                <td>@{{ good.name }}</td>
+                                                <td>@{{ up.who }}</td>
+                                                <td>@{{ up.date }}</td>
+                                                <td>@{{ up.number }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <button class = "btn btn-success btn-block">Подтвердить</button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class = "btn btn-danger btn-block">Отклонить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+
+                <span ng-if = "good.requests.down">
+                    <button data-toggle="modal" data-target="#modalDown@{{$index}}" class = "my-btn btn btn-info btn-sm"><span class="glyphicon glyphicon-envelope"></span></button>
+
+                    <div class="modal fade" id="modalDown@{{$index}}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title text-center">Заявки на приход</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class = "table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Товар</th>
+                                                <th>От кого</th>
+                                                <th>Дата</th>
+                                                <th>Кол-во</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat = "down in good.requests.down" id = "requestDown@{{$parent.$index+'-'+$index}}">
+                                                <td><input name ="requestDown@{{$parent.$index+'-'+$index}}" type="checkbox"/></td>
+                                                <td>@{{ good.name }}</td>
+                                                <td>@{{ down.who }}</td>
+                                                <td>@{{ down.date }}</td>
+                                                <td>@{{ down.number }}</td>
+                                            </tr>
+
+                                           
+                                        </tbody>
+                                    </table>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <button class = "btn btn-success btn-block">Подтвердить</button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class = "btn btn-danger btn-block">Отклонить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </td>
+            <td>@{{ good.number }}</td>
+            <td>
+                <button data-toggle="modal" data-target="#download@{{$index}}" class = "my-btn btn btn-default btn-sm"><span  class = "glyphicon glyphicon-arrow-down"></span></button>
                 
 
-                <div class="modal fade" id="download">
+                <div class="modal fade" id="download@{{$index}}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -60,7 +204,7 @@
                                     <tbody>
                                         <tr>
                                             <th>Товар</th>
-                                            <td>Audi 02/3421/23</td>
+                                            <td>@{{ good.name }}</td>
                                             
                                         </tr>
                                         <tr>
@@ -74,18 +218,27 @@
                                             <th>От кого</th>
                                             <td>
                                                 <input type = "text" class = "form-control" />
-                                                
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button class = "btn btn-info btn-block">Добавить</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button data-toggle="modal" data-target="#upload" class = "my-btn btn btn-default btn-sm"><span  class = "glyphicon glyphicon-arrow-up"></span></button>
 
-                <div class="modal fade" id="upload">
+                <button data-toggle="modal" data-target="#upload@{{$index}}" class = "my-btn btn btn-default btn-sm"><span  class = "glyphicon glyphicon-arrow-up"></span></button>
+
+                <div class="modal fade" id="upload@{{$index}}">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -97,248 +250,33 @@
                                     <tbody>
                                         <tr>
                                             <th>Товар</th>
-                                            <td>Audi 02/3421/23</td>
+                                            <td>@{{ good.name}}</td>
                                             
                                         </tr>
 
                                         <tr>
                                             <th>Количество</th>
                                             <td>
-                                                <input type="number" class = "form-control" max="234"/>
+                                                <input type="number" class = "form-control" max="@{{good.number}}"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>Кому</th>
                                             <td>
-                                                <select class = "form-control">
-                                                    <option>Темур Кодиров</option>
-                                                    <option>Темур Кодиров</option>
-                                                    <option>Темур Кодиров</option>
-                                                </select>
+                                                <input type = "text" class = "form-control" />
                                             </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-
-        <tr>
-            <th>2</th>
-            <td>Daewoo 02/3421/23</td>
-            <td>
-                <button data-toggle="modal" data-target="#requestDown" class = "my-btn btn btn-danger btn-sm"><span class="glyphicon glyphicon-envelope"></span></button>
-
-                <div class="modal fade" id="requestDown">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Заявки на расход</h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class = "table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Товар</th>
-                                            <th>Кому</th>
-                                            <th>Дата</th>
-                                            <th>Кол-во</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr id = "requestDown1">
-                                            <td><input name ="requestDown1" type="checkbox"/></td>
-                                            <td>Daewoo 02/3421/23</td>
-                                            <td>Темур Кодиров</td>
-                                            <td>19.08.2017</td>
-                                            <td>30</td>
-                                        </tr>
-
-                                        <tr id = "requestDown2">
-                                            <td><input name ="requestDown2" type="checkbox"/></td>
-                                            <td>Daewoo 02/3421/23</td>
-                                            <td>Темур Кодиров</td>
-                                            <td>19.08.2017</td>
-                                            <td>30</td>
                                         </tr>
                                     </tbody>
                                 </table>
 
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <button class = "btn btn-success btn-block">Подтвердить</button>
+                                    <div class="col-sm-6">
+                                        <button class = "btn btn-info btn-block">Добавить</button>
                                     </div>
-                                    <div class="col-md-4">
-                                        <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class = "btn btn-danger btn-block">Отклонить</button>
+                                    <div class="col-sm-6">
+                                        <button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <button data-toggle="modal" data-target="#requestUp" class = "my-btn btn btn-info btn-sm"><span class="glyphicon glyphicon-envelope"></span></button>
-
-                <div class="modal fade" id="requestUp">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Заявки на приход</h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class = "table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Товар</th>
-                                            <th>От кого</th>
-                                            <th>Дата</th>
-                                            <th>Кол-во</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr id = "requestUp1">
-                                            <td><input name ="requestUp1" type="checkbox"/></td>
-                                            <td>Daewoo 02/3421/23</td>
-                                            <td>Темур Кодиров</td>
-                                            <td>19.08.2017</td>
-                                            <td>30</td>
-                                        </tr>
-
-                                        <tr id = "requestUp2">
-                                            <td><input name ="requestUp2" type="checkbox"/></td>
-                                            <td>Daewoo 02/3421/23</td>
-                                            <td>Темур Кодиров</td>
-                                            <td>19.08.2017</td>
-                                            <td>30</td>
-                                        </tr>
-                                        <tr id = "requestUp3">
-                                            <td><input name ="requestUp3" type="checkbox"/></td>
-                                            <td>Daewoo 02/3421/23</td>
-                                            <td>Темур Кодиров</td>
-                                            <td>19.08.2017</td>
-                                            <td>30</td>
-                                        </tr>
-                                        <tr id = "requestUp4">
-                                            <td><input name ="requestUp4" type="checkbox"/></td>
-                                            <td>Daewoo 02/3421/23</td>
-                                            <td>Темур Кодиров</td>
-                                            <td>19.08.2017</td>
-                                            <td>30</td>
-                                        </tr>
-                                        <tr id = "requestUp5">
-                                            <td><input name ="requestUp5" type="checkbox"/></td>
-                                            <td>Daewoo 02/3421/23</td>
-                                            <td>Темур Кодиров</td>
-                                            <td>19.08.2017</td>
-                                            <td>30</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <button class = "btn btn-success btn-block">Подтвердить</button>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <button class = "btn btn-danger btn-block">Отклонить</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </td>
-            <td>342</td>
-            <td>
-                <button data-toggle="modal" data-target="#download1" class = "my-btn btn btn-default btn-sm"><span  class = "glyphicon glyphicon-arrow-down"></span></button>
-                
-
-                <div class="modal fade" id="download1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Приход</h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class = "table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Товар</th>
-                                            <td>Daewoo 02/3421/23</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th>Количество</th>
-                                            <td>
-                                                <input type="number" class = "form-control"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>От кого</th>
-                                            <td>
-                                                <select class = "form-control">
-                                                    <option>Темур Кодиров</option>
-                                                    <option>Темур Кодиров</option>
-                                                    <option>Темур Кодиров</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button data-toggle="modal" data-target="#upload1" class = "my-btn btn btn-default btn-sm"><span  class = "glyphicon glyphicon-arrow-up"></span></button>
-
-                <div class="modal fade" id="upload1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Расход</h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class = "table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Товар</th>
-                                            <td>Daewoo 02/3421/23</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th>Количество</th>
-                                            <td>
-                                                <input type="number" class = "form-control" max="234"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Кому</th>
-                                            <td>
-                                                <select class = "form-control">
-                                                    <option>Темур Кодиров</option>
-                                                    <option>Темур Кодиров</option>
-                                                    <option>Темур Кодиров</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -347,5 +285,5 @@
         </tr>
     </tbody>
 </table>
-
+</div>
 @endsection
