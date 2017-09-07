@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+@section('active-menu-2', 'active')
 @section('content')
 
 <table class = "table table-striped table-hover">
