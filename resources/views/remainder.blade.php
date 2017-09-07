@@ -61,7 +61,6 @@
 </script>
 
 @endsection
-
 @section('content')
 
 <div ng-app = "myApp" ng-controller="myCtrl">
