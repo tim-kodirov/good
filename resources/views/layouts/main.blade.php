@@ -33,17 +33,11 @@
         <div class="container">
             <div class="row margin-top-30">
                 <div class="col-sm-2">
-<<<<<<< HEAD
+
                     <ul class="nav nav-pills nav-stacked">
-                      <li class="active"><a href="{{ route('store') }}">Остаток</a></li>
-                      <li><a href="{{ route('store.export') }}">Расходы</a></li>
-                      <li><a href="{{ route('store.import') }}">Приходы</a></li>
-=======
-                    <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="20">
                       <li class="{{Request::is('store') ? 'active' : ''}}"><a href="{{ route('store') }}">Остаток</a></li>
                       <li class="{{Request::is('store/export') ? 'active' : ''}}"><a href="{{ route('store.export') }}">Расходы</a></li>
                       <li class="{{Request::is('store/import') ? 'active' : ''}}"><a href="{{ route('store.import') }}">Приходы</a></li>
->>>>>>> 6fa8c0d06b1a98a1a3500cc195193228e4ad1e05
                     </ul>
                 </div>
 
