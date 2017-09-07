@@ -2,8 +2,6 @@
 
 @section('scripts')
 
-<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
-
 <script type="text/javascript">
 
     $(document).ready(function()
