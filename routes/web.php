@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return view('remainder');
+	return view('storehouse.remainder');
 });
 
 Route::get('/store',  'StoreHouseController@getIndex')->name('store');
@@ -21,3 +21,5 @@ Route::get('/store',  'StoreHouseController@getIndex')->name('store');
 Route::get('/store/export', 'StoreHouseController@getExport')->name('store.export');
 
 Route::get('/store/import', 'StoreHouseController@getImport')->name('store.import');
+
+Route::get('/office', 'OfficeController@getIndex')->name('office');

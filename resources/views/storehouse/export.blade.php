@@ -50,7 +50,7 @@
 			<td>@{{ export.name }}</td>
 			<td>@{{ export.who }}</td>
 			<td>@{{ export.number }}</td>
-			<td>@{{ export.date }}</td>
+			<td>@{{ export.date | date: "dd.MM.yyyy" }}</td>
 			<td>
 				<span ng-if = "export.return">
 					@{{ export.return }}
@@ -101,7 +101,7 @@
 				
 			</td>
 			<td>
-				<span ng-if = "export.return">@{{ export.returnDate }}</span>
+				<span ng-if = "export.return">@{{ export.returnDate | date : "dd.MM.yyyy" }}</span>
 				<a href="#edit@{{$index}}" data-toggle="modal"><span class = "glyphicon glyphicon-pencil pull-right"></span></a>
 
 				<div class="modal fade" id="edit@{{$index}}">

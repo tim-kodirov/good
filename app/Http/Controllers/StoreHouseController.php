@@ -10,16 +10,16 @@ class StoreHouseController extends Controller
 
     public function getIndex()
     {
-    	return view('remainder');
+    	return view('storehouse.remainder');
     }
 
     public function getImport()
     {
-    	return view('import');
+    	return view('storehouse.import');
     }
 
     public function getExport()
     {
-    	return view('export');
+    	return view('storehouse.export');
     }
 }

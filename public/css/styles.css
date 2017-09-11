@@ -35,3 +35,19 @@ tr[id^='request']
 		display: inline;
 	}
 }
+
+.table>tbody>tr>td.td-inside
+{
+	padding: 0px;
+}
+
+.table .table-inside
+{
+	margin-bottom: 0px;
+	background-color: inherit;
+}
+
+.table-inside>tbody>tr>td
+{
+	border-top: none;
+}

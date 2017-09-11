@@ -35,12 +35,11 @@
         <div class="container">
             <div class="row margin-top-30">
                 <div class="col-sm-2">
-
-                    <ul class="nav nav-pills nav-stacked">
-                      <li class="{{Request::is('store') ? 'active' : ''}}"><a href="{{ route('store') }}">Остаток</a></li>
-                      <li class="{{Request::is('store/export') ? 'active' : ''}}"><a href="{{ route('store.export') }}">Расходы</a></li>
-                      <li class="{{Request::is('store/import') ? 'active' : ''}}"><a href="{{ route('store.import') }}">Приходы</a></li>
-                    </ul>
+                    @if(Request::is(['store','store/*']))
+                        @include('partials._storehouse_navbar')
+                    @elseif(Request::is(['office', 'office/*']))
+                        @include('partials._office_navbar')
+                    @endif
                 </div>
 
                 <div class="col-sm-10">
