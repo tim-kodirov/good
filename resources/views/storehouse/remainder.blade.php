@@ -95,6 +95,7 @@
                                     <h4 class="modal-title text-center">Заявки на расход</h4>
                                 </div>
                                 <div class="modal-body">
+                                    
                                     <table class = "table table-hover">
                                         <thead>
                                             <tr>
@@ -108,7 +109,7 @@
                                         <tbody>
                                             <tr ng-repeat = "up in good.requests.up" id = "requestUp@{{$parent.$index+'-'+$index}}">
                                                 <td><input name = "requestUp@{{$parent.$index+'-'+$index}}" type="checkbox"/></td>
-                                                <td>@{{ good.name }}</td>
+                                                <td>@{{ good.name }}</td>   
                                                 <td>@{{ up.who }}</td>
                                                 <td>@{{ up.date }}</td>
                                                 <td>@{{ up.number }}</td>

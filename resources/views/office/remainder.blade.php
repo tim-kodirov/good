@@ -10,28 +10,71 @@
         
         $scope.goods = [
         	{name: 'Audi 02/3421/23', stores: [
-        		{name: 'Склад 1', number: 67},
-        		{name: 'Склад 2', number: 70},
-        		{name: 'Склад 3', number: 23}
-        	]},
+        		{name: 'Склад 1', number: 67, requests: 
+        			{up: [
+        				{who: 'Темур Кодиров', number: 30, date: 2017-08-01}], 
+        			down: false}
+        		},
+        		{name: 'Склад 2', number: 70, requests: 
+        			{up: false, down: [
+        				{who: 'Темур Кодиров', number: 30, date: 2017-08-01},
+        				{who: 'Алишер Кодиров', number: 20, date: 2017-08-02}]}
+        		},
+        		{name: 'Склад 3', number: 23, requests: 
+        			{up: [
+        				{who: 'Темур Кодиров', number: 10, date: 2017-08-01},
+        				{who: 'Алишер Кодиров', number: 5, date: 2017-08-02}],
+        			down: false}
+        		}
+        	], 
+        	totalFull: 160,
+        	total: 130
+        	},
 
         	{name: 'Daewoo 02/3421/23', stores: [
-        		{name: 'Склад 1', number: 23},
-        		{name: 'Склад 2', number: 126},
-        		{name: 'Склад 3', number: 53}
-        	]},
+        		{name: 'Склад 1', number: 23,requests: 
+        			{up: false, down: false}
+        		},
+        		{name: 'Склад 2', number: 126, requests: 
+        			{up: false, down: false}
+        		},
+        		{name: 'Склад 3', number: 53, requests: 
+        			{up: false, down: false}
+        		}
+        	],
+        	totalFull: 202,
+        	total: 202
+        	},
 
         	{name: 'Opel 02/3421/23', stores: [
-        		{name: 'Склад 1', number: 12},
-        		{name: 'Склад 2', number: 43},
-        		{name: 'Склад 3', number: 23}
-        	]},
+        		{name: 'Склад 1', number: 12, requests: 
+        			{up: false, down: false}
+        		},
+        		{name: 'Склад 2', number: 43, requests: 
+        			{up: false, down: false}
+        		},
+        		{name: 'Склад 3', number: 23, requests: 
+        			{up: false, down: false}
+        		}
+        	], 
+        	totalFull: 78,
+        	total: 78
+        	},
 
         	{name: 'Toyota 02/3421/23', stores: [
-        		{name: 'Склад 1', number: 34},
-        		{name: 'Склад 2', number: 120},
-        		{name: 'Склад 3', number: 20}
-        	]},
+        		{name: 'Склад 1', number: 34, requests: 
+        			{up: false, down: false}
+        		},
+        		{name: 'Склад 2', number: 120, requests: 
+        			{up: false, down: false}
+        		},
+        		{name: 'Склад 3', number: 20, requests: 
+        			{up: false, down: false}
+        		}
+        	], 
+        	totalFull: 174,
+        	total: 174
+        	},
         ],
 
         $scope.total = function(stores)
@@ -84,9 +127,9 @@
 
 	<tbody>
 		<tr ng-repeat = "good in goods | filter: search">
-			<td>@{{ $index+1 }}</td>
+			<th>@{{ $index+1 }}</th>
 			<td>@{{ good.name }}</td>
-			<td>@{{ total( good.stores ) }}</td>
+			<td>@{{ good.totalFull }} (@{{ good.total }})</td>
 			<td class = "td-inside">
 				<table class = "table-inside table">
 					<tr ng-repeat = "store in good.stores | filter: { name:filtByStore} ">
@@ -99,7 +142,7 @@
 				<table class = "table-inside table">
 					<tr ng-repeat = "store in good.stores | filter: { name:filtByStore}">
 						<td>
-							@{{ store.number }}
+							@{{ store.number }} ( @{{ store.requests.up ? store.number - total(store.requests.up) : store.number }} )
 		
 							<a data-toggle="modal" href="#download@{{$parent.$index+'-'+$index}}"><span  class = "glyphicon glyphicon-arrow-down pull-right"></span></a>
 		
@@ -217,6 +260,42 @@
 						</td>
 					</tr>
 				</table>
+			</td>
+
+			<td class = "text-right">
+				<a data-toggle = "modal" href="#edit@{{$index}}"><span class = "glyphicon glyphicon-pencil"></span></a>
+
+				<div class="modal fade" id="edit@{{$index}}">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title text-center">Изменить</h4>
+							</div>
+							<div class="modal-body">
+								<table class = "table">
+									<tr>
+										<th>Товар</th>
+										<td>
+											<input type="text" class = "form-control" value = "@{{good.name}}"/>
+										</td>
+									</tr>
+								</table>
+
+								<div class="row">
+									<div class="col-sm-6">
+										<button class = "btn btn-info btn-block">Сохранить</button>
+									</div>
+									<div class="col-sm-6">
+										<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
 			</td>		
 		</tr>
 	
