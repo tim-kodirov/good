@@ -15,11 +15,17 @@ Route::get('/', function()
 {
 	return view('storehouse.remainder');
 });
+Route::prefix('store')->group(function () {
 
-Route::get('/store',  'StoreHouseController@getIndex')->name('store');
+    Route::get('/',  'StoreHouseController@getIndex')->name('store');
 
-Route::get('/store/export', 'StoreHouseController@getExport')->name('store.export');
+    Route::get('export', 'StoreHouseController@getExport')->name('store.export');
 
-Route::get('/store/import', 'StoreHouseController@getImport')->name('store.import');
+    Route::get('import', 'StoreHouseController@getImport')->name('store.import');
+
+    Route::post('addGood', 'StoreHouseController@createProduct')->name('store.addGood');
+
+});
+
 
 Route::get('/office', 'OfficeController@getIndex')->name('office');

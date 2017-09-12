@@ -58,26 +58,29 @@
                                 <h4 class="modal-title text-center">Добавить товар</h4>
                             </div>
                             <div class="modal-body">
-                                <table class = "table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Полное название товара</th>
+                                <form method="post" action="{{route('store.addGood')}}">
+                                    {{csrf_field()}}
+                                    <table class = "table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Полное название товара</th>
 
-                                            <td>
-                                                <input type = "text" class = "form-control" />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                <td>
+                                                    <input type = "text" class = "form-control" name="product_name"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <button type="button" class="btn btn-info btn-block" >Создать</button>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button type="submit" class="btn btn-info btn-block" >Создать</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
