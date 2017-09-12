@@ -1,9 +1,7 @@
 @extends('layouts.main')
-
 @section('scripts')
 
 <script type="text/javascript">
-
     $(document).ready(function()
         {
             
@@ -31,30 +29,31 @@
         var app = angular.module('myApp', []);
 
         app.controller('myCtrl', function($scope) {
-            $scope.goods = [
-                { name: 'Audi 02/3421/23', number: 234, requests: {up: false, down: false} },
-                { name: 'Daewoo 02/3213/23', number: 200, 
-                    requests: {
-                    up: [
-                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01}], 
-                    down: [
-                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-                    ]} },
-                { name: 'Honda 02/3213/23', number: 100, 
-                    requests: { 
-                    down: [
-                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-                    ]} }
-            ]
+            $scope.goods = {!! $goods !!};
+//            $scope.goods = [
+//                { name: 'Audi 02/3421/23', number: 234, requests: {up: false, down: false} },
+//                { name: 'Daewoo 02/3213/23', number: 200,
+//                    requests: {
+//                    up: [
+//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
+//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
+//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
+//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01}],
+//                    down: [
+//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+//                    ]} },
+//                { name: 'Honda 02/3213/23', number: 100,
+//                    requests: {
+//                    down: [
+//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
+//                    ]} }
+//            ]
         });
 </script>
 
