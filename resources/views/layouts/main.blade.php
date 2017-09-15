@@ -49,39 +49,39 @@
 
             <div class = "new-good">
                 <button class = "my-btn btn btn-primary btn-lg" data-toggle="modal" data-target="#addGood"><span class = "glyphicon glyphicon-plus"></span></button>
-                    
-                <div class="modal fade" id="addGood">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Добавить товар</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form method="post" action="{{route('store.addGood')}}">
-                                    {{csrf_field()}}
-                                    <table class = "table">
-                                        <tbody>
-                                            <tr>
-                                                <th>Полное название товара</th>
+            </div>
 
-                                                <td>
-                                                    <input type = "text" class = "form-control" name="product_name"/>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+            <div class="modal fade" id="addGood">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title text-center">Добавить товар</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{{route('store.addGood')}}">
+                                {{csrf_field()}}
+                                <table class = "table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Полное название товара</th>
 
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-info btn-block" >Создать</button>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
-                                        </div>
+                                            <td>
+                                                <input type = "text" class = "form-control" name="product_name"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-info btn-block" >Создать</button>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
