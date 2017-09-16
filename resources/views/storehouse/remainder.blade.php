@@ -19,41 +19,12 @@
                     $("input[type='checkbox'][name='"+id+"']").attr('checked', true);
                 }
             });
-
-            
-            
-            
-
         });
 
         var app = angular.module('myApp', []);
 
         app.controller('myCtrl', function($scope) {
-            $scope.goods = {!! $goods !!};
-//            $scope.goods = [
-//                { name: 'Audi 02/3421/23', number: 234, requests: {up: false, down: false} },
-//                { name: 'Daewoo 02/3213/23', number: 200,
-//                    requests: {
-//                    up: [
-//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01}],
-//                    down: [
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                    ]} },
-//                { name: 'Honda 02/3213/23', number: 100,
-//                    requests: {
-//                    down: [
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                    ]} }
-//            ]
+            $scope.goods;
         });
 </script>
 
@@ -236,45 +207,49 @@
                 <button data-toggle="modal" data-target="#upload@{{$index}}" class = "my-btn btn btn-default btn-sm"><span  class = "glyphicon glyphicon-arrow-up"></span></button>
 
                 <div class="modal fade" id="upload@{{$index}}">
+
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Расход</h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class = "table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Товар</th>
-                                            <td>@{{ good.name}}</td>
-                                            
-                                        </tr>
+                            <form method="post" action="">
+                                {{csrf_field()}}
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title text-center">Расход</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class = "table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Товар</th>
+                                                <td>@{{ good.name}}</td>
 
-                                        <tr>
-                                            <th>Количество</th>
-                                            <td>
-                                                <input type="number" class = "form-control" max="@{{good.number}}"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Кому</th>
-                                            <td>
-                                                <input type = "text" class = "form-control" />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </tr>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <button class = "btn btn-info btn-block">Добавить</button>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+                                            <tr>
+                                                <th>Количество</th>
+                                                <td>
+                                                    <input type="number" class = "form-control" max="@{{good.number}}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Кому</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button type="submit" class = "btn btn-info btn-block">Добавить</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

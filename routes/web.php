@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function()
-{
-	return view('storehouse.remainder');
-});
+Route::get('/','Auth\LoginController@showLoginForm')->name('login');
+
+Route::post('/', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
 Route::prefix('store')->group(function () {
 
     Route::get('/',  'StoreHouseController@getIndex')->name('store');
@@ -27,5 +28,16 @@ Route::prefix('store')->group(function () {
 
 });
 
+Route::prefix('office')->group(function () {
 
-Route::get('/office', 'OfficeController@getIndex')->name('office');
+    Route::get('/', 'OfficeController@getIndex')->name('office');
+
+});
+
+Route::prefix('admin')->group(function () {
+
+    Route::get('/', 'AdminController@getIndex')->name('admin');
+
+});
+
+
