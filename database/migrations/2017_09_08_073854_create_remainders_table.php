@@ -15,7 +15,10 @@ class CreateRemaindersTable extends Migration
     {
         Schema::create('remainders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->integer('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->integer('storehouse_id')->unsigned();
+            $table->foreign('storehouse_id')->references('id')->on('storehouses');
             $table->integer('quantity')->default(0);
             $table->timestamps();
         });

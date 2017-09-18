@@ -45,6 +45,34 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+        'storehouse' => [
+            'driver' => 'session',
+            'provider' => 'storehouses',
+        ],
+
+        'storehouse-api' => [
+            'driver' => 'token',
+            'provider' => 'storehouses',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'admin-api' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+        ],
+
+        'office' => [
+            'driver' => 'session',
+            'provider' => 'offices',
+        ],
+
+        'office-api' => [
+            'driver' => 'token',
+            'provider' => 'offices',
+        ],
     ],
 
     /*
@@ -69,7 +97,18 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
+        'storehouses' => [
+            'driver' => 'eloquent',
+            'model' => App\Storehouse::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+        'offices' => [
+            'driver' => 'eloquent',
+            'model' => App\Office::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -94,6 +133,21 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'storehouses' => [
+            'provider' => 'storehouses',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'offices' => [
+            'provider' => 'offices',
             'table' => 'password_resets',
             'expire' => 60,
         ],

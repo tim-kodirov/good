@@ -17,7 +17,8 @@ class CreateImportsTable extends Migration
             $table->increments('id');
             $table->integer('remainder_id')->unsigned();
             $table->foreign('remainder_id')->references('id')->on('remainders');
-            $table->string('fromWho');
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->integer('quantity')->unsigned();
             $table->boolean('fromRequest');
             $table->timestamps();

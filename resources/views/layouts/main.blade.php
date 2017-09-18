@@ -33,6 +33,27 @@
 <body>
     <div id="app">
         <div class="container">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{ Auth::guard('admin')->check() ? 'Админ' : Auth::guard('office') ? 'Офис' : Auth::guard('storehouse') ? 'Склад' : '???' }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{csrf_field()}}
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
             <div class="row margin-top-30">
                 <div class="col-sm-2">
                     @if(Request::is(['store','store/*']))
@@ -59,7 +80,7 @@
                             <h4 class="modal-title text-center">Добавить товар</h4>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{route('store.addGood')}}">
+                            <form method="post" action="{{route('store.product.create')}}">
                                 {{csrf_field()}}
                                 <table class = "table">
                                     <tbody>

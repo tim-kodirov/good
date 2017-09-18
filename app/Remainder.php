@@ -11,4 +11,24 @@ class Remainder extends Model
         return $this->hasMany('App\Request');
     }
 
+    public function exports()
+    {
+        return $this->hasMany('App\Export');
+    }
+
+    public function imports()
+    {
+        return $this->hasMany('App\Import');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+
+    public function storehouse()
+    {
+        return $this->belongsTo('App\Storehouse');
+    }
+
 }

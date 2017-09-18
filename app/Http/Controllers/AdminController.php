@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class OfficeController extends Controller
+class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:office');
+        $this->middleware('auth:admin');
     }
 
     public function getIndex()
     {
-    	return view('office.remainder');
+        return "Admin";
     }
 }

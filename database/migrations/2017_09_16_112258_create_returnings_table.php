@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExportsTable extends Migration
+class CreateReturningsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateExportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exports', function (Blueprint $table) {
+        Schema::create('returnings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('remainder_id')->unsigned();
-            $table->foreign('remainder_id')->references('id')->on('remainders');
-            $table->integer('client_id')->unsigned();
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->integer('export_id')->unsigned();
+            $table->foreign('export_id')->references('id')->on('exports');
             $table->integer('quantity')->unsigned();
-            $table->boolean('fromRequest');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateExportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exports');
+        Schema::dropIfExists('returnings');
     }
 }
