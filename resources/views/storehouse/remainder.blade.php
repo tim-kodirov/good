@@ -24,7 +24,6 @@
         var app = angular.module('myApp', []);
 
         app.controller('myCtrl', function($scope) {
-<<<<<<< HEAD
             $scope.goods = {!! $goods !!},
             $scope.whos = [
                 {name: 'Temur Kodirov', contact: '191-01-02' },
@@ -56,9 +55,7 @@
 //                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
 //                    ]} }
 //            ]
-=======
-            $scope.goods = {!! $goods !!};
->>>>>>> 81cffc82488e3714944f6d5dbfe8c60aba56e461
+
         });
 </script>
 
@@ -215,19 +212,6 @@
                                                 <th>Товар</th>
                                                 <td>@{{ good.name }}</td>
 
-<<<<<<< HEAD
-                                        <tr>
-                                            <th>От кого</th>
-                                            <td>
-                                                <input type = "text" list = "who_down" class = "form-control" />
-                                                <datalist id = "who_down">
-                                                    <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
-                                                </datalist>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-=======
                                             </tr>
                                             <tr>
                                                 <th>Количество</th>
@@ -236,12 +220,14 @@
                                                     <input type="number" class = "form-control" name="import_product_quantity" min="0"/>
                                                 </td>
                                             </tr>
->>>>>>> 81cffc82488e3714944f6d5dbfe8c60aba56e461
 
                                             <tr>
                                                 <th>От кого</th>
                                                 <td>
-                                                    <input type = "text" class = "form-control" />
+                                                    <input type = "text" list = "who_down" class = "form-control" />
+                                                    <datalist id = "who_down">
+                                                        <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
+                                                    </datalist>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -280,28 +266,7 @@
                                                 <th>Товар</th>
                                                 <td>@{{ good.name}}</td>
 
-<<<<<<< HEAD
-                                        <tr>
-                                            <th>Количество</th>
-                                            <td>
-                                                <input type="number" class = "form-control" max="@{{good.number}}"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Кому</th>
-                                            <td>
-                                                <input type = "text" list = "who_up" class = "form-control" />
-                                                <datalist id = "who_up">
-                                                    <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
-                                                </datalist>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-=======
                                             </tr>
->>>>>>> 81cffc82488e3714944f6d5dbfe8c60aba56e461
-
                                             <tr>
                                                 <th>Количество</th>
                                                 <td>
@@ -312,7 +277,10 @@
                                             <tr>
                                                 <th>Кому</th>
                                                 <td>
-                                                    <input type = "text" class = "form-control" />
+                                                    <input type = "text" list = "who_up" class = "form-control" />
+                                                    <datalist id = "who_up">
+                                                        <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
+                                                    </datalist>
                                                 </td>
                                             </tr>
                                         </tbody>

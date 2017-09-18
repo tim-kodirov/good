@@ -11,14 +11,14 @@
 |
 */
 
-<<<<<<< HEAD
-Route::get('/', 'StoreHouseController@getIndex');
-=======
+
+
+
 Route::get('/','Auth\LoginController@showLoginForm')->name('login');
 
 Route::post('/', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
->>>>>>> 81cffc82488e3714944f6d5dbfe8c60aba56e461
+
 
 Route::prefix('store')->group(function () {
 
@@ -56,7 +56,7 @@ Route::prefix('admin')->group(function () {
 });
 
 
-<<<<<<< HEAD
+
 Route::prefix('office')->group(function(){
 
 	Route::get('/', 'OfficeController@getIndex')->name('office');
@@ -65,5 +65,3 @@ Route::prefix('office')->group(function(){
 
 	Route::get('import', 'OfficeController@getImport')->name('office.import');
 });
-=======
->>>>>>> 81cffc82488e3714944f6d5dbfe8c60aba56e461
