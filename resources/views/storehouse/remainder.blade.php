@@ -25,11 +25,12 @@
 
         app.controller('myCtrl', function($scope) {
             $scope.goods = {!! $goods !!},
-            $scope.whos = [
-                {name: 'Temur Kodirov', contact: '191-01-02' },
-                {name: 'Alisher Kodirov', contact: '191-01-02' },
-                {name: 'Ulug Kodirov', contact: '191-01-02' },
-            ]
+            $scope.whos = {!! $clients !!}
+//            $scope.whos = [
+//                {name: 'Temur Kodirov', contacts: '191-01-02' },
+//                {name: 'Alisher Kodirov', contacts: '191-01-02' },
+//                {name: 'Ulug Kodirov', contacts: '191-01-02' },
+//            ]
 
 //            $scope.goods = [
 //                { name: 'Audi 02/3421/23', number: 234, requests: {up: false, down: false} },
@@ -128,7 +129,7 @@
                                                 <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
                                             </div>
                                             <div class="col-md-4">
-                                                <button type="submit" formaction="{{route('store.request.export.reject')}}" class = "btn btn-danger btn-block">Отклонить</button>
+                                                <button type="submit" formaction="{{route('store.request.reject')}}" class = "btn btn-danger btn-block">Отклонить</button>
                                             </div>
                                         </div>
                                     </div>
@@ -182,7 +183,7 @@
                                                 <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
                                             </div>
                                             <div class="col-md-4">
-                                                <button formaction="{{route('store.request.import.reject')}}" class = "btn btn-danger btn-block">Отклонить</button>
+                                                <button formaction="{{route('store.request.reject')}}" class = "btn btn-danger btn-block">Отклонить</button>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +201,8 @@
                 <div class="modal fade" id="download@{{$index}}">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="post" action="">
+                            <form method="post" action="{{route('store.product.import')}}">
+                                {{csrf_field()}}
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     <h4 class="modal-title text-center">Приход</h4>
@@ -224,7 +226,7 @@
                                             <tr>
                                                 <th>От кого</th>
                                                 <td>
-                                                    <input type = "text" list = "who_down" class = "form-control" />
+                                                    <input type = "text" list = "who_down" class = "form-control" name="import_client_name"/>
                                                     <datalist id = "who_down">
                                                         <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
                                                     </datalist>
@@ -277,7 +279,7 @@
                                             <tr>
                                                 <th>Кому</th>
                                                 <td>
-                                                    <input type = "text" list = "who_up" class = "form-control" />
+                                                    <input type = "text" list = "who_up" class = "form-control" name="export_client_name"/>
                                                     <datalist id = "who_up">
                                                         <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
                                                     </datalist>
