@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('/', function()
-{
-	return view('storehouse.remainder');
-});
+Route::get('/', 'StoreHouseController@getIndex');
+
 Route::prefix('store')->group(function () {
 
     Route::get('/',  'StoreHouseController@getIndex')->name('store');
@@ -28,4 +26,11 @@ Route::prefix('store')->group(function () {
 });
 
 
-Route::get('/office', 'OfficeController@getIndex')->name('office');
+Route::prefix('office')->group(function(){
+
+	Route::get('/', 'OfficeController@getIndex')->name('office');
+
+	Route::get('export', 'OfficeController@getExport')->name('office.export');
+
+	Route::get('import', 'OfficeController@getImport')->name('office.import');
+});

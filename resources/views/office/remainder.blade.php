@@ -1,6 +1,12 @@
 @extends('layouts.main')
 
+@section('styles')
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@endsection
+
+
 @section('scripts')
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
 
@@ -99,7 +105,7 @@
 
         		return total;
         	}*/
-
+    	
         
     });
 
@@ -118,6 +124,7 @@
                     $("input[type='checkbox'][name='"+id+"']").attr('checked', true);
                 }
             });
+            
         });
 </script>
 
@@ -129,7 +136,7 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <input type = "text" placeholder = "Поиск..." ng-model = "search" class = "form-control" />
+        <input type = "text" placeholder = "Поиск..." ng-model = "search" class = "form-control" id = "tags"/>
     </div>
 
     <div class = "col-sm-4">
@@ -380,7 +387,12 @@
 	                                    <tr>
 	                                        <th>От кого</th>
 	                                        <td>
-	                                            <input type = "text" class = "form-control" />
+                                        		<input list = "names" type = "text" class = "form-control"/>
+	                                            <datalist id = "names">
+	                                            	<option value = "Temur Kodirov"></option>
+	                                            	<option value = "Alisher Kodirov"></option>
+	                                            	<option value = "Mahmud Kodirov"></option>
+	                                            </datalist>
 	                                        </td>
 	                                    </tr>
 	                                </tbody>
@@ -436,7 +448,12 @@
                                         <tr>
                                             <th>Кому</th>
                                             <td>
-                                                <input type = "text" class = "form-control" />
+                                                <input type = "text" list = "who_up" class = "form-control" id = "whom"/>
+
+                                                <datalist id = "who_up">
+                                                	<option value = "Temur Kodirov"></option>
+                                                	<option value = "Alisher Kodirov"></option>
+                                                </datalist>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -487,7 +504,12 @@
                                                 <td>
                                                 	<span ng-if = "!requestUp[$parent.$index][$index]">@{{ up.who }}</span>
                                                 	<span ng-if = "requestUp[$parent.$index][$index]">
-                                                		<input type = "text" class = "form-control" value = "@{{ up.who }}">
+                                                		<input type = "text" list = "who_up_change" class = "form-control" value = "@{{ up.who }}">
+
+                                                		<datalist id = "who_up_change">
+		                                                	<option value = "Temur Kodirov"></option>
+		                                                	<option value = "Alisher Kodirov"></option>
+		                                                </datalist>
                                                 	</span>
                                                 </td>
                                                 <td>@{{ up.date }}</td>
@@ -555,7 +577,11 @@
                                                 <td>
                                                 	<span ng-if = "!requestDown[$parent.$index][$index]">@{{ down.who }}</span>
                                                 	<span ng-if = "requestDown[$parent.$index][$index]">
-                                                		<input type = "text" class = "form-control" value = "@{{ down.who }}">
+                                                		<input type = "text" list = "who_down_change" class = "form-control" value = "@{{ down.who }}">
+                                                		<datalist id = "who_down_change">
+		                                                	<option value = "Temur Kodirov"></option>
+		                                                	<option value = "Alisher Kodirov"></option>
+		                                                </datalist>
                                                 	</span>
                                                 </td>
                                                 <td>@{{ down.date }}</td>

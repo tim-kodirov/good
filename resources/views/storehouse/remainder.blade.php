@@ -29,7 +29,13 @@
         var app = angular.module('myApp', []);
 
         app.controller('myCtrl', function($scope) {
-            $scope.goods = {!! $goods !!};
+            $scope.goods = {!! $goods !!},
+            $scope.whos = [
+                {name: 'Temur Kodirov', contact: '191-01-02' },
+                {name: 'Alisher Kodirov', contact: '191-01-02' },
+                {name: 'Ulug Kodirov', contact: '191-01-02' },
+            ]
+
 //            $scope.goods = [
 //                { name: 'Audi 02/3421/23', number: 234, requests: {up: false, down: false} },
 //                { name: 'Daewoo 02/3213/23', number: 200,
@@ -214,7 +220,10 @@
                                         <tr>
                                             <th>От кого</th>
                                             <td>
-                                                <input type = "text" class = "form-control" />
+                                                <input type = "text" list = "who_down" class = "form-control" />
+                                                <datalist id = "who_down">
+                                                    <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
+                                                </datalist>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -260,7 +269,10 @@
                                         <tr>
                                             <th>Кому</th>
                                             <td>
-                                                <input type = "text" class = "form-control" />
+                                                <input type = "text" list = "who_up" class = "form-control" />
+                                                <datalist id = "who_up">
+                                                    <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
+                                                </datalist>
                                             </td>
                                         </tr>
                                     </tbody>
