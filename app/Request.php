@@ -10,4 +10,9 @@ class Request extends Model
     {
         return $this->belongsTo('App\Remainder');
     }
+
+    public function client()
+    {
+        return $this->belongsTo('App\Client');
+    }
 }

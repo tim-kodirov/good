@@ -24,8 +24,19 @@ Route::prefix('store')->group(function () {
 
     Route::get('import', 'StoreHouseController@getImport')->name('store.import');
 
-    Route::post('addGood', 'StoreHouseController@createProduct')->name('store.addGood');
+    Route::post('product/create', 'StoreHouseController@createProduct')->name('store.product.create');
 
+    Route::post('product/export', 'StoreHouseController@productExport')->name('store.product.export');
+
+    Route::post('product/import', 'StoreHouseController@productImport')->name('store.product.import');
+
+    Route::post('request/export/accept', 'StoreHouseController@requestExportAccept')->name('store.request.export.accept');
+
+    Route::post('request/import/accept', 'StoreHouseController@requestImportAccept')->name('store.request.import.accept');
+
+    Route::post('request/export/reject', 'StoreHouseController@requestExportReject')->name('store.request.export.reject');
+
+    Route::post('request/import/reject', 'StoreHouseController@requestImportReject')->name('store.request.import.reject');
 });
 
 Route::prefix('office')->group(function () {

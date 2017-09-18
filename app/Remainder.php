@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Model;
 
-class Remainder extends Pivot
+class Remainder extends Model
 {
     public function requests()
     {
@@ -19,6 +19,16 @@ class Remainder extends Pivot
     public function imports()
     {
         return $this->hasMany('App\Import');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
+
+    public function storehouse()
+    {
+        return $this->belongsTo('App\Storehouse');
     }
 
 }

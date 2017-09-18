@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Remainder;
 use App\Export;
-use App\Import;
-use App\Request as OfficeRequest;
+use App\Product;
+use App\Storehouse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class StoreHouseController extends Controller
@@ -18,117 +17,110 @@ class StoreHouseController extends Controller
 
     public function getIndex()
     {
-//        $remainders = Remainder::all();
-//        $goods = array();
-//        $good = array();
-//        foreach($remainders as $remainder)
-//        {
-//            $good['id'] = $remainder->id;
-//            $good['name'] = $remainder->name;
-//            $good['number'] = $remainder->quantity;
-//            foreach($remainder->requests() as $request)
-//            {
-//                if($request->isExport && $request->isActive)
-//                {
-//                    $good['requests']['up']['who'] = $request->who;
-//                    $good['requests']['up']['number'] = $request->quantity;
-//                    $good['requests']['up']['date'] = $request->created_at;
-//                }
-//                elseif(!$request->isExport && $request->isActive)
-//                {
-//                    $good['requests']['down']['who'] = $request->who;
-//                    $good['requests']['down']['number'] = $request->quantity;
-//                    $good['requests']['down']['date'] = $request->created_at;
-//                }
-//            }
-//            if(empty($good['requests']['up']) || isset($good['requests']['up']))
-//                $good['requests']['up'] = false;
-//            if(empty($good['requests']['down']) || isset($good['requests']['down']))
-//                $good['requests']['down'] = false;
-//            array_push($goods,$good);
-//        }
-//        $goods = json_encode($goods);
-
-    	return view('storehouse.remainder')/*->withGoods($goods)*/;
+        $storehouse = Auth::user();
+        $goods = array();
+        foreach($storehouse->products as $product)
+        {
+            $good = array();
+            $good['id'] = $product->id;
+            $good['name'] = $product->name;
+            $good['number'] = $product->remainder->quantity;
+            $good['requests']['up'] = array();
+            $good['requests']['down'] = array();
+            foreach($product->requests as $request)
+            {
+                if($request->isExport && $request->isActive)
+                {
+                    $up = array();
+                    $up['id'] = $request->id;
+                    $up['who'] = $request->client->name;
+                    $up['number'] = $request->quantity;
+                    $up['date'] = $request->created_at;
+                    array_push($good['requests']['up'],$up);
+                }
+                elseif(!$request->isExport && $request->isActive)
+                {
+                    $down = array();
+                    $down['id'] = $request->id;
+                    $down['who'] = $request->client->name;
+                    $down['number'] = $request->quantity;
+                    $down['date'] = $request->created_at;
+                    array_push($good['requests']['down'],$down);
+                }
+            }
+            if(empty($good['requests']['up']) || !isset($good['requests']['up']))
+                $good['requests']['up'] = false;
+            if(empty($good['requests']['down']) || !isset($good['requests']['down']))
+                $good['requests']['down'] = false;
+            array_push($goods,$good);
+        }
+        $goods = json_encode($goods);
+    	return view('storehouse.remainder')->withGoods($goods);
     }
 
     public function getImport()
     {
-        $imports = Import::all();
-    	return view('storehouse.import')->withImports($imports);
+
     }
 
     public function getExport()
     {
-        $exports = Export::all();
-    	return view('storehouse.export')->withExports($exports);
+
     }
 
-    public function directExport(Request $request, $id)
+    public function productExport(Request $request)
     {
-        $product = Remainder::findOrFail($id);
+        $storehouse = Auth::user();
+        $product = $storehouse->products()->findOrFail($request->export_product_id);
+        $product->remainder->quantity = $product->remainder->quantity - $request->export_product_quantity;
+        $product->remainder->save();
         $export = new Export;
-        $export->product_id = $product->id;
-        $export->toWhom = $request->toWhom;
-        $export->quantity = $request->export_quantityByStoreHouse;
+        $export->remainder_id = $product->remainder->id;
+        $export->quantity = $request->export_product_quantity;
         $export->fromRequest = false;
         $export->save();
-        return back()->withInput();
     }
 
-    public function directImport(Request $request, $id)
+    public function productImport(Request $request)
     {
-        $product = Remainder::findOrFail($id);
-        $import = new Import;
-        $import->product_id = $product->id;
-        $import->fromWho = $request->fromWho;
-        $import->quantity = $request->import_quantityByStoreHouse;
-        $import->fromRequest = false;
-        $import->save();
-        return back()->withInput();
+
     }
     /*Export made according to request from office*/
-    public function indirectExport(Request $request, $id)
+    public function requestExportAccept(Request $request)
     {
-        $officeRequest = OfficeRequest::findOrFail($id);
-        $export = new Export;
-        $export->product_id = $officeRequest->product_id;
-        $export->toWhom = $officeRequest->who;
-        $export->quantity = $request->export_quantityByOffice;//StoreHouse can change quantity of exporting products
-        $export->fromRequest = true;
-        $officeRequest->isActive = true;
-        $officeRequest->save();
-        $export->save();
-        return back()->withInput();
+
     }
     /*Import according to request from office*/
-    public function indirectImport(Request $request, $id)
+    public function requestImportAccept(Request $request)
     {
-        $officeRequest = OfficeRequest::findOrFail($id);
-        $import = new Import;
-        $import->product_id = $officeRequest->product_id;
-        $import->fromWho = $officeRequest->who;
-        $import->quantity = $request->import_quantityByOffice;//StoreHouse can change quantity of importing products
-        $import->fromRequest = true;
-        $import->save();
-        return back()->withInput();
+
+    }
+
+    public function requestExportReject(Request $request)
+    {
+
+    }
+
+    public function requestImportReject(Request $reject)
+    {
+
     }
     /*Add new product to list*/
     public function createProduct(Request $request)
     {
-        $product = new Remainder;
+        $storehouses = Storehouse::all();
+        $product = new Product;
         $product->name = $request->product_name;
         $product->save();
-        return back()->withInput();
+        foreach($storehouses as $storehouse)
+        {
+            $storehouse->products()->attach($product->id);
+        }
+        return back();
     }
 
     public function returnExport(Request $request, $id)
     {
-        $export = Export::findOrFail($id);
-        $export->return = true;
-        $export->return_quantity = $request->return_quantity;
-        $export->product()->quantity+=$request->return_quantity;
-        $export->save();
-        return back()->withInput();
+
     }
 }

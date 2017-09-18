@@ -47,7 +47,7 @@
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
+                                {{csrf_field()}}
                             </form>
                         </li>
                     </ul>
@@ -80,7 +80,7 @@
                             <h4 class="modal-title text-center">Добавить товар</h4>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{route('store.addGood')}}">
+                            <form method="post" action="{{route('store.product.create')}}">
                                 {{csrf_field()}}
                                 <table class = "table">
                                     <tbody>

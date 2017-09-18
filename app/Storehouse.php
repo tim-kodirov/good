@@ -31,7 +31,7 @@ class Storehouse extends Authenticatable
 
     public function products()
     {
-        return $this->belongsToMany('App\Product')->using('App\Remainder');
+        return $this->belongsToMany('App\Product','remainders')->as('remainder')->withPivot('id','quantity')->withTimestamps();
     }
 
     public function exports()

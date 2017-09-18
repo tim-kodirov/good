@@ -24,7 +24,7 @@
         var app = angular.module('myApp', []);
 
         app.controller('myCtrl', function($scope) {
-            $scope.goods;
+            $scope.goods = {!! $goods !!};
         });
 </script>
 
@@ -60,45 +60,48 @@
                     <div class="modal fade" id="modalUp@{{$index}}">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title text-center">Заявки на расход</h4>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                    <table class = "table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Товар</th>
-                                                <th>Кому</th>
-                                                <th>Дата</th>
-                                                <th>Кол-во</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat = "up in good.requests.up" id = "requestUp@{{$parent.$index+'-'+$index}}">
-                                                <td><input name = "requestUp@{{$parent.$index+'-'+$index}}" type="checkbox"/></td>
-                                                <td>@{{ good.name }}</td>   
-                                                <td>@{{ up.who }}</td>
-                                                <td>@{{ up.date }}</td>
-                                                <td>@{{ up.number }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <form method="post" action="{{route('store.request.export.accept')}}">
+                                    {{csrf_field()}}
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title text-center">Заявки на расход</h4>
+                                    </div>
+                                    <div class="modal-body">
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-success btn-block">Подтвердить</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-danger btn-block">Отклонить</button>
+                                        <table class = "table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Товар</th>
+                                                    <th>Кому</th>
+                                                    <th>Дата</th>
+                                                    <th>Кол-во</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat = "up in good.requests.up" id = "requestUp@{{$parent.$index+'-'+$index}}">
+                                                    <td><input name = "selected_requests_id[]" value="@{{ up.id }}" type="checkbox"/></td>
+                                                    <td>@{{ good.name }}</td>
+                                                    <td>@{{ up.who }}</td>
+                                                    <td>@{{ up.date }}</td>
+                                                    <td>@{{ up.number }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <button type="submit" class = "btn btn-success btn-block">Подтвердить</button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="submit" formaction="{{route('store.request.export.reject')}}" class = "btn btn-danger btn-block">Отклонить</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -110,46 +113,49 @@
                     <div class="modal fade" id="modalDown@{{$index}}">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title text-center">Заявки на приход</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <table class = "table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Товар</th>
-                                                <th>От кого</th>
-                                                <th>Дата</th>
-                                                <th>Кол-во</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat = "down in good.requests.down" id = "requestDown@{{$parent.$index+'-'+$index}}">
-                                                <td><input name ="requestDown@{{$parent.$index+'-'+$index}}" type="checkbox"/></td>
-                                                <td>@{{ good.name }}</td>
-                                                <td>@{{ down.who }}</td>
-                                                <td>@{{ down.date }}</td>
-                                                <td>@{{ down.number }}</td>
-                                            </tr>
+                                <form method="post" action="{{route('store.request.import.accept')}}">
+                                    {{csrf_field()}}
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title text-center">Заявки на приход</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class = "table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Товар</th>
+                                                    <th>От кого</th>
+                                                    <th>Дата</th>
+                                                    <th>Кол-во</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat = "down in good.requests.down" id = "requestDown@{{$parent.$index+'-'+$index}}">
+                                                    <td><input name ="selected_requests_id[]" value="@{{ down.id }}" type="checkbox"/></td>
+                                                    <td>@{{ good.name }}</td>
+                                                    <td>@{{ down.who }}</td>
+                                                    <td>@{{ down.date }}</td>
+                                                    <td>@{{ down.number }}</td>
+                                                </tr>
 
-                                           
-                                        </tbody>
-                                    </table>
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-success btn-block">Подтвердить</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-danger btn-block">Отклонить</button>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <button type="submit" class = "btn btn-success btn-block">Подтвердить</button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button formaction="{{route('store.request.import.reject')}}" class = "btn btn-danger btn-block">Отклонить</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -163,43 +169,46 @@
                 <div class="modal fade" id="download@{{$index}}">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Приход</h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class = "table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Товар</th>
-                                            <td>@{{ good.name }}</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th>Количество</th>
-                                            <td>
-                                                <input type="number" class = "form-control"/>
-                                            </td>
-                                        </tr>
+                            <form method="post" action="">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title text-center">Приход</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class = "table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Товар</th>
+                                                <td>@{{ good.name }}</td>
 
-                                        <tr>
-                                            <th>От кого</th>
-                                            <td>
-                                                <input type = "text" class = "form-control" />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </tr>
+                                            <tr>
+                                                <th>Количество</th>
+                                                <td>
+                                                    <input type="hidden" name="import_product_id" value="@{{ good.id }}">
+                                                    <input type="number" class = "form-control" name="import_product_quantity" min="0"/>
+                                                </td>
+                                            </tr>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <button class = "btn btn-info btn-block">Добавить</button>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+                                            <tr>
+                                                <th>От кого</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button type="submit" class = "btn btn-info btn-block">Добавить</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -210,7 +219,7 @@
 
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="post" action="">
+                            <form method="post" action="{{route('store.product.export')}}">
                                 {{csrf_field()}}
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -228,7 +237,8 @@
                                             <tr>
                                                 <th>Количество</th>
                                                 <td>
-                                                    <input type="number" class = "form-control" max="@{{good.number}}"/>
+                                                    <input type="hidden" name="export_product_id" value="@{{ good.id }}">
+                                                    <input type="number" class = "form-control" name="export_product_quantity" min="0" max="@{{good.number}}"/>
                                                 </td>
                                             </tr>
                                             <tr>
