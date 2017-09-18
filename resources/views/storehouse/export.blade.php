@@ -7,15 +7,16 @@
 	var app = angular.module('myApp', []);
 
     app.controller('myCtrl', function($scope) {
-        
-        $scope.exports = [
-            { name: 'Audi 02/3421/23', number: 234, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
-            { name: 'Daewoo 02/3421/23', number: 74, who: 'Алишер Кодиров', date: '2017-08-02', return: false, returnDate: false },
-            { name: 'BMW 02/3421/23', number: 634, who: 'Махмуд Кодиров', date: '2017-08-01', return: 30, returnDate: '2017-08-02' },
-            { name: 'Toyota 02/3421/23', number: 231, who: 'Азиз Кодиров', date: '2017-08-02', return: 30, returnDate: '2017-08-02' },
-            { name: 'Opel 02/3421/23', number: 24, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
-            
-        ]
+
+        $scope.exports = {!! $exports !!}
+//        $scope.exports = [
+//            { name: 'Audi 02/3421/23', number: 234, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
+//            { name: 'Daewoo 02/3421/23', number: 74, who: 'Алишер Кодиров', date: '2017-08-02', return: false, returnDate: false },
+//            { name: 'BMW 02/3421/23', number: 634, who: 'Махмуд Кодиров', date: '2017-08-01', return: 30, returnDate: '2017-08-02' },
+//            { name: 'Toyota 02/3421/23', number: 231, who: 'Азиз Кодиров', date: '2017-08-02', return: 30, returnDate: '2017-08-02' },
+//            { name: 'Opel 02/3421/23', number: 24, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
+//
+//        ]
     });
 </script>
 

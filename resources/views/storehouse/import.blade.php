@@ -7,15 +7,16 @@
 	var app = angular.module('myApp', []);
 
     app.controller('myCtrl', function($scope) {
-        
-        $scope.imports = [
-            { name: 'Audi 02/3421/23', number: 234, who: 'Темур Кодиров', date: '2017-08-01' },
-            { name: 'Daewoo 02/3421/23', number: 134, who: 'Алишер Кодиров', date: '2017-08-02' },
-            { name: 'Honda 02/3421/23', number: 44, who: 'Темур Кодиров', date: '2017-08-01'},
-            { name: 'BMW 02/3421/23', number: 12, who: 'Махмуд Кодиров', date: '2017-08-02' },
-            { name: 'Chevrolet 02/3421/23', number: 23, who: 'Комил Кодиров', date: '2017-08-01' },
-            
-        ]
+
+		$scope.imports = {!! $imports !!}
+//        $scope.imports = [
+//            { name: 'Audi 02/3421/23', number: 234, who: 'Темур Кодиров', date: '2017-08-01' },
+//            { name: 'Daewoo 02/3421/23', number: 134, who: 'Алишер Кодиров', date: '2017-08-02' },
+//            { name: 'Honda 02/3421/23', number: 44, who: 'Темур Кодиров', date: '2017-08-01'},
+//            { name: 'BMW 02/3421/23', number: 12, who: 'Махмуд Кодиров', date: '2017-08-02' },
+//            { name: 'Chevrolet 02/3421/23', number: 23, who: 'Комил Кодиров', date: '2017-08-01' },
+//
+//        ]
     });
 </script>
 

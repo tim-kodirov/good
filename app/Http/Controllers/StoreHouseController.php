@@ -9,6 +9,7 @@ use App\Product;
 use App\Remainder;
 use App\Storehouse;
 use App\Request as OfficeRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,7 +41,7 @@ class StoreHouseController extends Controller
                     $up['id'] = $request->id;
                     $up['who'] = $request->client->name;
                     $up['number'] = $request->quantity;
-                    $up['date'] = $request->created_at;
+                    $up['date'] = Carbon::parse($request->created_at)->format('d.m.Y');
                     array_push($good['requests']['up'],$up);
                 }
                 elseif(!$request->isExport && $request->isActive == 1)
@@ -49,7 +50,7 @@ class StoreHouseController extends Controller
                     $down['id'] = $request->id;
                     $down['who'] = $request->client->name;
                     $down['number'] = $request->quantity;
-                    $down['date'] = $request->created_at;
+                    $down['date'] = Carbon::parse($request->created_at)->format('d.m.Y');
                     array_push($good['requests']['down'],$down);
                 }
             }
@@ -66,12 +67,44 @@ class StoreHouseController extends Controller
 
     public function getImport()
     {
-
+        $storehouse = Auth::user();
+        $imports = array();
+        foreach($storehouse->imports as $import)
+        {
+            $import_temp = array();
+            $import_temp['name'] = $import->remainder->product->name;
+            $import_temp['number'] = $import->quantity;
+            $import_temp['who'] = $import->client->name;
+            $import_temp['date'] = Carbon::parse($import->created_at)->format('d.m.Y');
+            array_push($imports,$import_temp);
+        }
+        $imports = json_encode($imports);
+        return view('storehouse.import')->withImports($imports);
     }
 
     public function getExport()
     {
-
+        $storehouse = Auth::user();
+        $exports = array();
+        foreach($storehouse->exports as $export)
+        {
+            $export_temp = array();
+            $export_temp['name'] = $export->remainder->product->name;
+            $export_temp['number'] = $export->quantity;
+            $export_temp['who'] = $export->client->name;
+            $export_temp['date'] = Carbon::parse($export->created_at)->format('d.m.Y');
+            if($export->returning()->exists()) {
+                $export_temp['return'] = $export->returning->quantity;
+                $export_temp['returnDate'] = Carbon::parse($export->returning->created_at)->format('d.m.Y');
+            }
+            else{
+                $export_temp['return'] = false;
+                $export_temp['returnDate'] = false;
+            }
+            array_push($exports,$export_temp);
+        }
+        $exports = json_encode($exports);
+        return view('storehouse.export')->withExports($exports);
     }
 
     public function productExport(Request $request)
