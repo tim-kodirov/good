@@ -28,7 +28,7 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <input type = "text" ng-model = "search" class = "form-control" />
+        <input type = "text" ng-model = "search" class = "form-control" placeholder="Поиск" />
     </div>
 </div>
 

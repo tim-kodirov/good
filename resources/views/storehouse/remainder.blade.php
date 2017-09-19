@@ -66,7 +66,7 @@
 <div ng-app = "myApp" ng-controller="myCtrl">
 <div class="row">
     <div class="col-sm-4">
-        <input type = "text" ng-model = "filt" class = "form-control" />
+        <input type = "text" ng-model = "filt" class = "form-control" placeholder="Поиск" />
     </div>
 </div>
 
