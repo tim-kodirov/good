@@ -13,87 +13,87 @@
 	var app = angular.module('myApp', []);
 
     app.controller('myCtrl', function($scope) {
-
-        $scope.goods = [
-        	{name: 'Audi 02/3421/23', stores: [
-        		{name: 'Склад 1', number: 67, requests: 
-        			{up: [
-        				{who: 'Темур Кодиров', number: 30, date: "01.08.2017"}], 
-        			down: false,
-        			totalUp: 30,
-        			totalDown: 0
-        			}
-        		},
-        		{name: 'Склад 2', number: 70, requests: 
-        			{
-	        			up: false, 
-	        			down: [
-	        				{who: 'Темур Кодиров', number: 30, date: "01.08.2017"},
-	        				{who: 'Алишер Кодиров', number: 20, date: "02.08.2017"}],
-	        			totalUp: 0,
-	        			totalDown: 50
-        			}
-        		},
-        		{name: 'Склад 3', number: 23, requests: 
-        			{
-        				up: [
-	        				{who: 'Темур Кодиров', number: 10, date: "01.08.2017"},
-	        				{who: 'Алишер Кодиров', number: 5, date: "02.08.2017"}],
-        				down: false,
-        				totalUp: 15,
-        				totalDown: 0
-        			}
-        		}
-        	], 
-        	totalFull: 160,
-        	total: 130
-        	},
-
-        	{name: 'Daewoo 02/3421/23', stores: [
-        		{name: 'Склад 1', number: 23,requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		},
-        		{name: 'Склад 2', number: 126, requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		},
-        		{name: 'Склад 3', number: 53, requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		}
-        	],
-        	totalFull: 202,
-        	total: 202
-        	},
-
-        	{name: 'Opel 02/3421/23', stores: [
-        		{name: 'Склад 1', number: 12, requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		},
-        		{name: 'Склад 2', number: 43, requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		},
-        		{name: 'Склад 3', number: 23, requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		}
-        	], 
-        	totalFull: 78,
-        	total: 78
-        	},
-
-        	{name: 'Toyota 02/3421/23', stores: [
-        		{name: 'Склад 1', number: 34, requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		},
-        		{name: 'Склад 2', number: 120, requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		},
-        		{name: 'Склад 3', number: 20, requests: 
-        			{up: false, down: false, totalUp: 0,totalDown: 0}
-        		}
-        	], 
-        	totalFull: 174,
-        	total: 174
-        	},
-        ]
+		$scope.goods = {!! $goods !!}
+//        $scope.goods = [
+//        	{name: 'Audi 02/3421/23', stores: [
+//        		{name: 'Склад 1', number: 67, requests:
+//        			{up: [
+//        				{who: 'Темур Кодиров', number: 30, date: "01.08.2017"}],
+//        			down: false,
+//        			totalUp: 30,
+//        			totalDown: 0
+//        			}
+//        		},
+//        		{name: 'Склад 2', number: 70, requests:
+//        			{
+//	        			up: false,
+//	        			down: [
+//	        				{who: 'Темур Кодиров', number: 30, date: "01.08.2017"},
+//	        				{who: 'Алишер Кодиров', number: 20, date: "02.08.2017"}],
+//	        			totalUp: 0,
+//	        			totalDown: 50
+//        			}
+//        		},
+//        		{name: 'Склад 3', number: 23, requests:
+//        			{
+//        				up: [
+//	        				{who: 'Темур Кодиров', number: 10, date: "01.08.2017"},
+//	        				{who: 'Алишер Кодиров', number: 5, date: "02.08.2017"}],
+//        				down: false,
+//        				totalUp: 15,
+//        				totalDown: 0
+//        			}
+//        		}
+//        	],
+//        	totalFull: 160,
+//        	total: 130
+//        	},
+//
+//        	{name: 'Daewoo 02/3421/23', stores: [
+//        		{name: 'Склад 1', number: 23,requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		},
+//        		{name: 'Склад 2', number: 126, requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		},
+//        		{name: 'Склад 3', number: 53, requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		}
+//        	],
+//        	totalFull: 202,
+//        	total: 202
+//        	},
+//
+//        	{name: 'Opel 02/3421/23', stores: [
+//        		{name: 'Склад 1', number: 12, requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		},
+//        		{name: 'Склад 2', number: 43, requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		},
+//        		{name: 'Склад 3', number: 23, requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		}
+//        	],
+//        	totalFull: 78,
+//        	total: 78
+//        	},
+//
+//        	{name: 'Toyota 02/3421/23', stores: [
+//        		{name: 'Склад 1', number: 34, requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		},
+//        		{name: 'Склад 2', number: 120, requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		},
+//        		{name: 'Склад 3', number: 20, requests:
+//        			{up: false, down: false, totalUp: 0,totalDown: 0}
+//        		}
+//        	],
+//        	totalFull: 174,
+//        	total: 174
+//        	},
+//        ]
 
         /*$scope.total = function(stores)
         	{
