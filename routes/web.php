@@ -39,6 +39,8 @@ Route::prefix('store')->group(function () {
     Route::post('request/import/accept', 'StoreHouseController@requestImportAccept')->name('store.request.import.accept');
 
     Route::post('request/reject', 'StoreHouseController@requestReject')->name('store.request.reject');
+
+    Route::post('export/return','StoreHouseController@returnExport')->name('store.export.return');
 });
 
 Route::prefix('admin')->group(function () {

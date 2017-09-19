@@ -62,39 +62,40 @@
 					<div class="modal fade" id="returnModal@{{$index}}">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title text-center">Возврат</h4>
-								</div>
-								<div class="modal-body">
-									<table class = "table">
-										<tbody>
-											<tr>
-												<th>Количество</th>
-												<td>
-													<input type="number" class = "form-control" max = "@{{export.number}}"/>
-												</td>
-											</tr>
+								<form method="post" action="{{route('store.export.return')}}">
+									{{csrf_field()}}
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title text-center">Возврат</h4>
+									</div>
+									<div class="modal-body">
+										<table class = "table">
+											<tbody>
+												<tr>
+													<th>Товар</th>
+                                                	<td>@{{ export.name }}</td>
+												</tr>
 
-											<tr>
-												<th>Дата</th>
-												<td>
-													<input type = "date" class = "form-control"/>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+												<tr>
+													<th>Количество</th>
+													<td>
+														<input type="hidden" name="export_id" value="@{{ export.id }}">
+														<input type="number" class = "form-control" name="return_quantity" min="0" max = "@{{export.number}}"/>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 
-									<div class="row">
-										<div class="col-sm-6">
-											<button class = "btn btn-info btn-block">Добавить</button>
-										</div>
-										<div class="col-sm-6">
-											<button data-dismiss = "modal" class = "btn btn-danger btn-block">Отмена</button>
+										<div class="row">
+											<div class="col-sm-6">
+												<button type="submit" class = "btn btn-info btn-block">Добавить</button>
+											</div>
+											<div class="col-sm-6">
+												<button data-dismiss = "modal" class = "btn btn-danger btn-block">Отмена</button>
+											</div>
 										</div>
 									</div>
-								</div>
-								
+								</form>
 							</div>
 						</div>
 					</div>

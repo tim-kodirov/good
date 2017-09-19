@@ -7,6 +7,7 @@ use App\Export;
 use App\Import;
 use App\Product;
 use App\Remainder;
+use App\Returning;
 use App\Storehouse;
 use App\Request as OfficeRequest;
 use Carbon\Carbon;
@@ -35,8 +36,7 @@ class StoreHouseController extends Controller
             $good['requests']['down'] = array();
             foreach($product->requests as $request)
             {
-                if($request->isExport && $request->isActive == 1)
-                {
+                if($request->isExport && $request->isActive == 1) {
                     $up = array();
                     $up['id'] = $request->id;
                     $up['who'] = $request->client->name;
@@ -44,8 +44,7 @@ class StoreHouseController extends Controller
                     $up['date'] = Carbon::parse($request->created_at)->format('d.m.Y');
                     array_push($good['requests']['up'],$up);
                 }
-                elseif(!$request->isExport && $request->isActive == 1)
-                {
+                elseif(!$request->isExport && $request->isActive == 1) {
                     $down = array();
                     $down['id'] = $request->id;
                     $down['who'] = $request->client->name;
@@ -89,6 +88,7 @@ class StoreHouseController extends Controller
         foreach($storehouse->exports as $export)
         {
             $export_temp = array();
+            $export_temp['id'] = $export->id;
             $export_temp['name'] = $export->remainder->product->name;
             $export_temp['number'] = $export->quantity;
             $export_temp['who'] = $export->client->name;
@@ -137,8 +137,7 @@ class StoreHouseController extends Controller
 
     public function productImport(Request $request)
     {
-        if(!empty($request->import_product_quantity) && !empty($request->import_client_name))
-        {
+        if(!empty($request->import_product_quantity) && !empty($request->import_client_name)) {
             $storehouse = Auth::user();
             $product = $storehouse->products()->findOrFail($request->import_product_id);
             $product->remainder->quantity = $product->remainder->quantity + $request->import_product_quantity;
@@ -165,8 +164,7 @@ class StoreHouseController extends Controller
     /*Export made according to request from office*/
     public function requestExportAccept(Request $request)
     {
-        if(!empty($request->selected_requests_id))
-        {
+        if(!empty($request->selected_requests_id)) {
             $exportRequests = OfficeRequest::whereIn('id',$request->selected_requests_id)->get();
             foreach($exportRequests as $exportRequest)
             {
@@ -176,10 +174,13 @@ class StoreHouseController extends Controller
                 $export = new Export;
                 $export->remainder_id = $remainder->id;
                 $export->client_id = $exportRequest->client_id;
-                $export->quantity = $exportRequest->quantity;
+                $export->quantity = $request->request_export_quantity;
                 $export->fromRequest = true;
                 $export->save();
-                $exportRequest->isActive = false;
+                if($exportRequest->quantity == $export->quantity)
+                    $exportRequest->isActive = false;
+                else
+                    $exportRequest->isActive = 3;//which means storehouse changed quantity of request
                 $exportRequest->save();
             }
         }
@@ -197,10 +198,13 @@ class StoreHouseController extends Controller
                 $import = new Import;
                 $import->remainder_id = $remainder->id;
                 $import->client_id = $importRequest->client_id;
-                $import->quantity = $importRequest->quantity;
+                $import->quantity = $request->request_import_quantity;
                 $import->fromRequest = true;
                 $import->save();
-                $importRequest->isActive = false;
+                if($importRequest->quantity == $import->quantity)
+                    $importRequest->isActive = false;
+                else
+                    $importRequest->isActive = 3;//which means storehouse changed quantity of request
                 $importRequest->save();
             }
         }
@@ -231,8 +235,17 @@ class StoreHouseController extends Controller
         return back();
     }
 
-    public function returnExport(Request $request, $id)
+    public function returnExport(Request $request)
     {
-
+        if(!empty($request->return_quantity)) {
+            $export = Export::findOrFail($request->export_id);
+            $export->remainder->quantity = $export->remainder->quantity + $request->return_quantity;
+            $export->remainder->save();
+            $return = new Returning;
+            $return->export_id = $request->export_id;
+            $return->quantity = $request->return_quantity;
+            $return->save();
+        }
+        return back();
     }
 }

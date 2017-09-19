@@ -116,7 +116,7 @@
                                                     <td>@{{ good.name }}</td>
                                                     <td>@{{ up.who }}</td>
                                                     <td>@{{ up.date }}</td>
-                                                    <td>@{{ up.number }}</td>
+                                                    <td><input type="number" class="form-control" name="request_export_quantity" value="@{{ up.number }}" min="0" max="@{{ good.number }}"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -168,7 +168,7 @@
                                                     <td>@{{ good.name }}</td>
                                                     <td>@{{ down.who }}</td>
                                                     <td>@{{ down.date }}</td>
-                                                    <td>@{{ down.number }}</td>
+                                                    <td><input type="number" class="form-control" name="request_import_quantity" value="@{{ down.number }}" min="0"></td>
                                                 </tr>
 
 
