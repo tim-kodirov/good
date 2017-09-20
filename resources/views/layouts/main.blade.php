@@ -36,7 +36,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{ Auth::guard('admin')->check() ? 'Админ' : Auth::guard('office') ? 'Офис' : Auth::guard('storehouse') ? 'Склад' : '???' }} <span class="caret"></span>
+                        @if(Auth::guard('admin')->check()) Админ @elseif(Auth::guard('office')->check()) Офис @elseif(Auth::guard('storehouse')->check())  Склад @else web @endif <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li>

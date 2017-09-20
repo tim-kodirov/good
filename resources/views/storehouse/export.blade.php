@@ -7,15 +7,16 @@
 	var app = angular.module('myApp', []);
 
     app.controller('myCtrl', function($scope) {
-        
-        $scope.exports = [
-            { name: 'Audi 02/3421/23', number: 234, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
-            { name: 'Daewoo 02/3421/23', number: 74, who: 'Алишер Кодиров', date: '2017-08-02', return: false, returnDate: false },
-            { name: 'BMW 02/3421/23', number: 634, who: 'Махмуд Кодиров', date: '2017-08-01', return: 30, returnDate: '2017-08-02' },
-            { name: 'Toyota 02/3421/23', number: 231, who: 'Азиз Кодиров', date: '2017-08-02', return: 30, returnDate: '2017-08-02' },
-            { name: 'Opel 02/3421/23', number: 24, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
-            
-        ]
+
+        $scope.exports = {!! $exports !!}
+//        $scope.exports = [
+//            { name: 'Audi 02/3421/23', number: 234, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
+//            { name: 'Daewoo 02/3421/23', number: 74, who: 'Алишер Кодиров', date: '2017-08-02', return: false, returnDate: false },
+//            { name: 'BMW 02/3421/23', number: 634, who: 'Махмуд Кодиров', date: '2017-08-01', return: 30, returnDate: '2017-08-02' },
+//            { name: 'Toyota 02/3421/23', number: 231, who: 'Азиз Кодиров', date: '2017-08-02', return: 30, returnDate: '2017-08-02' },
+//            { name: 'Opel 02/3421/23', number: 24, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
+//
+//        ]
     });
 </script>
 
@@ -28,7 +29,7 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <input type = "text" ng-model = "search" class = "form-control" />
+        <input type = "text" ng-model = "search" class = "form-control" placeholder="Поиск" />
     </div>
 </div>
 
@@ -61,39 +62,40 @@
 					<div class="modal fade" id="returnModal@{{$index}}">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title text-center">Возврат</h4>
-								</div>
-								<div class="modal-body">
-									<table class = "table">
-										<tbody>
-											<tr>
-												<th>Количество</th>
-												<td>
-													<input type="number" class = "form-control" max = "@{{export.number}}"/>
-												</td>
-											</tr>
+								<form method="post" action="{{route('store.export.return')}}">
+									{{csrf_field()}}
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title text-center">Возврат</h4>
+									</div>
+									<div class="modal-body">
+										<table class = "table">
+											<tbody>
+												<tr>
+													<th>Товар</th>
+                                                	<td>@{{ export.name }}</td>
+												</tr>
 
-											<tr>
-												<th>Дата</th>
-												<td>
-													<input type = "date" class = "form-control"/>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+												<tr>
+													<th>Количество</th>
+													<td>
+														<input type="hidden" name="export_id" value="@{{ export.id }}">
+														<input type="number" class = "form-control" name="return_quantity" min="0" max = "@{{export.number}}"/>
+													</td>
+												</tr>
+											</tbody>
+										</table>
 
-									<div class="row">
-										<div class="col-sm-6">
-											<button class = "btn btn-info btn-block">Добавить</button>
-										</div>
-										<div class="col-sm-6">
-											<button data-dismiss = "modal" class = "btn btn-danger btn-block">Отмена</button>
+										<div class="row">
+											<div class="col-sm-6">
+												<button type="submit" class = "btn btn-info btn-block">Добавить</button>
+											</div>
+											<div class="col-sm-6">
+												<button data-dismiss = "modal" class = "btn btn-danger btn-block">Отмена</button>
+											</div>
 										</div>
 									</div>
-								</div>
-								
+								</form>
 							</div>
 						</div>
 					</div>

@@ -38,15 +38,9 @@ Route::prefix('store')->group(function () {
 
     Route::post('request/import/accept', 'StoreHouseController@requestImportAccept')->name('store.request.import.accept');
 
-    Route::post('request/export/reject', 'StoreHouseController@requestExportReject')->name('store.request.export.reject');
+    Route::post('request/reject', 'StoreHouseController@requestReject')->name('store.request.reject');
 
-    Route::post('request/import/reject', 'StoreHouseController@requestImportReject')->name('store.request.import.reject');
-});
-
-Route::prefix('office')->group(function () {
-
-    Route::get('/', 'OfficeController@getIndex')->name('office');
-
+    Route::post('export/return','StoreHouseController@returnExport')->name('store.export.return');
 });
 
 Route::prefix('admin')->group(function () {
@@ -54,8 +48,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@getIndex')->name('admin');
 
 });
-
-
 
 Route::prefix('office')->group(function(){
 

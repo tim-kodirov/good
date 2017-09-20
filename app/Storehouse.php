@@ -43,4 +43,9 @@ class Storehouse extends Authenticatable
     {
         return $this->hasManyThrough('App\Import','App\Remainder');
     }
+
+    public function requests()
+    {
+        return $this->hasManyThrough('App\Request','App\Remainder');
+    }
 }
