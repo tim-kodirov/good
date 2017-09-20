@@ -8,7 +8,13 @@
 
     app.controller('myCtrl', function($scope) {
 
-        $scope.exports = {!! $exports !!}
+        $scope.exports = {!! $exports !!},
+        $scope.who = [
+        	{name: 'Temur Kodirov', contact: '777 77 77'},
+        	{name: 'Alisher Kodirov', contact: '777 77 77'},
+        	{name: 'Aziz Kodirov', contact: '777 77 77'},
+        	{name: 'Mahmud Kodirov', contact: '777 77 77'},
+        ]
 //        $scope.exports = [
 //            { name: 'Audi 02/3421/23', number: 234, who: 'Темур Кодиров', date: '2017-08-01', return: false, returnDate: false },
 //            { name: 'Daewoo 02/3421/23', number: 74, who: 'Алишер Кодиров', date: '2017-08-02', return: false, returnDate: false },
@@ -118,11 +124,21 @@
 									<tr>
 										<th>Кому</th>
 										<td>
-											<input type="text" class = "form-control" value = "@{{export.who}}"/>
+											<input type="text" list = "who-list" class = "form-control" value = "@{{export.who}}"/>
+
+											<datalist id = "who-list" ng-model = "selected">
+												<option ng-repeat = "w in who">@{{ w.name }}</option>
+											</datalist>
 											
 										</td>
 									</tr>
-
+									
+									<tr>
+										<th>Котактные данные</th>
+										<td>
+											<input type = "text" list ="who-contact" class = "form-control" ng-model = "selected"/>
+										</td>
+									</tr>
 									<tr>
 										<th>Количество</th>
 										<td>
