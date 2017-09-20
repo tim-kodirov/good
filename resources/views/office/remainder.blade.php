@@ -141,10 +141,7 @@
 
     <div class = "col-sm-4">
     	<select class = "form-control" ng-model = "filtByStore">
-    		<option></option>
-    		<option>Склад 1</option>
-    		<option>Склад 2</option>
-    		<option>Склад 3</option>
+    		<option ng-repeat = "store in good.stores">@{{ store.name }}</option>
     	</select>
     </div>
 </div>

@@ -117,6 +117,7 @@
 										<th>Кому</th>
 										<td>
 											<input type="text" class = "form-control" value = "@{{export.who}}"/>
+											
 										</td>
 									</tr>
 
