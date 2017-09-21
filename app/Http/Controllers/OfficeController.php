@@ -20,6 +20,7 @@ class OfficeController extends Controller
     public function getIndex()
     {
         $products = Product::all();
+        $clients = Client::all();
         $goods = array();
         foreach($products as $product)
         {
@@ -73,7 +74,8 @@ class OfficeController extends Controller
             array_push($goods,$good);
         }
         $goods = json_encode($goods);
-    	return view('office.remainder')->withGoods($goods);
+        $clients->toJson();
+    	return view('office.remainder')->withGoods($goods)->withClients($clients);
     }
 
     public function createRequest(Request $request)
@@ -83,7 +85,7 @@ class OfficeController extends Controller
                 $officeRequest = new OfficeRequest;
                 $officeRequest->remainder_id = $request->remainder_id;
                 if(Client::where('name',$request->client_name)->exists()){
-                    $client = Client::where('name',$request->import_client_name)->get();
+                    $client = Client::where('name',$request->client_name)->get();
                     $officeRequest->client_id = $client->id;
                 }
                 else{
@@ -108,7 +110,21 @@ class OfficeController extends Controller
             $officeRequests = OfficeRequest::whereIn('id',$request->selected_requests_id)->get();
             foreach($officeRequests as $officeRequest)
             {
-
+                if(!empty($request->clients_name[$officeRequest->id]) && !empty($request->requests_quantity[$officeRequest->id])){
+                    $officeRequest->quantity = $request->requests_quantity[$officeRequest->id];
+                    if(Client::where('name',$request->clients_name[$officeRequest->id])->exists()){
+                        $client = Client::where('name',$request->clients_name[$officeRequest->id])->get();
+                        $officeRequest->client_id = $client[0]->id;
+                    }
+                    else{
+                        $client = new Client;
+                        $client->name = $request->clients_name[$officeRequest->id];
+                        $client->contacts = "?";//till implementation
+                        $client->save();
+                        $officeRequest->client_id = $client->id;
+                    }
+                    $officeRequest->save();
+                }
             }
         }
         return back();
