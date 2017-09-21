@@ -68,6 +68,7 @@ class OfficeController extends Controller
                     $store_temp['requests']['down'] = false;
                 array_push($storehouses,$store_temp);
             }
+            $good['total'] = $good['totalFull']-$good['total'];
             $good['stores'] = $storehouses;
             array_push($goods,$good);
         }

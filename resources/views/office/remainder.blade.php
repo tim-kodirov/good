@@ -141,7 +141,8 @@
 
     <div class = "col-sm-4">
     	<select class = "form-control" ng-model = "filtByStore">
-    		<option ng-repeat = "store in good.stores">@{{ store.name }}</option>
+    		<option></option>
+			<option ng-repeat = "store in goods[0].stores">@{{ store.name }}</option>
     	</select>
     </div>
 </div>
@@ -171,15 +172,15 @@
 					</tr>
 				</table>
 			</td>
-		
+
 			<td class = "td-inside">
 				<table class = "table-inside table">
 					<tr ng-repeat = "store in good.stores | filter: { name:filtByStore}">
 						<td>
 							@{{ store.number }} ( @{{ store.requests.up ? store.number - total(store.requests.up) : store.number }} )
-		
+
 							<a data-toggle="modal" href="#download@{{$parent.$index+'-'+$index}}"><span  class = "ex-im-span glyphicon glyphicon-arrow-down pull-right"></span></a>
-		
+
 							<div class="modal fade" id="download@{{$parent.$index+'-'+$index}}">
 			                    <div class="modal-dialog">
 			                        <div class="modal-content">
@@ -193,18 +194,18 @@
 			                                        <tr>
 			                                            <th>Товар</th>
 			                                            <td>@{{ good.name }}</td>
-			                                            
+
 			                                        </tr>
-		
+
 			                                        <tr>
 			                                            <th>Склад</th>
 			                                            <td>@{{ store.name }}</td>
 			                                        </tr>
-		
+
 			                                        <tr>
 			                                            <th>Остаток</th>
 			                                            <td>@{{ store.number }}</td>
-			                                            
+
 			                                        </tr>
 			                                        <tr>
 			                                            <th>Количество</th>
@@ -212,7 +213,7 @@
 			                                                <input type="number" class = "form-control"/>
 			                                            </td>
 			                                        </tr>
-		
+
 			                                        <tr>
 			                                            <th>От кого</th>
 			                                            <td>
@@ -221,7 +222,7 @@
 			                                        </tr>
 			                                    </tbody>
 			                                </table>
-		
+
 			                                <div class="row">
 			                                    <div class="col-sm-6">
 			                                        <button class = "btn btn-info btn-block">Добавить</button>
@@ -234,9 +235,9 @@
 			                        </div>
 			                    </div>
 			                </div>
-		
+
 			                <a data-toggle="modal" href="#upload@{{$parent.$index+'-'+$index}}"><span  class = "glyphicon glyphicon-arrow-up pull-right"></span></a>
-		
+
 							<div class="modal fade" id="upload@{{$parent.$index+'-'+$index}}">
 			                    <div class="modal-dialog">
 			                        <div class="modal-content">
@@ -250,18 +251,18 @@
 			                                        <tr>
 			                                            <th>Товар</th>
 			                                            <td>@{{ good.name }}</td>
-			                                            
+
 			                                        </tr>
-		
+
 			                                        <tr>
 			                                            <th>Склад</th>
 			                                            <td>@{{ store.name }}</td>
 			                                        </tr>
-		
+
 			                                        <tr>
 			                                            <th>Остаток</th>
 			                                            <td>@{{ store.number }}</td>
-			                                            
+
 			                                        </tr>
 			                                        <tr>
 			                                            <th>Количество</th>
@@ -269,7 +270,7 @@
 			                                                <input type="number" class = "form-control" max = "@{{ store.number }}"/>
 			                                            </td>
 			                                        </tr>
-		
+
 			                                        <tr>
 			                                            <th>От кого</th>
 			                                            <td>
@@ -278,7 +279,7 @@
 			                                        </tr>
 			                                    </tbody>
 			                                </table>
-		
+
 			                                <div class="row">
 			                                    <div class="col-sm-6">
 			                                        <button class = "btn btn-info btn-block">Добавить</button>
@@ -295,10 +296,10 @@
 					</tr>
 				</table>
 			</td>
-		
+
 			<td class = "text-right">
 				<a data-toggle = "modal" href="#edit@{{$index}}"><span class = "glyphicon glyphicon-pencil"></span></a>
-		
+
 				<div class="modal fade" id="edit@{{$index}}">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -315,7 +316,7 @@
 										</td>
 									</tr>
 								</table>
-		
+
 								<div class="row">
 									<div class="col-sm-6">
 										<button class = "btn btn-info btn-block">Сохранить</button>
@@ -328,9 +329,9 @@
 						</div>
 					</div>
 				</div>
-		
-		
-			</td>		
+
+
+			</td>
 		</tr> -->
 
 
@@ -361,7 +362,7 @@
 	                                    <tr>
 	                                        <th>Товар</th>
 	                                        <td>@{{ good.name }}</td>
-	                                        
+
 	                                    </tr>
 
 	                                    <tr>
@@ -372,7 +373,7 @@
 	                                    <tr>
 	                                        <th>Остаток</th>
 	                                        <td>@{{ good.stores[0].number }}</td>
-	                                        
+
 	                                    </tr>
 	                                    <tr>
 	                                        <th>Количество</th>
@@ -407,7 +408,7 @@
 	                    </div>
 	                </div>
 	            </div>
-			
+
                 <a class = "my-btn btn btn-default btn-sm" data-toggle="modal" href="#upload@{{$parent.$index+'-'+$index}}"><span  class = "glyphicon glyphicon-arrow-up"></span></a>
 	            <div class="modal fade" id="upload@{{$parent.$index+'-'+$index}}">
                     <div class="modal-dialog">
@@ -422,7 +423,7 @@
                                         <tr>
                                             <th>Товар</th>
                                             <td>@{{ good.name }}</td>
-                                            
+
                                         </tr>
 
                                         <tr>
@@ -433,7 +434,7 @@
                                         <tr>
                                             <th>Остаток</th>
                                             <td>@{{ good.stores[0].number }}</td>
-                                            
+
                                         </tr>
                                         <tr>
                                             <th>Количество</th>
@@ -482,7 +483,7 @@
                                     <h4 class="modal-title text-center">Заявки на расход</h4>
                                 </div>
                                 <div class="modal-body">
-                                    
+
                                     <table class = "table table-hover table-striped">
                                         <thead>
                                             <tr>
@@ -497,7 +498,7 @@
                                         <tbody>
                                             <tr ng-repeat = "up in store.requests.up" id = "requestUp@{{$parent.$index+'-'+$index}}">
                                                 <td><input name = "requestUp@{{$parent.$index+'-'+$index}}" type="checkbox"/></td>
-                                                <td>@{{ good.name }}</td>   
+                                                <td>@{{ good.name }}</td>
                                                 <td>
                                                 	<span ng-if = "!requestUp[$parent.$index][$index]">@{{ up.who }}</span>
                                                 	<span ng-if = "requestUp[$parent.$index][$index]">
@@ -596,7 +597,7 @@
                                                 </td>
                                             </tr>
 
-                                           
+
                                         </tbody>
                                     </table>
 
@@ -615,7 +616,7 @@
                             </div>
                         </div>
                     </div>
-				</span>	
+				</span>
 			</td>
 			<td ng-if = "$index==0" rowspan="@{{ filteredStores.length }}">
 				<a data-toggle = "modal" href="#edit@{{$index}}"><span class = "glyphicon glyphicon-pencil pull-right"></span></a>
@@ -636,7 +637,7 @@
 										</td>
 									</tr>
 								</table>
-		
+
 								<div class="row">
 									<div class="col-sm-6">
 										<button class = "btn btn-info btn-block">Сохранить</button>
