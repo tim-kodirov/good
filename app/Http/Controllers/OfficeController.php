@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Export;
+use App\Import;
 use App\Product;
 use App\Remainder;
 use App\Storehouse;
@@ -76,6 +78,54 @@ class OfficeController extends Controller
         $goods = json_encode($goods);
         $clients->toJson();
     	return view('office.remainder')->withGoods($goods)->withClients($clients);
+    }
+
+    public function getImport()
+    {
+        $imports = Import::all();
+        $stores = Storehouse::all();
+        $ports = array();
+        foreach($imports as $import)
+        {
+            $port = array();
+            $port['name'] = $import->remainder->product->name;
+            $port['store'] = $import->remainder->storehouse->name;
+            $port['number'] = $import->quantity;
+            $port['who'] = $import->client->name;
+            $port['date'] = Carbon::parse($import->created_at)->format('d.m.Y');
+            array_push($ports,$port);
+        }
+        $imports = json_encode($ports);
+        $stores->toJson();
+        return view('office.import')->withImports($imports)->withStores($stores);
+    }
+
+    public function getExport()
+    {
+        $exports = Export::all();
+        $stores = Storehouse::all();
+        $ports = array();
+        foreach($exports as $export)
+        {
+            $port = array();
+            $port['name'] = $export->remainder->product->name;
+            $port['store'] = $export->remainder->storehouse->name;
+            $port['number'] = $export->quantity;
+            $port['who'] = $export->client->name;
+            $port['date'] = Carbon::parse($export->created_at)->format('d.m.Y');
+            if($export->returning()->exists()) {
+                $port['return'] = $export->returning->quantity;
+                $port['returnDate'] = Carbon::parse($export->returning->created_at)->format('d.m.Y');
+            }
+            else{
+                $port['return'] = false;
+                $port['returnDate'] = false;
+            }
+            array_push($ports,$port);
+        }
+        $exports = json_encode($ports);
+        $stores->toJson();
+        return view('office.export')->withExports($exports)->withStores($stores);
     }
 
     public function createRequest(Request $request)
