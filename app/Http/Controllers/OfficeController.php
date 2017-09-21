@@ -11,6 +11,7 @@ use App\Storehouse;
 use Carbon\Carbon;
 use App\Request as OfficeRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class OfficeController extends Controller
 {
@@ -34,15 +35,15 @@ class OfficeController extends Controller
             $good['total'] = 0;
             foreach($product->storehouses as $storehouse)
             {
-                $store_temp = array();
-                $store_temp['remainder_id'] = $storehouse->remainder->id;
-                $store_temp['name'] = $storehouse->name;
-                $store_temp['number'] = $storehouse->remainder->quantity;
+                $storehouse_temp = array();
+                $storehouse_temp['remainder_id'] = $storehouse->remainder->id;
+                $storehouse_temp['name'] = $storehouse->name;
+                $storehouse_temp['number'] = $storehouse->remainder->quantity;
                 $good['totalFull'] = $good['totalFull'] + $storehouse->remainder->quantity;
-                $store_temp['requests']['up'] = array();
-                $store_temp['requests']['down'] = array();
-                $store_temp['requests']['totalUp'] = 0;
-                $store_temp['requests']['totalDown'] = 0;
+                $storehouse_temp['requests']['up'] = array();
+                $storehouse_temp['requests']['down'] = array();
+                $storehouse_temp['requests']['totalUp'] = 0;
+                $storehouse_temp['requests']['totalDown'] = 0;
                 foreach($storehouse->requests()->where('remainder_id',$storehouse->remainder->id)->get() as $request)
                 {
                     if($request->isExport && $request->isActive == 1) {
@@ -50,26 +51,26 @@ class OfficeController extends Controller
                         $up['id'] = $request->id;
                         $up['who'] = $request->client->name;
                         $up['number'] = $request->quantity;
-                        $store_temp['requests']['totalUp'] = $store_temp['requests']['totalUp'] + $request->quantity;
+                        $storehouse_temp['requests']['totalUp'] = $storehouse_temp['requests']['totalUp'] + $request->quantity;
                         $up['date'] = Carbon::parse($request->created_at)->format('d.m.Y');
-                        array_push($store_temp['requests']['up'],$up);
+                        array_push($storehouse_temp['requests']['up'],$up);
                     }
                     elseif(!$request->isExport && $request->isActive == 1) {
                         $down = array();
                         $down['id'] = $request->id;
                         $down['who'] = $request->client->name;
                         $down['number'] = $request->quantity;
-                        $store_temp['requests']['totalDown'] = $store_temp['requests']['totalDown'] + $request->quantity;
+                        $storehouse_temp['requests']['totalDown'] = $storehouse_temp['requests']['totalDown'] + $request->quantity;
                         $down['date'] = Carbon::parse($request->created_at)->format('d.m.Y');
-                        array_push($store_temp['requests']['down'],$down);
+                        array_push($storehouse_temp['requests']['down'],$down);
                     }
                 }
-                $good['total'] = $good['total'] + $store_temp['requests']['totalUp'];
-                if(empty($store_temp['requests']['up']) || !isset($store_temp['requests']['up']))
-                    $store_temp['requests']['up'] = false;
-                if(empty($store_temp['requests']['down']) || !isset($store_temp['requests']['down']))
-                    $store_temp['requests']['down'] = false;
-                array_push($storehouses,$store_temp);
+                $good['total'] = $good['total'] + $storehouse_temp['requests']['totalUp'];
+                if(empty($storehouse_temp['requests']['up']) || !isset($storehouse_temp['requests']['up']))
+                    $storehouse_temp['requests']['up'] = false;
+                if(empty($storehouse_temp['requests']['down']) || !isset($storehouse_temp['requests']['down']))
+                    $storehouse_temp['requests']['down'] = false;
+                array_push($storehouses,$storehouse_temp);
             }
             $good['total'] = $good['totalFull']-$good['total'];
             $good['stores'] = $storehouses;
@@ -215,6 +216,24 @@ class OfficeController extends Controller
             $product = Product::findOrFail($request->product_id);
             $product->name = $request->new_product_name;
             $product->save();
+        }
+        return back();
+    }
+
+    public function createStore(Request $request)
+    {
+        if(!empty($request->storehouse_name) && !empty($request->storehouse_username) && !empty($request->storehouse_password) && !empty($request->storehouse_owner) && !empty($request->storehouse_contacts)) {
+            $storehouse = new Storehouse;
+            $storehouse->name = $request->storehouse_name;
+            $storehouse->username = $request->storehouse_username;
+            $storehouse->password = Hash::make($request->storehouse_password);
+            $storehouse->owner = $request->storehouse_owner;
+            $storehouse->contacts = $request->storehouse_contacts;
+            $storehouse->save();
+            $products = Product::all();
+            foreach ($products as $product) {
+                $storehouse->products()->attach($product->id);
+            }
         }
         return back();
     }

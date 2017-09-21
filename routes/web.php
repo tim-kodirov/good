@@ -57,6 +57,8 @@ Route::prefix('office')->group(function(){
 
 	Route::get('import', 'OfficeController@getImport')->name('office.import');
 
+    Route::post('store/create', 'OfficeController@createStore')->name('office.store.create');
+
     Route::post('product/create', 'OfficeController@createProduct')->name('office.product.create');
 
     Route::post('product/edit', 'OfficeController@editProduct')->name('office.product.edit');

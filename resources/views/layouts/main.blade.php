@@ -67,7 +67,11 @@
                     @yield('content')
                 </div>
             </div>
-
+            @if(Auth::guard('office')->check())
+                <div class = "new-store">
+                    <button class = "my-btn btn btn-danger btn-lg" data-toggle="modal" data-target="#addStore"><span class = "glyphicon glyphicon-plus"></span></button>
+                </div>
+            @endif
             <div class = "new-good">
                 <button class = "my-btn btn btn-primary btn-lg" data-toggle="modal" data-target="#addGood"><span class = "glyphicon glyphicon-plus"></span></button>
             </div>
@@ -107,7 +111,67 @@
                     </div>
                 </div>
             </div>
-            
+            @if(Auth::guard('office')->check())
+                <div class="modal fade" id="addStore">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title text-center">Создать новый склад</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="{{route('office.store.create')}}">
+                                    {{csrf_field()}}
+                                    <table class = "table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Полное название склада</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" name="storehouse_name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Владелец склада</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" name="storehouse_owner"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Имя пользователя для авторизации</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" name="storehouse_username"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Пароль</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" name="storehouse_password"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Контакты</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" name="storehouse_contacts"/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button type="submit" class="btn btn-info btn-block" >Создать</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
         </div>
     </div>
 </body>

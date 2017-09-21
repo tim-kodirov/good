@@ -44,6 +44,13 @@ tr[id^='request']
 		left: 50px;
 		display: inline;
 	}
+	.new-store
+	{
+		position: fixed;
+		bottom: 100px;
+		left: 50px;
+		display: inline;
+	}
 }
 
 .table>tbody>tr>td.td-inside
