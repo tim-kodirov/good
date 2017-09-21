@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use App\Product;
+use App\Remainder;
+use App\Storehouse;
 use Carbon\Carbon;
+use App\Request as OfficeRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use function MongoDB\BSON\toJSON;
 
 class OfficeController extends Controller
 {
@@ -22,6 +24,7 @@ class OfficeController extends Controller
         foreach($products as $product)
         {
             $good = array();
+            $good['id'] = $product->id;
             $good['name'] = $product->name;
             $storehouses = array();
             $good['totalFull'] = 0;
@@ -29,6 +32,7 @@ class OfficeController extends Controller
             foreach($product->storehouses as $storehouse)
             {
                 $store_temp = array();
+                $store_temp['remainder_id'] = $storehouse->remainder->id;
                 $store_temp['name'] = $storehouse->name;
                 $store_temp['number'] = $storehouse->remainder->quantity;
                 $good['totalFull'] = $good['totalFull'] + $storehouse->remainder->quantity;
@@ -69,5 +73,82 @@ class OfficeController extends Controller
         }
         $goods = json_encode($goods);
     	return view('office.remainder')->withGoods($goods);
+    }
+
+    public function createRequest(Request $request)
+    {
+        if(!empty($request->request_quantity) && !empty($request->client_name)/* && !empty($request->client_contacts)*/){
+            if(Remainder::where('id',$request->remainder_id)->exists()){
+                $officeRequest = new OfficeRequest;
+                $officeRequest->remainder_id = $request->remainder_id;
+                if(Client::where('name',$request->client_name)->exists()){
+                    $client = Client::where('name',$request->import_client_name)->get();
+                    $officeRequest->client_id = $client->id;
+                }
+                else{
+                    $client = new Client;
+                    $client->name = $request->client_name;
+                    $client->contacts = "?";//till implementation
+                    $client->save();
+                    $officeRequest->client_id = $client->id;
+                }
+                $officeRequest->isActive = true;
+                $officeRequest->isExport = $request->request_isExport;
+                $officeRequest->quantity = $request->request_quantity;
+                $officeRequest->save();
+            }
+        }
+        return back();
+    }
+
+    public function editRequest(Request $request)
+    {
+        if(!empty($request->selected_requests_id)) {
+            $officeRequests = OfficeRequest::whereIn('id',$request->selected_requests_id)->get();
+            foreach($officeRequests as $officeRequest)
+            {
+
+            }
+        }
+        return back();
+    }
+
+    public function deleteRequest(Request $request)
+    {
+        if(!empty($request->selected_requests_id)) {
+            $officeRequests = OfficeRequest::whereIn('id',$request->selected_requests_id)->get();
+            foreach($officeRequests as $officeRequest)
+            {
+                $officeRequest->isActive = 4;//which means request is deleted by office
+                $officeRequest->save();
+            }
+        }
+        return back();
+    }
+
+    /*Add new product to list*/
+    public function createProduct(Request $request)
+    {
+        if(!empty($request->product_name)) {
+            $storehouses = Storehouse::all();
+            $product = new Product;
+            $product->name = $request->product_name;
+            $product->save();
+            foreach ($storehouses as $storehouse) {
+                $storehouse->products()->attach($product->id);
+            }
+        }
+        return back();
+    }
+
+    /*Edit product name*/
+    public function editProduct(Request $request)
+    {
+        if(!empty($request->new_product_name)) {
+            $product = Product::findOrFail($request->product_id);
+            $product->name = $request->new_product_name;
+            $product->save();
+        }
+        return back();
     }
 }

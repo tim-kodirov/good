@@ -142,9 +142,7 @@
     <div class = "col-sm-4">
     	<select class = "form-control" ng-model = "filtByStore">
     		<option></option>
-    		<option>Склад 1</option>
-    		<option>Склад 2</option>
-    		<option>Склад 3</option>
+    		<option ng-repeat = "store in goods[0].stores">@{{ store.name }}</option>
     	</select>
     </div>
 </div>
@@ -354,59 +352,65 @@
 				<div class="modal fade" id="download@{{$parent.$index+'-'+$index}}">
 	                <div class="modal-dialog">
 	                    <div class="modal-content">
-	                        <div class="modal-header">
-	                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	                            <h4 class="modal-title text-center">Подать заявку на приход</h4>
-	                        </div>
-	                        <div class="modal-body">
-	                            <table class = "table">
-	                                <tbody>
-	                                    <tr>
-	                                        <th>Товар</th>
-	                                        <td>@{{ good.name }}</td>
-	                                        
-	                                    </tr>
+							<form method="post" action="{{route('office.request.create')}}">
+								{{csrf_field()}}
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title text-center">Подать заявку на приход</h4>
+								</div>
+								<div class="modal-body">
+									<table class = "table">
+										<tbody>
+											<tr>
+												<th>Товар</th>
+												<td>@{{ good.name }}</td>
 
-	                                    <tr>
-	                                        <th>Склад</th>
-	                                        <td>@{{ good.stores[0].name }}</td>
-	                                    </tr>
+											</tr>
 
-	                                    <tr>
-	                                        <th>Остаток</th>
-	                                        <td>@{{ good.stores[0].number }}</td>
-	                                        
-	                                    </tr>
-	                                    <tr>
-	                                        <th>Количество</th>
-	                                        <td>
-	                                            <input type="number" class = "form-control"/>
-	                                        </td>
-	                                    </tr>
+											<tr>
+												<th>Склад</th>
+												<td>@{{ store.name }}</td>
+											</tr>
 
-	                                    <tr>
-	                                        <th>От кого</th>
-	                                        <td>
-                                        		<input list = "names" type = "text" class = "form-control"/>
-	                                            <datalist id = "names">
-	                                            	<option value = "Temur Kodirov"></option>
-	                                            	<option value = "Alisher Kodirov"></option>
-	                                            	<option value = "Mahmud Kodirov"></option>
-	                                            </datalist>
-	                                        </td>
-	                                    </tr>
-	                                </tbody>
-	                            </table>
+											<tr>
+												<th>Остаток</th>
+												<td>@{{ store.number }}</td>
 
-	                            <div class="row">
-	                                <div class="col-sm-6">
-	                                    <button class = "btn btn-info btn-block">Добавить</button>
-	                                </div>
-	                                <div class="col-sm-6">
-	                                    <button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
-	                                </div>
-	                            </div>
-	                        </div>
+											</tr>
+											<tr>
+												<th>Количество</th>
+												<td>
+
+													<input type="hidden" name="request_isExport" value="0">
+													<input type="hidden" name="remainder_id" value="@{{ store.remainder_id }}">
+													<input type="number" class = "form-control" name="request_quantity" min="0"/>
+												</td>
+											</tr>
+
+											<tr>
+												<th>От кого</th>
+												<td>
+													<input list = "names" type = "text" name="client_name" class = "form-control"/>
+													<datalist id = "names">
+														<option value = "Temur Kodirov"></option>
+														<option value = "Alisher Kodirov"></option>
+														<option value = "Mahmud Kodirov"></option>
+													</datalist>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+
+									<div class="row">
+										<div class="col-sm-6">
+											<button type="submit" class = "btn btn-info btn-block">Добавить</button>
+										</div>
+										<div class="col-sm-6">
+											<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+										</div>
+									</div>
+								</div>
+							</form>
 	                    </div>
 	                </div>
 	            </div>
@@ -415,59 +419,64 @@
 	            <div class="modal fade" id="upload@{{$parent.$index+'-'+$index}}">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Подать заявку на расход</h4>
-                            </div>
-                            <div class="modal-body">
-                                <table class = "table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Товар</th>
-                                            <td>@{{ good.name }}</td>
-                                            
-                                        </tr>
+                            <form method="post" action="{{route('office.request.create')}}">
+								{{csrf_field()}}
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title text-center">Подать заявку на расход</h4>
+								</div>
+								<div class="modal-body">
+									<table class = "table">
+										<tbody>
+											<tr>
+												<th>Товар</th>
+												<td>@{{ good.name }}</td>
 
-                                        <tr>
-                                            <th>Склад</th>
-                                            <td>@{{ good.stores[0].name }}</td>
-                                        </tr>
+											</tr>
 
-                                        <tr>
-                                            <th>Остаток</th>
-                                            <td>@{{ good.stores[0].number }}</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th>Количество</th>
-                                            <td>
-                                                <input type="number" class = "form-control" max = "@{{ store.number }}"/>
-                                            </td>
-                                        </tr>
+											<tr>
+												<th>Склад</th>
+												<td>@{{ store.name }}</td>
+											</tr>
 
-                                        <tr>
-                                            <th>Кому</th>
-                                            <td>
-                                                <input type = "text" list = "who_up" class = "form-control" id = "whom"/>
+											<tr>
+												<th>Остаток</th>
+												<td>@{{ store.number }}</td>
 
-                                                <datalist id = "who_up">
-                                                	<option value = "Temur Kodirov"></option>
-                                                	<option value = "Alisher Kodirov"></option>
-                                                </datalist>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+											</tr>
+											<tr>
+												<th>Количество</th>
+												<td>
+													<input type="hidden" name="request_isExport" value="1">
+													<input type="hidden" name="remainder_id" value="@{{ store.remainder_id }}">
+													<input type="number" class = "form-control" name="request_quantity" min="0" max = "@{{ store.number }}"/>
+												</td>
+											</tr>
 
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <button class = "btn btn-info btn-block">Добавить</button>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
-                                    </div>
-                                </div>
-                            </div>
+											<tr>
+												<th>Кому</th>
+												<td>
+													<input type = "text" list = "who_up" name="client_name" class = "form-control" id = "whom"/>
+
+													<datalist id = "who_up">
+														<option value = "Temur Kodirov"></option>
+														<option value = "Alisher Kodirov"></option>
+													</datalist>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+
+									<div class="row">
+										<div class="col-sm-6">
+											<button type="submit" class = "btn btn-info btn-block">Добавить</button>
+										</div>
+										<div class="col-sm-6">
+											<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+										</div>
+									</div>
+								</div>
+							</form>
                         </div>
                     </div>
 	            </div>
@@ -480,67 +489,70 @@
 					<div class="modal fade" id="modalUp@{{$index}}">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title text-center">Заявки на расход</h4>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                    <table class = "table table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Товар</th>
-                                                <th>Кому</th>
-                                                <th>Дата</th>
-                                                <th>Кол-во</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat = "up in store.requests.up" id = "requestUp@{{$parent.$index+'-'+$index}}">
-                                                <td><input name = "requestUp@{{$parent.$index+'-'+$index}}" type="checkbox"/></td>
-                                                <td>@{{ good.name }}</td>   
-                                                <td>
-                                                	<span ng-if = "!requestUp[$parent.$index][$index]">@{{ up.who }}</span>
-                                                	<span ng-if = "requestUp[$parent.$index][$index]">
-                                                		<input type = "text" list = "who_up_change" class = "form-control" value = "@{{ up.who }}">
+                                <form method="post" action="{{route('office.request.edit')}}">
+									{{csrf_field()}}
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title text-center">Заявки на расход</h4>
+									</div>
+									<div class="modal-body">
 
-                                                		<datalist id = "who_up_change">
-		                                                	<option value = "Temur Kodirov"></option>
-		                                                	<option value = "Alisher Kodirov"></option>
-		                                                </datalist>
-                                                	</span>
-                                                </td>
-                                                <td>@{{ up.date }}</td>
-                                                <td>
-                                                	<span ng-if = "!requestUp[$parent.$index][$index]">@{{ up.number }}</span>
-                                                	<span ng-if = "requestUp[$parent.$index][$index]">
-                                                		<input type = "number" class = "form-control" value = "@{{ up.number }}">
-                                                	</span>
-                                                </td>
-                                                <td>
-                                                	<a href="#" ng-click = "requestUp[$parent.$index][$index] ? requestUp[$parent.$index][$index] = false : requestUp[$parent.$index][$index] = true">
-                                                		<span ng-if = "!requestUp[$parent.$index][$index]" class = "glyphicon glyphicon-pencil"></span>
-                                                		<span ng-if = "requestUp[$parent.$index][$index]" class = "glyphicon glyphicon-floppy-disk"></span>
-                                                	</a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+										<table class = "table table-hover table-striped">
+											<thead>
+												<tr>
+													<th></th>
+													<th>Товар</th>
+													<th>Кому</th>
+													<th>Дата</th>
+													<th>Кол-во</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat = "up in store.requests.up" id = "requestUp@{{$parent.$index+'-'+$index}}">
+													<td><input name = "selected_requests_id[]" value="@{{ up.id }}" type="checkbox"/></td>
+													<td>@{{ good.name }}</td>
+													<td>
+														<span ng-if = "!requestUp[$parent.$index][$index]">@{{ up.who }}</span>
+														<span ng-if = "requestUp[$parent.$index][$index]">
+															<input type = "text" list = "who_up_change" class = "form-control" value = "@{{ up.who }}">
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-success btn-block">Сохранить</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-danger btn-block">Удалить</button>
-                                        </div>
-                                    </div>
-                                </div>
+															<datalist id = "who_up_change">
+																<option value = "Temur Kodirov"></option>
+																<option value = "Alisher Kodirov"></option>
+															</datalist>
+														</span>
+													</td>
+													<td>@{{ up.date }}</td>
+													<td>
+														<span ng-if = "!requestUp[$parent.$index][$index]">@{{ up.number }}</span>
+														<span ng-if = "requestUp[$parent.$index][$index]">
+															<input type = "number" class = "form-control" value = "@{{ up.number }}">
+														</span>
+													</td>
+													<td>
+														<a href="#" ng-click = "requestUp[$parent.$index][$index] ? requestUp[$parent.$index][$index] = false : requestUp[$parent.$index][$index] = true">
+															<span ng-if = "!requestUp[$parent.$index][$index]" class = "glyphicon glyphicon-pencil"></span>
+															<span ng-if = "requestUp[$parent.$index][$index]" class = "glyphicon glyphicon-floppy-disk"></span>
+														</a>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+
+										<div class="row">
+											<div class="col-md-4">
+												<button type="submit" class = "btn btn-success btn-block">Сохранить</button>
+											</div>
+											<div class="col-md-4">
+												<button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
+											</div>
+											<div class="col-md-4">
+												<button formaction="{{route('office.request.delete')}}" class = "btn btn-danger btn-block">Удалить</button>
+											</div>
+										</div>
+									</div>
+								</form>
                             </div>
                         </div>
                     </div>
@@ -554,67 +566,70 @@
 					<div class="modal fade" id="modalDown@{{$index}}">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title text-center">Заявки на приход</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <table class = "table table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Товар</th>
-                                                <th>От кого</th>
-                                                <th>Дата</th>
-                                                <th>Кол-во</th>
-                                               	<th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat = "down in store.requests.down" id = "requestDown@{{$parent.$index+'-'+$index}}">
-                                                <td><input name ="requestDown@{{$parent.$index+'-'+$index}}" type="checkbox"/></td>
-                                                <td>@{{ good.name }}</td>
-                                                <td>
-                                                	<span ng-if = "!requestDown[$parent.$index][$index]">@{{ down.who }}</span>
-                                                	<span ng-if = "requestDown[$parent.$index][$index]">
-                                                		<input type = "text" list = "who_down_change" class = "form-control" value = "@{{ down.who }}">
-                                                		<datalist id = "who_down_change">
-		                                                	<option value = "Temur Kodirov"></option>
-		                                                	<option value = "Alisher Kodirov"></option>
-		                                                </datalist>
-                                                	</span>
-                                                </td>
-                                                <td>@{{ down.date }}</td>
-                                                <td>
-                                                	<span ng-if = "!requestDown[$parent.$index][$index]">@{{ down.number }}</span>
-                                                	<span ng-if = "requestDown[$parent.$index][$index]">
-                                                		<input type = "number" class = "form-control" value = "@{{ down.number }}">
-                                                	</span>
-                                                </td>
-                                                <td>
-                                                	<a href="#" ng-click = "requestDown[$parent.$index][$index] ? requestDown[$parent.$index][$index] = false : requestDown[$parent.$index][$index] = true">
-                                                		<span ng-if = "!requestDown[$parent.$index][$index]" class = "glyphicon glyphicon-pencil"></span>
-                                                		<span ng-if = "requestDown[$parent.$index][$index]" class = "glyphicon glyphicon-floppy-disk"></span>
-                                                	</a>
-                                                </td>
-                                            </tr>
+								<form method="post" action="{{route('office.request.edit')}}">
+									{{csrf_field()}}
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title text-center">Заявки на приход</h4>
+									</div>
+									<div class="modal-body">
+										<table class = "table table-hover table-striped">
+											<thead>
+												<tr>
+													<th></th>
+													<th>Товар</th>
+													<th>От кого</th>
+													<th>Дата</th>
+													<th>Кол-во</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat = "down in store.requests.down" id = "requestDown@{{$parent.$index+'-'+$index}}">
+													<td><input name ="selected_requests_id[]" value="@{{ down.id }}" type="checkbox"/></td>
+													<td>@{{ good.name }}</td>
+													<td>
+														<span ng-if = "!requestDown[$parent.$index][$index]">@{{ down.who }}</span>
+														<span ng-if = "requestDown[$parent.$index][$index]">
+															<input type = "text" list = "who_down_change" class = "form-control" value = "@{{ down.who }}">
+															<datalist id = "who_down_change">
+																<option value = "Temur Kodirov"></option>
+																<option value = "Alisher Kodirov"></option>
+															</datalist>
+														</span>
+													</td>
+													<td>@{{ down.date }}</td>
+													<td>
+														<span ng-if = "!requestDown[$parent.$index][$index]">@{{ down.number }}</span>
+														<span ng-if = "requestDown[$parent.$index][$index]">
+															<input type = "number" class = "form-control" value = "@{{ down.number }}">
+														</span>
+													</td>
+													<td>
+														<a href="#" ng-click = "requestDown[$parent.$index][$index] ? requestDown[$parent.$index][$index] = false : requestDown[$parent.$index][$index] = true">
+															<span ng-if = "!requestDown[$parent.$index][$index]" class = "glyphicon glyphicon-pencil"></span>
+															<span ng-if = "requestDown[$parent.$index][$index]" class = "glyphicon glyphicon-floppy-disk"></span>
+														</a>
+													</td>
+												</tr>
 
-                                           
-                                        </tbody>
-                                    </table>
 
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-success btn-block">Сохранить</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button class = "btn btn-danger btn-block">Удалить</button>
-                                        </div>
-                                    </div>
-                                </div>
+											</tbody>
+										</table>
+
+										<div class="row">
+											<div class="col-md-4">
+												<button type="submit" class = "btn btn-success btn-block">Сохранить</button>
+											</div>
+											<div class="col-md-4">
+												<button class = "btn btn-info btn-block" data-dismiss="modal" aria-hidden="true">Отмена</button>
+											</div>
+											<div class="col-md-4">
+												<button formaction="{{route('office.request.delete')}}" class = "btn btn-danger btn-block">Удалить</button>
+											</div>
+										</div>
+									</div>
+								</form>
                             </div>
                         </div>
                     </div>
@@ -626,29 +641,33 @@
 				<div class="modal fade" id="edit@{{$index}}">
 					<div class="modal-dialog">
 						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title text-center">Изменить</h4>
-							</div>
-							<div class="modal-body">
-								<table class = "table">
-									<tr>
-										<th>Товар</th>
-										<td>
-											<input type="text" class = "form-control" value = "@{{good.name}}"/>
-										</td>
-									</tr>
-								</table>
-		
-								<div class="row">
-									<div class="col-sm-6">
-										<button class = "btn btn-info btn-block">Сохранить</button>
-									</div>
-									<div class="col-sm-6">
-										<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+							<form method="post" action="{{route('office.product.edit')}}">
+								{{csrf_field()}}
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title text-center">Изменить</h4>
+								</div>
+								<div class="modal-body">
+									<table class = "table">
+										<tr>
+											<th>Товар</th>
+											<td>
+												<input type="hidden" name="product_id" value="@{{ good.id }}">
+												<input type="text" class = "form-control" name="new_product_name" value = "@{{good.name}}"/>
+											</td>
+										</tr>
+									</table>
+
+									<div class="row">
+										<div class="col-sm-6">
+											<button class = "btn btn-info btn-block">Сохранить</button>
+										</div>
+										<div class="col-sm-6">
+											<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+										</div>
 									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 					</div>
 				</div>

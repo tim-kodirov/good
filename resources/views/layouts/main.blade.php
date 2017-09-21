@@ -80,7 +80,7 @@
                             <h4 class="modal-title text-center">Добавить товар</h4>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{route('store.product.create')}}">
+                            <form method="post" action="{{Auth::guard('storehouse')->check() ? route('store.product.create') : route('office.product.create')}}">
                                 {{csrf_field()}}
                                 <table class = "table">
                                     <tbody>
