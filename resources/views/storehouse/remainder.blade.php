@@ -24,39 +24,28 @@
         var app = angular.module('myApp', []);
 
         app.controller('myCtrl', function($scope) {
-            $scope.goods = {!! $goods !!},
-            $scope.whos = {!! $clients !!}
-//            $scope.whos = [
-//                {name: 'Temur Kodirov', contacts: '191-01-02' },
-//                {name: 'Alisher Kodirov', contacts: '191-01-02' },
-//                {name: 'Ulug Kodirov', contacts: '191-01-02' },
-//            ]
+            $scope.first = 'Temur';
+            $scope.last = 'Kodirov';
+            $scope.full = function()
+            {
+                
 
-//            $scope.goods = [
-//                { name: 'Audi 02/3421/23', number: 234, requests: {up: false, down: false} },
-//                { name: 'Daewoo 02/3213/23', number: 200,
-//                    requests: {
-//                    up: [
-//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01},
-//                        {who: 'Темур Кодиров', number: 30, date: 2017-08-01}],
-//                    down: [
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                    ]} },
-//                { name: 'Honda 02/3213/23', number: 100,
-//                    requests: {
-//                    down: [
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                        {who: 'Темур Кодиров', number: 23, date: 2017-08-02},
-//                    ]} }
-//            ]
+                /*for(var i = 0; i<$scope.whos.length; i++)
+                {
+                    if($scope.whos[i].name == $scope.selected)
+                    {
+                        $selected = $scope.whos[i];
+                        break;
+                    }
+                }*/
 
+                return $scope.first + " " + $scope.last;
+            };
+
+            $scope.goods = {!! $goods !!};
+            $scope.whos = {!! $clients !!};
+            
+            
         });
 </script>
 
@@ -202,10 +191,10 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form method="post" action="{{route('store.product.import')}}">
-                                {{csrf_field()}}
+                                {{ csrf_field() }}
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title text-center">Приход</h4>
+                                    <h4 class="modal-title text-center">@{{ full() }}</h4>
                                 </div>
                                 <div class="modal-body">
                                     <table class = "table">
@@ -226,10 +215,18 @@
                                             <tr>
                                                 <th>От кого</th>
                                                 <td>
-                                                    <input type = "text" list = "who_down" class = "form-control" name="import_client_name"/>
+                                                    <input type = "text" list = "who_down" class = "form-control" ng-model = "first" name="import_client_name"/>
                                                     <datalist id = "who_down">
-                                                        <option ng-repeat = "who in whos | orderBy: 'name' ">@{{who.name}}</option>
+                                                        <option ng-repeat = "who in whos | orderBy: 'name'">@{{ who.name }}</option>
                                                     </datalist>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Котактные данные</th>
+                                                <td>
+
+                                                    <input type = "text" class = "form-control" name = "import_client_contact" ng-model = "last" />
                                                 </td>
                                             </tr>
                                         </tbody>
