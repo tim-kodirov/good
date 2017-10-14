@@ -27,54 +27,7 @@
 
     <script type="text/javascript">
 
-        var app = angular.module('myApp', []);
-
-        app.controller('mainCtrl', function($scope) {
-
-            $scope.owners = [
-                {
-                    id: 1,
-                    name: 'Temur',
-                    stores: [
-                        {
-                            id: 1,
-                            name: 'Store 1'
-                        },
-                        {
-                            id: 3,
-                            name: 'Store 3'
-                        }
-                    ]
-                },
-
-                {
-                    id: 2,
-                    name: 'Erkin',
-                    stores: [
-                        {
-                            id: 2,
-                            name: 'Store 2'
-                        },
-                        {
-                            id: 4,
-                            name: 'Store 4'
-                        }
-                    ]
-                },
-
-                {
-                    id: 3,
-                    name: 'Avaz',
-                    stores: [
-                        {
-                            id: 5,
-                            name: 'Store 5'
-                        }
-                    ]
-                }
-
-            ]
-        }); 
+        var app = angular.module('myApp', []); 
     </script>
 
     @yield('scripts')
@@ -83,7 +36,7 @@
     
 </head>
 <body>
-    <div ng-app = "myApp">
+    <div ng-app = "myApp" ng-controller = "myCtrl">
         <div class="container">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -121,142 +74,35 @@
                 </div>
             </div>
 
-            <div ng-controller = "mainCtrl">
-                @if(Auth::guard('office')->check())
-                    <div class = "new-store">
-                        <button class = "my-btn btn btn-danger btn-lg" data-toggle="modal" data-target="#addStore"><span class = "fa fa-home"></span></button>
-                    </div>
-
-                    <div class="modal fade" id="addStore">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title text-center">Создать новый склад</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post" action="{{route('office.store.create')}}">
-                                        {{csrf_field()}}
-                                        <table class = "table">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Полное название склада</th>
-                                                    <td>
-                                                        <input type = "text" class = "form-control" name="storehouse_name" required />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Владелец склада</th>
-                                                    <td>
-                                                        <select class = "form-control" name = "storehouse_owner" required>
-                                                            <option ng-repeat = "owner in owners">@{{owner.name}}</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <button type="submit" class="btn btn-info btn-block" >Создать</button>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class = "new-owner">
-                        <button class = "my-btn btn btn-success btn-lg" data-toggle="modal" data-target="#addOwner"><span class = "fa fa-user-plus"></span></button>
-                    </div>
-
-                    <div class="modal fade" id="addOwner">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title text-center">Добавить нового владельца</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form method="post" action="">
-                                        {{csrf_field()}}
-                                        <table class = "table">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Имя</th>
-                                                    <td>
-                                                        <input type = "text" class = "form-control" name="owner_name"/>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Логин</th>
-                                                    <td>
-                                                        <input type = "text" class = "form-control" name="owner_login" required/>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Пароль</th>
-                                                    <td>
-                                                        <input type = "password" class = "form-control" name="owner_password" required/>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <button type="submit" class="btn btn-info btn-block" >Создать</button>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endif
             
-
-                <div class = "new-good">
-                    <button class = "my-btn btn btn-primary btn-lg" data-toggle="modal" data-target="#addGood"><span class = "fa fa-cart-plus"></span></button>
+            @if(Auth::guard('office')->check())
+                <div class = "new-store">
+                    <button class = "my-btn btn btn-danger btn-lg" data-toggle="modal" data-target="#addStore"><span class = "fa fa-home"></span></button>
                 </div>
 
-                <div class="modal fade" id="addGood">
+                <div class="modal fade" id="addStore">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title text-center">Добавить товар</h4>
+                                <h4 class="modal-title text-center">Создать новый склад</h4>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="{{Auth::guard('storehouse')->check() ? route('store.product.create') : route('office.product.create')}}">
+                                <form method="post" action="{{route('office.store.create')}}">
                                     {{csrf_field()}}
                                     <table class = "table">
                                         <tbody>
                                             <tr>
-                                                <th>Полное название товара</th>
-
+                                                <th>Полное название склада</th>
                                                 <td>
-                                                    <input type = "text" class = "form-control" name="product_name" required/>
+                                                    <input type = "text" class = "form-control" name="storehouse_name" required />
                                                 </td>
                                             </tr>
-
                                             <tr>
-                                                <th>Склад</th>
-
+                                                <th>Владелец склада</th>
                                                 <td>
-                                                    <select multiple class = "form-control">
-                                                        <optgroup ng-repeat = "owner in owners" label = "@{{owner.name}}">
-                                                            <option ng-repeat = "store in owner.stores">
-                                                                @{{store.name}}
-                                                            </option>
-                                                        </optgroup>
+                                                    <select class = "form-control" name = "storehouse_owner" required>
+                                                        <option ng-repeat = "owner in owners">@{{owner.name}}</option>
                                                     </select>
                                                 </td>
                                             </tr>
@@ -276,7 +122,114 @@
                         </div>
                     </div>
                 </div>
+
+                <div class = "new-owner">
+                    <button class = "my-btn btn btn-success btn-lg" data-toggle="modal" data-target="#addOwner"><span class = "fa fa-user-plus"></span></button>
+                </div>
+
+                <div class="modal fade" id="addOwner">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title text-center">Добавить нового владельца</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="">
+                                    {{csrf_field()}}
+                                    <table class = "table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Имя</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" name="owner_name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Логин</th>
+                                                <td>
+                                                    <input type = "text" class = "form-control" name="owner_login" required/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Пароль</th>
+                                                <td>
+                                                    <input type = "password" class = "form-control" name="owner_password" required/>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button type="submit" class="btn btn-info btn-block" >Создать</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        
+
+            <div class = "new-good">
+                <button class = "my-btn btn btn-primary btn-lg" data-toggle="modal" data-target="#addGood"><span class = "fa fa-cart-plus"></span></button>
             </div>
+
+            <div class="modal fade" id="addGood">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title text-center">Добавить товар</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{{Auth::guard('storehouse')->check() ? route('store.product.create') : route('office.product.create')}}">
+                                {{csrf_field()}}
+                                <table class = "table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Полное название товара</th>
+
+                                            <td>
+                                                <input type = "text" class = "form-control" name="product_name" required/>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Склад</th>
+
+                                            <td>
+                                                <select multiple class = "form-control">
+                                                    <optgroup ng-repeat = "owner in owners" label = "@{{owner.name}}">
+                                                        <option ng-repeat = "store in owner.stores">
+                                                            @{{store.name}}
+                                                        </option>
+                                                    </optgroup>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-info btn-block" >Создать</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
     
         </div>
     </div>

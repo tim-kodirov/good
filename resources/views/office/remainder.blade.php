@@ -254,7 +254,49 @@
        		}
        	],
 
-       	$scope.owners = ['Temur', 'Erkin', 'Avaz'],
+       	$scope.owners = [
+                {
+                    id: 1,
+                    name: 'Temur',
+                    stores: [
+                        {
+                            id: 1,
+                            name: 'Store 1'
+                        },
+                        {
+                            id: 3,
+                            name: 'Store 3'
+                        }
+                    ]
+                },
+
+                {
+                    id: 2,
+                    name: 'Erkin',
+                    stores: [
+                        {
+                            id: 2,
+                            name: 'Store 2'
+                        },
+                        {
+                            id: 4,
+                            name: 'Store 4'
+                        }
+                    ]
+                },
+
+                {
+                    id: 3,
+                    name: 'Avaz',
+                    stores: [
+                        {
+                            id: 5,
+                            name: 'Store 5'
+                        }
+                    ]
+                }
+
+        ],
 
        	$scope.goodChosen = {},
        	$scope.storeChosen = {},
@@ -308,7 +350,7 @@
 	    <div class = "col-sm-4">
 	    	<select class = "form-control" ng-model = "filtByStore">
 	    		<option></option>
-				<option ng-repeat = "owner in owners">@{{ owner }}</option>
+				<option ng-repeat = "owner in owners">@{{ owner.name }}</option>
 	    	</select>
 	    </div>
 	</div> <!-- end of filters row -->

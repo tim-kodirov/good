@@ -8,29 +8,57 @@
 
     app.controller('myCtrl', function($scope) {
 
-		$scope.imports = {!! $imports !!},
-		$scope.who = [
-        	{name: 'Temur Kodirov', contact: '777 77 77'},
-        	{name: 'Alisher Kodirov', contact: '777 77 77'},
-        	{name: 'Aziz Kodirov', contact: '777 77 77'},
-        	{name: 'Mahmud Kodirov', contact: '777 77 77'},
-        ]
-//        $scope.imports = [
-//            { name: 'Audi 02/3421/23', number: 234, who: 'Темур Кодиров', date: '2017-08-01' },
-//            { name: 'Daewoo 02/3421/23', number: 134, who: 'Алишер Кодиров', date: '2017-08-02' },
-//            { name: 'Honda 02/3421/23', number: 44, who: 'Темур Кодиров', date: '2017-08-01'},
-//            { name: 'BMW 02/3421/23', number: 12, who: 'Махмуд Кодиров', date: '2017-08-02' },
-//            { name: 'Chevrolet 02/3421/23', number: 23, who: 'Комил Кодиров', date: '2017-08-01' },
-//
-//        ]
+		$scope.imports = [
+        	{
+        		id: 1,
+        		name: 'Audi 02/3421/23',
+        		store:{
+        			id: 1,
+        			name: 'Store 1',
+        			owner: 'Temur'
+        		},
+        		who: 'Saidmurod',
+        		number: 30,
+        		date: '01.08.2016',
+        		
+        	},
+
+        	{
+        		id: 2,
+        		name: 'Audi 02/3421/23',
+        		store:{
+        			id: 1,
+        			name: 'Store 1',
+        			owner: 'Temur'
+        		},
+        		who: 'Saidmurod',
+        		number: 50,
+        		date: '02.08.2016',
+        		
+        	}
+        ];
+
+        $scope.whos = [
+       		'Sulton', 
+       		'Saidmurod',
+       		'Shox',
+       		'Sunnat',
+       		'Alisher'
+       	];
+        $scope.importChosen = {};
+
+        $scope.chooseImport = function(imp)
+        {
+        	$scope.importChosen = imp;
+        };
+		
+
     });
 </script>
 
 @endsection
 
 @section('content')
-
-<div ng-app = "myApp" ng-controller = "myCtrl">
 
 <div class="row">
     <div class="col-sm-4">
@@ -42,82 +70,76 @@
 	<thead>
 		<tr>
 			<th>Товар</th>
-			<th>От кого</th>
 			<th>Количество</th>
+			<th>От кого</th>
 			<th>Дата</th>
 		</tr>
 		
 	</thead>
 
 	<tbody>
-		<tr ng-repeat = "import in imports | filter: search">
+		<tr ng-repeat = "import in imports | filter: search | orderBy : 'date' : true">
 			<td>@{{ import.name }}</td>
 			<td>@{{ import.who }}</td>
 			<td>@{{ import.number }}</td>
 			<td>
 				@{{ import.date }}
-				<a href="#edit@{{$index}}" data-toggle="modal"><span class = "glyphicon glyphicon-pencil pull-right"></span></a>
-
-				<div class="modal fade" id="edit@{{$index}}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title text-center">Изменить</h4>
-							</div>
-							<div class="modal-body">
-								<table class = "table">
-									<tr>
-										<th>От кого</th>
-										<td>
-											<input type="text" list = "who-list" class = "form-control" value = "@{{import.who}}"/>
-
-											<datalist id = "who-list" ng-model = "selected">
-												<option ng-repeat = "w in who">@{{ w.name }}</option>
-											</datalist>
-										</td>
-									</tr>
-
-									<tr>
-										<th>Котактные данные</th>
-										<td>
-											<input type = "text" list ="who-contact" class = "form-control" ng-model = "selected"/>
-										</td>
-									</tr>
-									
-									<tr>
-										<th>Количество</th>
-										<td>
-											<input type="number" class = "form-control" value = "@{{import.number}}" />
-										</td>
-									</tr>
-
-									<tr>
-										<th>Дата</th>
-										<td>
-											<input type="date" class = "form-control" value = "@{{import.date}}"/>
-										</td>
-									</tr>
-								</table>
-
-								<div class="row">
-									<div class="col-sm-6">
-										<button class = "btn btn-info btn-block">Сохранить</button>
-									</div>
-									<div class="col-sm-6">
-										<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<a ng-click = "chooseImport(import)" href="#edit" data-toggle="modal"><span class = "glyphicon glyphicon-pencil pull-right"></span></a>
 			</td>
 		</tr>
 		
 	</tbody>
 </table>
 
+<div class="modal fade" id="edit">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title text-center">Изменить</h4>
+			</div>
+			<div class="modal-body">
+				<table class = "table">
+					<tr>
+						<th>Товар</th>
+						<td>@{{ importChosen.name }}</td>
+					</tr>
+
+					<tr>
+						<th>Количество</th>
+						<td>
+							<input type="number" class = "form-control" value = "@{{importChosen.number}}" />
+						</td>
+					</tr>
+
+					<tr>
+						<th>От кого</th>
+						<td>
+							<input type="text" list = "who-list" class = "form-control" value = "@{{importChosen.who}}"/>
+
+							<datalist id = "who-list">
+								<option ng-repeat = "who in whos">@{{ who }}</option>
+							</datalist>
+						</td>
+					</tr>
+			
+					<tr>
+						<th>Дата</th>
+						<td>@{{ importChosen.date }}</td>
+					</tr>
+				</table>
+
+				<div class="row">
+					<div class="col-sm-6">
+						<button class = "btn btn-info btn-block">Сохранить</button>
+					</div>
+					<div class="col-sm-6">
+						<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @endsection
