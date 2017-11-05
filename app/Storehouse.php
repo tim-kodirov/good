@@ -9,8 +9,6 @@ class Storehouse extends Authenticatable
 {
     use Notifiable;
 
-    protected $guard = 'storehouse';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -47,5 +45,10 @@ class Storehouse extends Authenticatable
     public function requests()
     {
         return $this->hasManyThrough('App\Request','App\Remainder');
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo('App\User','user_id');
     }
 }

@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
                     return redirect()->route('office');
                 }
                 break;
-            case 'storehouse':
+            case 'owner':
                 if (Auth::guard($guard)->check()) {
                     return redirect()->route('store');
                 }

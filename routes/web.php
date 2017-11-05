@@ -68,4 +68,6 @@ Route::prefix('office')->group(function(){
     Route::post('request/edit', 'OfficeController@editRequest')->name('office.request.edit');
 
     Route::post('request/delete', 'OfficeController@deleteRequest')->name('office.request.delete');
+
+    Route::post('owner/create', 'OFficeController@createOwner')->name('office.owner.create');
 });

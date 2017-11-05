@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Office;
-use App\Storehouse;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +34,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('guest:office')->except('logout');
-        $this->middleware('guest:storehouse')->except('logout');
+        $this->middleware('guest:owner')->except('logout');
     }
 
     public function username()
@@ -46,8 +46,8 @@ class LoginController extends Controller
     {
         if(Auth::guard('office')->check())
             return Auth::guard('office');
-        elseif(Auth::guard('storehouse')->check())
-            return Auth::guard('storehouse');
+        elseif(Auth::guard('owner')->check())
+            return Auth::guard('owner');
         elseif(Auth::guard('admin')->check())
             return Auth::guard('admin');
         else
@@ -58,7 +58,7 @@ class LoginController extends Controller
     {
         if(Auth::guard('office')->check())
             return '/office';
-        elseif(Auth::guard('storehouse')->check())
+        elseif(Auth::guard('owner')->check())
             return '/store';
         elseif(Auth::guard('admin')->check())
             return '/admin';
@@ -68,8 +68,8 @@ class LoginController extends Controller
 
     protected function attemptLogin(Request $request)
     {
-        if (Storehouse::where('username', $request->username)->exists())
-            return Auth::guard('storehouse')->attempt(
+        if (User::where('username', $request->username)->exists())
+            return Auth::guard('owner')->attempt(
             $this->credentials($request), $request->has('remember')
         );
         elseif(Office::where('username',$request->username)->exists())

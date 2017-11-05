@@ -41,7 +41,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        @if(Auth::guard('admin')->check()) Админ @elseif(Auth::guard('office')->check()) Офис @elseif(Auth::guard('storehouse')->check())  Склад @else web @endif <span class="caret"></span>
+                        @if(Auth::guard('admin')->check()) Админ @elseif(Auth::guard('office')->check()) Офис @elseif(Auth::guard('owner')->check())  {{Auth::user()->name}} @else web @endif <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
@@ -135,7 +135,7 @@
                                 <h4 class="modal-title text-center">Добавить нового владельца</h4>
                             </div>
                             <div class="modal-body">
-                                <form method="post" action="">
+                                <form method="post" action="{{ route('office.owner.create') }}">
                                     {{csrf_field()}}
                                     <table class = "table">
                                         <tbody>
@@ -148,7 +148,7 @@
                                             <tr>
                                                 <th>Логин</th>
                                                 <td>
-                                                    <input type = "text" class = "form-control" name="owner_login" required/>
+                                                    <input type = "text" class = "form-control" name="owner_username" required/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -188,7 +188,7 @@
                             <h4 class="modal-title text-center">Добавить товар</h4>
                         </div>
                         <div class="modal-body">
-                            <form method="post" action="{{Auth::guard('storehouse')->check() ? route('store.product.create') : route('office.product.create')}}">
+                            <form method="post" action="{{Auth::guard('owner')->check() ? route('store.product.create') : route('office.product.create')}}">
                                 {{csrf_field()}}
                                 <table class = "table">
                                     <tbody>
@@ -204,7 +204,7 @@
                                             <th>Склад</th>
 
                                             <td>
-                                                <select multiple class = "form-control">
+                                                <select multiple class = "form-control" name="product_store_name">
                                                     <optgroup ng-repeat = "owner in owners" label = "@{{owner.name}}">
                                                         <option ng-repeat = "store in owner.stores">
                                                             @{{store.name}}

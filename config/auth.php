@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'owner',
+        'passwords' => 'owners',
     ],
 
     /*
@@ -36,23 +36,14 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'owner' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'owners',
         ],
 
-        'api' => [
+        'owner-api' => [
             'driver' => 'token',
-            'provider' => 'users',
-        ],
-        'storehouse' => [
-            'driver' => 'session',
-            'provider' => 'storehouses',
-        ],
-
-        'storehouse-api' => [
-            'driver' => 'token',
-            'provider' => 'storehouses',
+            'provider' => 'owners',
         ],
         'admin' => [
             'driver' => 'session',
@@ -93,13 +84,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'owners' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
-        ],
-        'storehouses' => [
-            'driver' => 'eloquent',
-            'model' => App\Storehouse::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
@@ -131,11 +118,6 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
         'storehouses' => [
             'provider' => 'storehouses',
             'table' => 'password_resets',

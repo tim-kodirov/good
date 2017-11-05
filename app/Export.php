@@ -16,8 +16,8 @@ class Export extends Model
         return $this->belongsTo('App\Client');
     }
 
-    public function returning()
+    public function returns()
     {
-        return $this->hasOne('App\Returning');
+        return $this->hasMany('App\Returning');
     }
 }

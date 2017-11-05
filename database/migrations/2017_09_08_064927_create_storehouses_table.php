@@ -15,12 +15,9 @@ class CreateStorehousesTable extends Migration
     {
         Schema::create('storehouses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username')->unique();
             $table->string('name');
-            $table->string('owner');
-            $table->string('contacts')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

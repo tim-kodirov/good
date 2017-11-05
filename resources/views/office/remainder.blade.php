@@ -12,291 +12,293 @@
 
     app.controller('myCtrl', function($scope) {
 		
-       	$scope.goods = [
-	       	{	
-	       		id: 1,
-	       		name: 'Audi 02/3421/23', 
-	       		stores: [
-	       		{
-	       			id: 1,
-	   				name: 'Store 1',
-	   				owner: 'Temur', 
-	   				number: 67, 
-	   				requests:
-	   				{
-	   					up: [
-	   					{
-	   						id: 1,
-	   						who: 'Sulton', 
-	   						number: 30, 
-	   						date: "01.08.2017"
-	   					},
-	   					{
-	   						id: 10,
-	   						who: 'Saidmurod',
-	   						number: 20,
-	   						date: "01.08.2017"
-	   					}],
-	   					down: [
-	   					{
-	   						id: 10,
-	   						who: 'Suhrob',
-	   						number: 40,
-	   						date: "01.08.2017"
-	   					}
-	   					],
-	   					totalUp: 30,
-	   					totalDown: 0
-	   				}
-	       		},
-	       		{
-	       			id: 2,
-	       			name: 'Store 2',
-	       			owner: 'Erkin', 
-	       			number: 70, 
-	       			requests:
-	       			{
-	        			up: false,
-	        			down: [
-	        			{	
-	        				id: 1,
-	        				who: 'Saidmurod',
-	        				number: 30, 
-	        				date: "01.08.2017"
-	        			},
-	        			{
-	        				id: 2,
-	        				who: 'Suhrob', 
-	        				number: 20, 
-	        				date: "02.08.2017"
-	        			}],
-	        			totalUp: 0,
-	        			totalDown: 50
-	       			}
-	       		},
-	       		{
-	       			id: 3,
-	       			name: 'Store 3', 
-	       			owner: 'Temur',
-	       			number: 23, 
-	       			requests:
-	       			{
-	       				up: [
-		        		{
-		        			id: 2,
-		        			who: 'Темур Кодиров', 
-		        			number: 10, 
-		        			date: "01.08.2017"
-		        		},
-		        		{
-		        			id: 3,
-		        			who: 'Алишер Кодиров', 
-		        			number: 5, 
-		        			date: "02.08.2017"
-		        		}],
-	       				down: false,
-	       				totalUp: 15,
-	       				totalDown: 0
-	       			}
-	       		}
-	       		],
-	       		totalFull: 160,
-	       		total: 130
-	       	},
+		$scope.goods = {!! $goods !!},
+       	// $scope.goods = [
+	       // 	{	
+	       // 		id: 1,
+	       // 		name: 'Audi 02/3421/23', 
+	       // 		stores: [
+	       // 		{
+	       // 			id: 1,
+	   				// name: 'Store 1',
+	   				// owner: 'Temur', 
+	   				// number: 67, 
+	   				// requests:
+	   				// {
+	   				// 	up: [
+	   				// 	{
+	   				// 		id: 1,
+	   				// 		who: 'Sulton', 
+	   				// 		number: 30, 
+	   				// 		date: "01.08.2017"
+	   				// 	},
+	   				// 	{
+	   				// 		id: 10,
+	   				// 		who: 'Saidmurod',
+	   				// 		number: 20,
+	   				// 		date: "01.08.2017"
+	   				// 	}],
+	   				// 	down: [
+	   				// 	{
+	   				// 		id: 10,
+	   				// 		who: 'Suhrob',
+	   				// 		number: 40,
+	   				// 		date: "01.08.2017"
+	   				// 	}
+	   				// 	],
+	   				// 	totalUp: 30,
+	   				// 	totalDown: 0
+	   				// }
+	       // 		},
+	       // 		{
+	       // 			id: 2,
+	       // 			name: 'Store 2',
+	       // 			owner: 'Erkin', 
+	       // 			number: 70, 
+	       // 			requests:
+	       // 			{
+	       //  			up: false,
+	       //  			down: [
+	       //  			{	
+	       //  				id: 1,
+	       //  				who: 'Saidmurod',
+	       //  				number: 30, 
+	       //  				date: "01.08.2017"
+	       //  			},
+	       //  			{
+	       //  				id: 2,
+	       //  				who: 'Suhrob', 
+	       //  				number: 20, 
+	       //  				date: "02.08.2017"
+	       //  			}],
+	       //  			totalUp: 0,
+	       //  			totalDown: 50
+	       // 			}
+	       // 		},
+	       // 		{
+	       // 			id: 3,
+	       // 			name: 'Store 3', 
+	       // 			owner: 'Temur',
+	       // 			number: 23, 
+	       // 			requests:
+	       // 			{
+	       // 				up: [
+		      //   		{
+		      //   			id: 2,
+		      //   			who: 'Темур Кодиров', 
+		      //   			number: 10, 
+		      //   			date: "01.08.2017"
+		      //   		},
+		      //   		{
+		      //   			id: 3,
+		      //   			who: 'Алишер Кодиров', 
+		      //   			number: 5, 
+		      //   			date: "02.08.2017"
+		      //   		}],
+	       // 				down: false,
+	       // 				totalUp: 15,
+	       // 				totalDown: 0
+	       // 			}
+	       // 		}
+	       // 		],
+	       // 		totalFull: 160,
+	       // 		total: 130
+	       // 	},
 
-	       	{	
-	       		id: 2,
-	       		name: 'Daewoo 24/1421/23', 
-	       		stores: [
-	       		{
-	       			id: 1,
-	   				name: 'Store 1',
-	   				owner: 'Temur', 
-	   				number: 100, 
-	   				requests:
-	   				{
-	   					up: [
-	   					{
-	   						id: 4,
-	   						who: 'Темур Кодиров', 
-	   						number: 30, 
-	   						date: "01.08.2017"
-	   					}],
-	   					down: false,
-	   					totalUp: 30,
-	   					totalDown: 0
-	   				}
-	       		},
-	       		{
-	       			id: 3,
-	       			name: 'Store 3',
-	       			owner: 'Temur', 
-	       			number: 50, 
-	       			requests:
-	       			{
-	        			up: false,
-	        			down: [
-	        			{	
-	        				id: 3,
-	        				who: 'Темур Кодиров',
-	        				number: 30, 
-	        				date: "01.08.2017"
-	        			},
-	        			{
-	        				id: 4,
-	        				who: 'Алишер Кодиров', 
-	        				number: 20, 
-	        				date: "02.08.2017"
-	        			}],
-	        			totalUp: 0,
-	        			totalDown: 50
-	       			}
-	       		},
-	       		{
-	       			id: 4,
-	       			name: 'Store 4', 
-	       			owner: 'Avaz',
-	       			number: 150, 
-	       			requests:
-	       			{
-	       				up: [
-		        		{
-		        			id: 5,
-		        			who: 'Темур Кодиров', 
-		        			number: 10, 
-		        			date: "01.08.2017"
-		        		},
-		        		{
-		        			id: 6,
-		        			who: 'Алишер Кодиров', 
-		        			number: 5, 
-		        			date: "02.08.2017"
-		        		}],
-	       				down: false,
-	       				totalUp: 15,
-	       				totalDown: 0
-	       			}
-	       		},
-	       		{
-	       			id: 5,
-	       			name: 'Store 5', 
-	       			owner: 'Erkin',
-	       			number: 200, 
-	       			requests:
-	       			{
-	       				up: false,
-	       				down: false,
-	       				totalUp: 15,
-	       				totalDown: 0
-	       			}
-	       		}
-	       		],
-	       		totalFull: 500,
-	       		total: 130
-	       	},
+	       // 	{	
+	       // 		id: 2,
+	       // 		name: 'Daewoo 24/1421/23', 
+	       // 		stores: [
+	       // 		{
+	       // 			id: 1,
+	   				// name: 'Store 1',
+	   				// owner: 'Temur', 
+	   				// number: 100, 
+	   				// requests:
+	   				// {
+	   				// 	up: [
+	   				// 	{
+	   				// 		id: 4,
+	   				// 		who: 'Темур Кодиров', 
+	   				// 		number: 30, 
+	   				// 		date: "01.08.2017"
+	   				// 	}],
+	   				// 	down: false,
+	   				// 	totalUp: 30,
+	   				// 	totalDown: 0
+	   				// }
+	       // 		},
+	       // 		{
+	       // 			id: 3,
+	       // 			name: 'Store 3',
+	       // 			owner: 'Temur', 
+	       // 			number: 50, 
+	       // 			requests:
+	       // 			{
+	       //  			up: false,
+	       //  			down: [
+	       //  			{	
+	       //  				id: 3,
+	       //  				who: 'Темур Кодиров',
+	       //  				number: 30, 
+	       //  				date: "01.08.2017"
+	       //  			},
+	       //  			{
+	       //  				id: 4,
+	       //  				who: 'Алишер Кодиров', 
+	       //  				number: 20, 
+	       //  				date: "02.08.2017"
+	       //  			}],
+	       //  			totalUp: 0,
+	       //  			totalDown: 50
+	       // 			}
+	       // 		},
+	       // 		{
+	       // 			id: 4,
+	       // 			name: 'Store 4', 
+	       // 			owner: 'Avaz',
+	       // 			number: 150, 
+	       // 			requests:
+	       // 			{
+	       // 				up: [
+		      //   		{
+		      //   			id: 5,
+		      //   			who: 'Темур Кодиров', 
+		      //   			number: 10, 
+		      //   			date: "01.08.2017"
+		      //   		},
+		      //   		{
+		      //   			id: 6,
+		      //   			who: 'Алишер Кодиров', 
+		      //   			number: 5, 
+		      //   			date: "02.08.2017"
+		      //   		}],
+	       // 				down: false,
+	       // 				totalUp: 15,
+	       // 				totalDown: 0
+	       // 			}
+	       // 		},
+	       // 		{
+	       // 			id: 5,
+	       // 			name: 'Store 5', 
+	       // 			owner: 'Erkin',
+	       // 			number: 200, 
+	       // 			requests:
+	       // 			{
+	       // 				up: false,
+	       // 				down: false,
+	       // 				totalUp: 15,
+	       // 				totalDown: 0
+	       // 			}
+	       // 		}
+	       // 		],
+	       // 		totalFull: 500,
+	       // 		total: 130
+	       // 	},
 
-	       	{	
-	       		id: 3,
-	       		name: 'Toyota 02/3421/23', 
-	       		stores: [
-	       		{
-	       			id: 1,
-	   				name: 'Store 1',
-	   				owner: 'Temur', 
-	   				number: 100, 
-	   				requests:
-	   				{
-	   					up:false,
-	   					down: false,
-	   					totalUp: 30,
-	   					totalDown: 0
-	   				}
-	       		}],
-	       		totalFull: 100,
-	       		total: 100
-	       	},
-       	],
-       	$scope.whos = [
-       		'Sulton', 
-       		'Saidmurod',
-       		'Shox',
-       		'Sunnat',
-       		'Alisher'
-       	],
+	       // 	{	
+	       // 		id: 3,
+	       // 		name: 'Toyota 02/3421/23', 
+	       // 		stores: [
+	       // 		{
+	       // 			id: 1,
+	   				// name: 'Store 1',
+	   				// owner: 'Temur', 
+	   				// number: 100, 
+	   				// requests:
+	   				// {
+	   				// 	up:false,
+	   				// 	down: false,
+	   				// 	totalUp: 30,
+	   				// 	totalDown: 0
+	   				// }
+	       // 		}],
+	       // 		totalFull: 100,
+	       // 		total: 100
+	       // 	},
+       	// ],
+       	$scope.whos = {!! $whos !!},
+       	// $scope.whos = [
+       	// 	'Sulton', 
+       	// 	'Saidmurod',
+       	// 	'Shox',
+       	// 	'Sunnat',
+       	// 	'Alisher'
+       	// ],
+       	$scope.stores = {!! $stores !!},
+       	// $scope.stores = [
+       	// 	{
+       	// 		id: 1,
+       	// 		name: 'Store 1',
+       	// 		owner: 'Temur'
+       	// 	},
 
-       	$scope.stores = [
-       		{
-       			id: 1,
-       			name: 'Store 1',
-       			owner: 'Temur'
-       		},
+       	// 	{
+       	// 		id: 2,
+       	// 		name: 'Store 2',
+       	// 		owner: 'Erkin'
+       	// 	},
 
-       		{
-       			id: 2,
-       			name: 'Store 2',
-       			owner: 'Erkin'
-       		},
+       	// 	{
+       	// 		id: 3,
+       	// 		name: 'Store 3',
+       	// 		owner: 'Temur'
+       	// 	},
+       	// 	{
+       	// 		id: 4,
+       	// 		name: 'Store 4',
+       	// 		owner: 'Avaz'
+       	// 	},
+       	// 	{
+       	// 		id: 5,
+       	// 		name: 'Store 5',
+       	// 		owner: 'Erkin'
+       	// 	}
+       	// ],
+       	$scope.owners = {!! $owners !!},
+       	// $scope.owners = [
+        //         {
+        //             id: 1,
+        //             name: 'Temur',
+        //             stores: [
+        //                 {
+        //                     id: 1,
+        //                     name: 'Store 1'	
+        //                 },
+        //                 {
+        //                     id: 3,
+        //                     name: 'Store 3'
+        //                 }
+        //             ]
+        //         },
 
-       		{
-       			id: 3,
-       			name: 'Store 3',
-       			owner: 'Temur'
-       		},
-       		{
-       			id: 4,
-       			name: 'Store 4',
-       			owner: 'Avaz'
-       		},
-       		{
-       			id: 5,
-       			name: 'Store 5',
-       			owner: 'Erkin'
-       		}
-       	],
+        //         {
+        //             id: 2,
+        //             name: 'Erkin',
+        //             stores: [
+        //                 {
+        //                     id: 2,
+        //                     name: 'Store 2'
+        //                 },
+        //                 {
+        //                     id: 4,
+        //                     name: 'Store 4'
+        //                 }
+        //             ]
+        //         },
 
-       	$scope.owners = [
-                {
-                    id: 1,
-                    name: 'Temur',
-                    stores: [
-                        {
-                            id: 1,
-                            name: 'Store 1'
-                        },
-                        {
-                            id: 3,
-                            name: 'Store 3'
-                        }
-                    ]
-                },
+        //         {
+        //             id: 3,
+        //             name: 'Avaz',
+        //             stores: [
+        //                 {
+        //                     id: 5,
+        //                     name: 'Store 5'
+        //                 }
+        //             ]
+        //         }
 
-                {
-                    id: 2,
-                    name: 'Erkin',
-                    stores: [
-                        {
-                            id: 2,
-                            name: 'Store 2'
-                        },
-                        {
-                            id: 4,
-                            name: 'Store 4'
-                        }
-                    ]
-                },
-
-                {
-                    id: 3,
-                    name: 'Avaz',
-                    stores: [
-                        {
-                            id: 5,
-                            name: 'Store 5'
-                        }
-                    ]
-                }
-
-        ],
+        // ],
 
        	$scope.goodChosen = {},
        	$scope.storeChosen = {},
@@ -441,10 +443,10 @@
 									<th>Количество</th>
 									<td>
 										<input type="hidden" name="request_isExport" value="0">
-										<input type="hidden" name="remainder_id" value="@{{ store.remainder_id }}">
+										<input type="hidden" name="remainder_id" value="@{{ storeChosen.remainder_id }}">
 										<input type="number" class = "form-control" name="request_quantity" min="1" required/>
 									</td>
-								</tr>
+								</tr>x`
 
 								<tr>
 									<th>От кого</th>
@@ -505,7 +507,7 @@
 									<th>Количество</th>
 									<td>
 										<input type="hidden" name="request_isExport" value="1">
-										<input type="hidden" name="remainder_id" value="@{{ store.remainder_id }}">
+										<input type="hidden" name="remainder_id" value="@{{ storeChosen.remainder_id }}">
 										<input type="number" class = "form-control" name="request_quantity" min="1" max="@{{ storeChosen.number }}" required />
 									</td>
 								</tr>
@@ -559,7 +561,7 @@
 							</thead>
 							<tbody>
 								<tr ng-click = "chooseRequest($event, 1, down.id)" ng-repeat = "down in storeChosen.requests.down" class = "requests">
-									<td><input name = "selected_requests_id[]" type="checkbox" ng-model = "requestsDown[down.id]" /></td>
+									<td><input name = "selected_requests_id[]" type="checkbox" ng-model = "requestsDown[down.id]" value="@{{ down.id }}" /></td>
 									<td>@{{ goodChosen.name }}</td>
 									<td>
 										<input type = "number" name="requests_quantity[@{{ down.id }}]" class = "form-control" value = "@{{ down.number }}" required>
@@ -617,7 +619,7 @@
 							</thead>
 							<tbody>
 								<tr ng-click = "chooseRequest($event, 0, up.id)" ng-repeat = "up in storeChosen.requests.up" class = "requests">
-									<td><input name = "selected_requests_id[]" type="checkbox" ng-model = "requestsUp[up.id]"/></td>
+									<td><input name = "selected_requests_id[]" type="checkbox" ng-model = "requestsUp[up.id]" value="@{{ up.id }}" /></td>
 									<td>@{{ goodChosen.name }}</td>
 									<td>
 										<input type = "number" name="requests_quantity[@{{ up.id }}]" class = "form-control" value = "@{{ up.number }}" max = "@{{ storeChosen.number }}" required>
