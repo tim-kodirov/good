@@ -6,59 +6,63 @@
 
 
     app.controller('myCtrl', function($scope) {
-    	$scope.exports = [
-        	{
-        		id: 1,
-        		name: 'Audi 02/3421/23',
-        		store:{
-        			id: 1,
-        			name: 'Store 1',
-        			owner: 'Temur'
-        		},
-        		who: 'Saidmurod',
-        		number: 30,
-        		date: '02.08.2016',
-        		returns: [
-        			{
-        				number: 5,
-        				date: '02.08.2016',
-        			},
-        			{
-        				number: 10,
-        				date: '03.08.2016',
-        			},
-        			{
-        				number: 12,
-        				date: '03.08.2016'
-        			},
-        			{
-        				number: 14,
-        				date: '03.08.2016'
-        			}
-        		]
-        	},
-        	{
-        		id: 3,
-        		name: 'Audi 02/3421/23',
-        		store:{
-        			id: 1,
-        			name: 'Store 1',
-        			owner: 'Temur'
-        		},
-        		who: 'Sulton',
-        		number: 50,
-        		date: '03.08.2016',
-        		returns: false
-        	}
-        ];
-
-        $scope.whos = [
-       		'Sulton', 
-       		'Saidmurod',
-       		'Shox',
-       		'Sunnat',
-       		'Alisher'
-       	];
+        $scope.exports = {!! $exports !!},
+        $scope.whos = {!! $whos !!},
+        $scope.stores = {!! $stores !!},
+        $scope.owners = {!! $owners !!},
+//        $scope.exports = [
+//        	{
+//        		id: 1,
+//        		name: 'Audi 02/3421/23',
+//        		store:{
+//        			id: 1,
+//        			name: 'Store 1',
+//        			owner: 'Temur'
+//        		},
+//        		who: 'Saidmurod',
+//        		number: 30,
+//        		date: '02.08.2016',
+//        		returns: [
+//        			{
+//        				number: 5,
+//        				date: '02.08.2016',
+//        			},
+//        			{
+//        				number: 10,
+//        				date: '03.08.2016',
+//        			},
+//        			{
+//        				number: 12,
+//        				date: '03.08.2016'
+//        			},
+//        			{
+//        				number: 14,
+//        				date: '03.08.2016'
+//        			}
+//        		]
+//        	},
+//        	{
+//        		id: 3,
+//        		name: 'Audi 02/3421/23',
+//        		store:{
+//        			id: 1,
+//        			name: 'Store 1',
+//        			owner: 'Temur'
+//        		},
+//        		who: 'Sulton',
+//        		number: 50,
+//        		date: '03.08.2016',
+//        		returns: false
+//        	}
+//        ];
+//
+//        $scope.whos = [
+//       		'Sulton',
+//       		'Saidmurod',
+//       		'Shox',
+//       		'Sunnat',
+//       		'Alisher'
+//       	];
         $scope.exportChosen = {};
 
         $scope.chooseExport = function(exp)
@@ -178,62 +182,66 @@
 <div class="modal fade" id="edit">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title text-center">Изменить</h4>
-			</div>
-			<div class="modal-body">
-				<table class = "table">
+			<form method="post" action="{{route('store.export.edit')}}">
+				{{csrf_field()}}
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title text-center">Изменить</h4>
+				</div>
+				<div class="modal-body">
+					<table class = "table">
 
-					<tr>
-						<th>Товар</th>
-						<td>@{{ exportChosen.name }}</td>
-					</tr>
+						<tr>
+							<th>Товар</th>
+							<td>@{{ exportChosen.name }}</td>
+						</tr>
 
-					<tr>
-						<th>Количество</th>
-						<td>@{{ exportChosen.number }}</td>
-					</tr>
+						<tr>
+							<th>Количество</th>
+							<td>@{{ exportChosen.number }}</td>
+						</tr>
 
-					<tr>
-						<th>Склад</th>
-						<td>@{{ exportChosen.store.name }}</td>
-					</tr>
-					<tr>
-						<th>Кому</th>
-						<td>
-							<input type="text" list = "who-list" class = "form-control" value = "@{{exportChosen.who}}"/>
+						<tr>
+							<th>Склад</th>
+							<td>@{{ exportChosen.store.name }}</td>
+						</tr>
+						<tr>
+							<th>Кому</th>
+							<td>
+								<input type="text" name="client_name_edited" list = "who-list" class = "form-control" value = "@{{exportChosen.who}}"/>
 
-							<datalist id = "who-list">
-								<option ng-repeat = "who in whos">@{{ who }}</option>
-							</datalist>
-							
-						</td>
-					</tr>
-					<tr ng-if = "exportChosen.returns">
-						<th>Возврат</th>
-						<td>
-							<input type="number" class = "form-control" value = "@{{exportChosen.returns[exportChosen.returns.length-1].number}}" />
-						</td>
-					</tr>
+								<datalist id = "who-list">
+									<option ng-repeat = "who in whos">@{{ who }}</option>
+								</datalist>
 
-					<tr ng-if = "exportChosen.returns">
-						<th>Дата возврата</th>
-						<td>
-							@{{ exportChosen.returns[exportChosen.returns.length-1].date}}
-						</td>
-					</tr>
-				</table>
+							</td>
+						</tr>
+						<tr ng-if = "exportChosen.returns">
+							<th>Возврат</th>
+							<td>
+								<input type="hidden" name="export_id" value="@{{ exportChosen.id }}">
+								<input type="number" name="return_quantity_edited" class = "form-control" value = "@{{exportChosen.returns[exportChosen.returns.length-1].number}}" />
+							</td>
+						</tr>
 
-				<div class="row">
-					<div class="col-sm-6">
-						<button class = "btn btn-info btn-block">Сохранить</button>
-					</div>
-					<div class="col-sm-6">
-						<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+						<tr ng-if = "exportChosen.returns">
+							<th>Дата возврата</th>
+							<td>
+								@{{ exportChosen.returns[exportChosen.returns.length-1].date}}
+							</td>
+						</tr>
+					</table>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<button type="submit" class = "btn btn-info btn-block">Сохранить</button>
+						</div>
+						<div class="col-sm-6">
+							<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div><!-- end of edit modal-->

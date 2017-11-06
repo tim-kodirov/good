@@ -126,6 +126,7 @@ class OfficeController extends Controller
         foreach($imports as $import)
         {
             $port = array();
+            $port['id'] = $import->id;
             $port['name'] = $import->remainder->product->name;
             $store = array();
             $store['id'] = $import->remainder->storehouse->id;

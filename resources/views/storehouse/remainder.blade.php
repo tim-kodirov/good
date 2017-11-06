@@ -320,6 +320,7 @@
                                 <tr>
                                     <th>Склад</th>
                                     <td>@{{ storeChosen.name }}</td>
+                                    <input type="hidden" name="import_store_id" value="@{{ storeChosen.id }}">
                                 </tr>
 
                                 <tr>
@@ -383,6 +384,7 @@
                                 <tr>
                                     <th>Склад</th>
                                     <td>@{{ storeChosen.name }}</td>
+                                    <input type="hidden" name="export_store_id" value="@{{ storeChosen.id }}">
                                 </tr>
 
                                 <tr>

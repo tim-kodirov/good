@@ -118,65 +118,150 @@ class StoreHouseController extends Controller
 
     public function getImport()
     {
-        $storehouse = Auth::user();
-        $imports = array();
-        foreach($storehouse->imports as $import)
+        $owner = Auth::user();
+        $imports = $owner->storehouses->pluck('imports')->collapse()->unique();
+        $ports = array();
+        foreach($imports as $import)
         {
-            $import_temp = array();
-            $import_temp['name'] = $import->remainder->product->name;
-            $import_temp['number'] = $import->quantity;
-            $import_temp['who'] = $import->client->name;
-            $import_temp['date'] = Carbon::parse($import->created_at)->format('d.m.Y');
-            array_push($imports,$import_temp);
+            $port = array();
+            $port['id'] = $import->id;
+            $port['name'] = $import->remainder->product->name;
+            $store = array();
+            $store['id'] = $import->remainder->storehouse->id;
+            $store['name'] = $import->remainder->storehouse->name;
+            $store['owner'] = $owner->name;
+            $port['store'] = $store;
+            $port['number'] = $import->quantity;
+            $port['who'] = $import->client->name;
+            $port['date'] = Carbon::parse($import->created_at)->format('d.m.Y');
+            array_push($ports,$port);
         }
-        $imports = json_encode($imports);
-        return view('storehouse.import')->withImports($imports);
+        $imports = json_encode($ports);
+        $clients = Client::all();
+        $whos = array();
+        foreach ($clients as $client)
+        {
+            array_push($whos,$client->name);
+        }
+        $whos = json_encode($whos);
+        $owners = array();
+        $owner_temp = array();
+        $owner_temp['id'] = $owner->id;
+        $owner_temp['name'] = $owner->name;
+        $stores = array();
+        foreach ($owner->storehouses as $storehouse)
+        {
+            $store = array();
+            $store['id'] = $storehouse->id;
+            $store['name'] = $storehouse->name;
+            array_push($stores,$store);
+        }
+        $owner_temp['stores'] = $stores;
+        array_push($owners,$owner_temp);
+
+        $owners = json_encode($owners);
+        $stores = array();
+        foreach($owner->storehouses as $storehouse)
+        {
+            $store = array();
+            $store['id'] = $storehouse->id;
+            $store['name'] = $storehouse->name;
+            $store['owner'] = $storehouse->owner->name;
+            array_push($stores,$store);
+        }
+        $stores = json_encode($stores);
+        return view('storehouse.import')->withImports($imports)->withWhos($whos)->withOwners($owners)->withStores($stores);
     }
 
+    /**
+     * @return mixed
+     */
     public function getExport()
     {
-        $storehouse = Auth::user();
-        $exports = array();
-        foreach($storehouse->exports as $export)
+        $owner = Auth::user();
+        $exports = $owner->storehouses->pluck('exports')->collapse()->unique();
+        $ports = array();
+        foreach($exports as $export)
         {
-            $export_temp = array();
-            $export_temp['id'] = $export->id;
-            $export_temp['name'] = $export->remainder->product->name;
-            $export_temp['number'] = $export->quantity;
-            $export_temp['who'] = $export->client->name;
-            $export_temp['date'] = Carbon::parse($export->created_at)->format('d.m.Y');
-            if($export->returning()->exists()) {
-                $export_temp['return'] = $export->returning->quantity;
-                $export_temp['returnDate'] = Carbon::parse($export->returning->created_at)->format('d.m.Y');
+            $port = array();
+            $port['id'] = $export->id;
+            $port['name'] = $export->remainder->product->name;
+            $store = array();
+            $store['id'] = $export->remainder->storehouse->id;
+            $store['name'] = $export->remainder->storehouse->name;
+            $store['owner'] = $export->remainder->storehouse->owner->name;
+            $port['store'] = $store;
+            $port['number'] = $export->quantity;
+            $port['who'] = $export->client->name;
+            $port['date'] = Carbon::parse($export->created_at)->format('d.m.Y');
+            $returns = array();
+            foreach ($export->returns as $return)
+            {
+                $returning = array();
+                $returning['number'] = $return->quantity;
+                $returning['date'] = Carbon::parse($return->created_at)->format('d.m.Y');
+                array_push($returns,$returning);
             }
-            else{
-                $export_temp['return'] = false;
-                $export_temp['returnDate'] = false;
+            $port['returns'] = $returns;
+            if(empty($port['returns']) || !isset($port['returns'])){
+                $port['returns'] = false;
             }
-            array_push($exports,$export_temp);
+            array_push($ports,$port);
         }
-        $exports = json_encode($exports);
-        return view('storehouse.export')->withExports($exports);
+        $exports = json_encode($ports);
+        $clients = Client::all();
+        $whos = array();
+        foreach ($clients as $client)
+        {
+            array_push($whos,$client->name);
+        }
+        $whos = json_encode($whos);
+        $owners = array();
+        $owner_temp = array();
+        $owner_temp['id'] = $owner->id;
+        $owner_temp['name'] = $owner->name;
+        $stores = array();
+        foreach ($owner->storehouses as $storehouse)
+        {
+            $store = array();
+            $store['id'] = $storehouse->id;
+            $store['name'] = $storehouse->name;
+            array_push($stores,$store);
+        }
+        $owner_temp['stores'] = $stores;
+        array_push($owners,$owner_temp);
+
+        $owners = json_encode($owners);
+        $stores = array();
+        foreach($owner->storehouses as $storehouse)
+        {
+            $store = array();
+            $store['id'] = $storehouse->id;
+            $store['name'] = $storehouse->name;
+            $store['owner'] = $storehouse->owner->name;
+            array_push($stores,$store);
+        }
+        $stores = json_encode($stores);
+        return view('storehouse.export')->withExports($exports)->withWhos($whos)->withOwners($owners)->withStores($stores);
     }
 
     public function productExport(Request $request)
     {
         if(!empty($request->export_product_quantity) && !empty($request->export_client_name))
         {
-            $storehouse = Auth::user();
+            $storehouse = Auth::user()->storehouses()->findOrFail($request->export_store_id);
             $product = $storehouse->products()->findOrFail($request->export_product_id);
             $product->remainder->quantity = $product->remainder->quantity - $request->export_product_quantity;
             $product->remainder->save();
             $export = new Export;
             $export->remainder_id = $product->remainder->id;
             if(Client::where('name',$request->import_client_name)->exists()){
-                $client = Client::where('name',$request->import_client_name)->get();
+                $client = Client::where('name',$request->import_client_name)->first();
                 $export->client_id = $client->id;
             }
             else{
                 $client = new Client;
-                $client->name = $request->import_client_name;
-                $client->contacts = "?";//till implementation
+                $client->name = $request->export_client_name;
                 $client->save();
                 $export->client_id = $client->id;
             }
@@ -190,20 +275,19 @@ class StoreHouseController extends Controller
     public function productImport(Request $request)
     {
         if(!empty($request->import_product_quantity) && !empty($request->import_client_name)) {
-            $storehouse = Auth::user();
+            $storehouse = Auth::user()->storehouses()->findOrFail($request->import_store_id);
             $product = $storehouse->products()->findOrFail($request->import_product_id);
             $product->remainder->quantity = $product->remainder->quantity + $request->import_product_quantity;
             $product->remainder->save();
             $import = new Import;
             $import->remainder_id = $product->remainder->id;
             if(Client::where('name',$request->import_client_name)->exists()){
-                $client = Client::where('name',$request->import_client_name)->get();
+                $client = Client::where('name',$request->import_client_name)->first();
                 $import->client_id = $client->id;
             }
             else{
                 $client = new Client;
                 $client->name = $request->import_client_name;
-                $client->contacts = "?";//till implementation
                 $client->save();
                 $import->client_id = $client->id;
             }
@@ -276,12 +360,11 @@ class StoreHouseController extends Controller
     /*Add new product to list*/
     public function createProduct(Request $request)
     {
-        $storehouses = Storehouse::all();
-        $product = new Product;
-        $product->name = $request->product_name;
-        $product->save();
-        foreach($storehouses as $storehouse)
-        {
+        if(!empty($request->product_name) && !empty($request->product_store_name)) {
+            $storehouse = Auth::user()->storehouses()->where('name', $request->product_store_name)->first();
+            $product = new Product;
+            $product->name = $request->product_name;
+            $product->save();
             $storehouse->products()->attach($product->id);
         }
         return back();
@@ -297,6 +380,65 @@ class StoreHouseController extends Controller
             $return->export_id = $request->export_id;
             $return->quantity = $request->return_quantity;
             $return->save();
+        }
+        return back();
+    }
+
+    public function editExport(Request $request)
+    {
+        $export = Export::findOrFail($request->export_id);
+        if(!empty($request->return_quantity_edited)) {
+            $previous_return = $export->returns()->orderBy('created_at','desc')->first();
+            if($request->return_quantity_edited!=$previous_return->quantity) {
+                $export->remainder->quantity = $export->remainder->quantity - $previous_return->quantity;
+                $export->remainder->quantity = $export->remainder->quantity + $request->return_quantity_edited;
+                $export->remainder->save();
+                $return = new Returning;
+                $return->export_id = $request->export_id;
+                $return->quantity = $request->return_quantity_edited;
+                $return->save();
+            }
+        }
+        if(!empty($request->client_name_edited)){
+            if(Client::where('name',$request->client_name_edited)->exists()){
+                $client = Client::where('name',$request->client_name_edited)->first();
+                $export->client_id = $client->id;
+            }
+            else{
+                $client = new Client;
+                $client->name = $request->client_name_edited;
+                $client->save();
+                $export->client_id = $client->id;
+            }
+            $export->save();
+        }
+        return back();
+    }
+
+    public function editImport(Request $request)
+    {
+        $import = Import::findOrFail($request->import_edit_id);
+        if(!empty($request->import_quantity_edited)) {
+            if($request->import_quantity_edited!=$import->quantity) {
+                $import->remainder->quantity = $import->remainder->quantity - $import->quantity;
+                $import->remainder->quantity = $import->remainder->quantity + $request->import_quantity_edited;
+                $import->remainder->save();
+                $import->quantity = $request->import_quantity_edited;
+                $import->save();
+            }
+        }
+        if(!empty($request->client_name_edited)){
+            if(Client::where('name',$request->client_name_edited)->exists()){
+                $client = Client::where('name',$request->client_name_edited)->first();
+                $import->client_id = $client->id;
+            }
+            else{
+                $client = new Client;
+                $client->name = $request->client_name_edited;
+                $client->save();
+                $import->client_id = $client->id;
+            }
+            $import->save();
         }
         return back();
     }

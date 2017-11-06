@@ -41,6 +41,10 @@ Route::prefix('store')->group(function () {
     Route::post('request/reject', 'StoreHouseController@requestReject')->name('store.request.reject');
 
     Route::post('export/return','StoreHouseController@returnExport')->name('store.export.return');
+
+    Route::post('export/edit','StoreHouseController@editExport')->name('store.export.edit');
+
+    Route::post('import/edit','StoreHouseController@editImport')->name('store.import.edit');
 });
 
 Route::prefix('admin')->group(function () {

@@ -189,7 +189,7 @@
                         </div>
                         <div class="modal-body">
                             <form method="post" action="{{Auth::guard('owner')->check() ? route('store.product.create') : route('office.product.create')}}">
-                                {{csrf_field()}}
+                                {{ csrf_field() }}
                                 <table class = "table">
                                     <tbody>
                                         <tr>
