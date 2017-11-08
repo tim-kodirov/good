@@ -198,7 +198,7 @@ class OfficeController extends Controller
                 array_push($returns,$returning);
             }
             $port['returns'] = $returns;
-            if(!$export->returns->exists()){
+            if(!$export->returns()->exists()){
                 $port['returns'] = false;
             }
             array_push($ports,$port);

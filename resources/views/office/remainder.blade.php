@@ -446,7 +446,7 @@
 										<input type="hidden" name="remainder_id" value="@{{ storeChosen.remainder_id }}">
 										<input type="number" class = "form-control" name="request_quantity" min="1" required/>
 									</td>
-								</tr>x`
+								</tr>
 
 								<tr>
 									<th>От кого</th>

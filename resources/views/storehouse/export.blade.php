@@ -208,6 +208,7 @@
 						<tr>
 							<th>Кому</th>
 							<td>
+								<input type="hidden" name="export_id" value="@{{ exportChosen.id }}">
 								<input type="text" name="client_name_edited" list = "who-list" class = "form-control" value = "@{{exportChosen.who}}"/>
 
 								<datalist id = "who-list">
@@ -219,7 +220,6 @@
 						<tr ng-if = "exportChosen.returns">
 							<th>Возврат</th>
 							<td>
-								<input type="hidden" name="export_id" value="@{{ exportChosen.id }}">
 								<input type="number" name="return_quantity_edited" class = "form-control" value = "@{{exportChosen.returns[exportChosen.returns.length-1].number}}" />
 							</td>
 						</tr>
