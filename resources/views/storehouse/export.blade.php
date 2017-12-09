@@ -100,7 +100,7 @@
 	</thead>
 
 	<tbody>
-		<tr ng-repeat = "export in exports | filter : search | orderBy: 'date' : true ">
+		<tr ng-repeat = "export in exports | filter : search | orderBy: 'date' : true">
 			<td>@{{ export.name }}</td>
 			<td>@{{ export.number - export.returns[export.returns.length - 1].number }}</td>
 			<td>@{{ export.store.name }}</td>
