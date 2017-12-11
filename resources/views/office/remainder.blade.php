@@ -515,7 +515,7 @@
 								<tr>
 									<th>Кому</th>
 									<td>
-										<input type = "text" list = "who_up" class = "form-control" id = "clientsUp" name="client_name" required />
+										<input type = "text" class = "form-control" list = "clientsUp" name="client_name" required />
 
 										<datalist id = "clientsUp">
 											<option ng-repeat = "who in whos | orderBy">@{{who}}</option>
@@ -628,7 +628,7 @@
 										<input type = "text" name="clients_name[@{{ up.id }}]" list = "clientsUp@{{up.id}}" class = "form-control" value = "@{{ up.who }}" required>
 
 										<datalist id = "clientsUp@{{up.id}}">
-											<option ng-repeat = "who in whos | orderBy">@{{who}}</option>
+											<option ng-repeat = "who in whos | orderBy">@{{who}}</option> 
 										</datalist>
 									</td>
 									<td>@{{ up.date }}</td>
