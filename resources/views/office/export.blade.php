@@ -7,69 +7,6 @@
     app.controller('myCtrl', function($scope) {
 
         $scope.exports = {!! $exports !!},
-        // $scope.exports = [
-        // 	{
-        // 		id: 1,
-        // 		name: 'Audi 02/3421/23',
-        // 		store:{
-        // 			id: 1,
-        // 			name: 'Store 1',
-        // 			owner: 'Temur'
-        // 		},
-        // 		who: 'Saidmurod',
-        // 		number: 30,
-        // 		date: '02.08.2016',
-        // 		returns: [
-        // 			{
-        // 				number: 5,
-        // 				date: '02.08.2016',
-        // 			},
-        // 			{
-        // 				number: 10,
-        // 				date: '03.08.2016',
-        // 			},
-        // 			{
-        // 				number: 12,
-        // 				date: '03.08.2016'
-        // 			},
-        // 			{
-        // 				number: 14,
-        // 				date: '03.08.2016'
-        // 			}
-        // 		]
-        // 	},
-        // 	{
-        // 		id: 2,
-        // 		name: 'Daewoo 02/3421/23',
-        // 		store:{
-        // 			id: 2,
-        // 			name: 'Store 2',
-        // 			owner: 'Erkin'
-        // 		},
-        // 		who: 'Sulton',
-        // 		number: 150,
-        // 		date: '01.08.2016',
-        // 		returns: [
-        // 			{
-        // 				number: 10,
-        // 				date: "04.08.2016"
-        // 			}
-        // 		]
-        // 	},
-        // 	{
-        // 		id: 3,
-        // 		name: 'Audi 02/3421/23',
-        // 		store:{
-        // 			id: 1,
-        // 			name: 'Store 1',
-        // 			owner: 'Temur'
-        // 		},
-        // 		who: 'Sulton',
-        // 		number: 50,
-        // 		date: '03.08.2016',
-        // 		returns: false
-        // 	}
-        // ],
         $scope.stores = {!! $stores !!},
         $scope.owners = {!! $owners !!},
         $scope.returns = [],
@@ -125,7 +62,7 @@
 				</td>
 			</tr>
 		</tbody>
-	</table><!-- end of main table -->
+	</table>
 
 	<div class="modal" id="returns">
 	    <div class="modal-dialog">
@@ -157,7 +94,7 @@
 				</form>
 	        </div>
 	    </div>
-	</div><!-- end of return histories modal-->
+	</div>
 
 </div>
 @endsection

@@ -13,292 +13,10 @@
     app.controller('myCtrl', function($scope) {
 		
 		$scope.goods = {!! $goods !!},
-       	// $scope.goods = [
-	       // 	{	
-	       // 		id: 1,
-	       // 		name: 'Audi 02/3421/23', 
-	       // 		stores: [
-	       // 		{
-	       // 			id: 1,
-	   				// name: 'Store 1',
-	   				// owner: 'Temur', 
-	   				// number: 67, 
-	   				// requests:
-	   				// {
-	   				// 	up: [
-	   				// 	{
-	   				// 		id: 1,
-	   				// 		who: 'Sulton', 
-	   				// 		number: 30, 
-	   				// 		date: "01.08.2017"
-	   				// 	},
-	   				// 	{
-	   				// 		id: 10,
-	   				// 		who: 'Saidmurod',
-	   				// 		number: 20,
-	   				// 		date: "01.08.2017"
-	   				// 	}],
-	   				// 	down: [
-	   				// 	{
-	   				// 		id: 10,
-	   				// 		who: 'Suhrob',
-	   				// 		number: 40,
-	   				// 		date: "01.08.2017"
-	   				// 	}
-	   				// 	],
-	   				// 	totalUp: 30,
-	   				// 	totalDown: 0
-	   				// }
-	       // 		},
-	       // 		{
-	       // 			id: 2,
-	       // 			name: 'Store 2',
-	       // 			owner: 'Erkin', 
-	       // 			number: 70, 
-	       // 			requests:
-	       // 			{
-	       //  			up: false,
-	       //  			down: [
-	       //  			{	
-	       //  				id: 1,
-	       //  				who: 'Saidmurod',
-	       //  				number: 30, 
-	       //  				date: "01.08.2017"
-	       //  			},
-	       //  			{
-	       //  				id: 2,
-	       //  				who: 'Suhrob', 
-	       //  				number: 20, 
-	       //  				date: "02.08.2017"
-	       //  			}],
-	       //  			totalUp: 0,
-	       //  			totalDown: 50
-	       // 			}
-	       // 		},
-	       // 		{
-	       // 			id: 3,
-	       // 			name: 'Store 3', 
-	       // 			owner: 'Temur',
-	       // 			number: 23, 
-	       // 			requests:
-	       // 			{
-	       // 				up: [
-		      //   		{
-		      //   			id: 2,
-		      //   			who: 'Темур Кодиров', 
-		      //   			number: 10, 
-		      //   			date: "01.08.2017"
-		      //   		},
-		      //   		{
-		      //   			id: 3,
-		      //   			who: 'Алишер Кодиров', 
-		      //   			number: 5, 
-		      //   			date: "02.08.2017"
-		      //   		}],
-	       // 				down: false,
-	       // 				totalUp: 15,
-	       // 				totalDown: 0
-	       // 			}
-	       // 		}
-	       // 		],
-	       // 		totalFull: 160,
-	       // 		total: 130
-	       // 	},
-
-	       // 	{	
-	       // 		id: 2,
-	       // 		name: 'Daewoo 24/1421/23', 
-	       // 		stores: [
-	       // 		{
-	       // 			id: 1,
-	   				// name: 'Store 1',
-	   				// owner: 'Temur', 
-	   				// number: 100, 
-	   				// requests:
-	   				// {
-	   				// 	up: [
-	   				// 	{
-	   				// 		id: 4,
-	   				// 		who: 'Темур Кодиров', 
-	   				// 		number: 30, 
-	   				// 		date: "01.08.2017"
-	   				// 	}],
-	   				// 	down: false,
-	   				// 	totalUp: 30,
-	   				// 	totalDown: 0
-	   				// }
-	       // 		},
-	       // 		{
-	       // 			id: 3,
-	       // 			name: 'Store 3',
-	       // 			owner: 'Temur', 
-	       // 			number: 50, 
-	       // 			requests:
-	       // 			{
-	       //  			up: false,
-	       //  			down: [
-	       //  			{	
-	       //  				id: 3,
-	       //  				who: 'Темур Кодиров',
-	       //  				number: 30, 
-	       //  				date: "01.08.2017"
-	       //  			},
-	       //  			{
-	       //  				id: 4,
-	       //  				who: 'Алишер Кодиров', 
-	       //  				number: 20, 
-	       //  				date: "02.08.2017"
-	       //  			}],
-	       //  			totalUp: 0,
-	       //  			totalDown: 50
-	       // 			}
-	       // 		},
-	       // 		{
-	       // 			id: 4,
-	       // 			name: 'Store 4', 
-	       // 			owner: 'Avaz',
-	       // 			number: 150, 
-	       // 			requests:
-	       // 			{
-	       // 				up: [
-		      //   		{
-		      //   			id: 5,
-		      //   			who: 'Темур Кодиров', 
-		      //   			number: 10, 
-		      //   			date: "01.08.2017"
-		      //   		},
-		      //   		{
-		      //   			id: 6,
-		      //   			who: 'Алишер Кодиров', 
-		      //   			number: 5, 
-		      //   			date: "02.08.2017"
-		      //   		}],
-	       // 				down: false,
-	       // 				totalUp: 15,
-	       // 				totalDown: 0
-	       // 			}
-	       // 		},
-	       // 		{
-	       // 			id: 5,
-	       // 			name: 'Store 5', 
-	       // 			owner: 'Erkin',
-	       // 			number: 200, 
-	       // 			requests:
-	       // 			{
-	       // 				up: false,
-	       // 				down: false,
-	       // 				totalUp: 15,
-	       // 				totalDown: 0
-	       // 			}
-	       // 		}
-	       // 		],
-	       // 		totalFull: 500,
-	       // 		total: 130
-	       // 	},
-
-	       // 	{	
-	       // 		id: 3,
-	       // 		name: 'Toyota 02/3421/23', 
-	       // 		stores: [
-	       // 		{
-	       // 			id: 1,
-	   				// name: 'Store 1',
-	   				// owner: 'Temur', 
-	   				// number: 100, 
-	   				// requests:
-	   				// {
-	   				// 	up:false,
-	   				// 	down: false,
-	   				// 	totalUp: 30,
-	   				// 	totalDown: 0
-	   				// }
-	       // 		}],
-	       // 		totalFull: 100,
-	       // 		total: 100
-	       // 	},
-       	// ],
        	$scope.whos = {!! $whos !!},
-       	// $scope.whos = [
-       	// 	'Sulton', 
-       	// 	'Saidmurod',
-       	// 	'Shox',
-       	// 	'Sunnat',
-       	// 	'Alisher'
-       	// ],
        	$scope.stores = {!! $stores !!},
-       	// $scope.stores = [
-       	// 	{
-       	// 		id: 1,
-       	// 		name: 'Store 1',
-       	// 		owner: 'Temur'
-       	// 	},
-
-       	// 	{
-       	// 		id: 2,
-       	// 		name: 'Store 2',
-       	// 		owner: 'Erkin'
-       	// 	},
-
-       	// 	{
-       	// 		id: 3,
-       	// 		name: 'Store 3',
-       	// 		owner: 'Temur'
-       	// 	},
-       	// 	{
-       	// 		id: 4,
-       	// 		name: 'Store 4',
-       	// 		owner: 'Avaz'
-       	// 	},
-       	// 	{
-       	// 		id: 5,
-       	// 		name: 'Store 5',
-       	// 		owner: 'Erkin'
-       	// 	}
-       	// ],
        	$scope.owners = {!! $owners !!},
-       	// $scope.owners = [
-        //         {
-        //             id: 1,
-        //             name: 'Temur',
-        //             stores: [
-        //                 {
-        //                     id: 1,
-        //                     name: 'Store 1'	
-        //                 },
-        //                 {
-        //                     id: 3,
-        //                     name: 'Store 3'
-        //                 }
-        //             ]
-        //         },
 
-        //         {
-        //             id: 2,
-        //             name: 'Erkin',
-        //             stores: [
-        //                 {
-        //                     id: 2,
-        //                     name: 'Store 2'
-        //                 },
-        //                 {
-        //                     id: 4,
-        //                     name: 'Store 4'
-        //                 }
-        //             ]
-        //         },
-
-        //         {
-        //             id: 3,
-        //             name: 'Avaz',
-        //             stores: [
-        //                 {
-        //                     id: 5,
-        //                     name: 'Store 5'
-        //                 }
-        //             ]
-        //         }
-
-        // ],
 
        	$scope.goodChosen = {},
        	$scope.storeChosen = {},
@@ -355,7 +73,7 @@
 				<option ng-repeat = "owner in owners">@{{ owner.name }}</option>
 	    	</select>
 	    </div>
-	</div> <!-- end of filters row -->
+	</div>
 
 	<table class = "table my-office-table my-table-striped margin-top-20">
 		<thead>
@@ -409,7 +127,7 @@
 				</td>
 			</tr>
 		</tbody>
-	</table><!-- end of main table -->
+	</table>
 
 	<div class="modal fade" id="download">
 	    <div class="modal-dialog">
@@ -473,7 +191,7 @@
 				</form>
 	        </div>
 	    </div>
-	</div><!-- end of downloads modal-->
+	</div>
 
 	<div class="modal fade" id="upload">
 	    <div class="modal-dialog">
@@ -537,7 +255,7 @@
 				</form>
 	        </div>
 	    </div>
-	</div><!-- end of uploads modal -->
+	</div>
 
     <div class="modal fade" id="modal-requestsDown">
         <div class="modal-dialog modal-lg">
@@ -594,7 +312,7 @@
 				</form>
             </div>
         </div>
-    </div><!-- end of down requests modal -->
+    </div>
 
     <div class="modal fade" id="modal-requestsUp">
         <div class="modal-dialog modal-lg">
@@ -652,7 +370,7 @@
 				</form>
             </div>
         </div>
-    </div><!-- end of up requests modal -->
+    </div>
 
     <div class="modal fade" id="edit">
 		<div class="modal-dialog">
@@ -682,11 +400,11 @@
 								<button class = "btn btn-danger btn-block" data-dismiss = "modal">Отмена</button>
 							</div>
 						</div>
-					</div><!-- end of modal body -->
+					</div>
 				</form>
-			</div><!-- end of modal content -->
+			</div>
 		</div>
-	</div> <!-- end of edit modal -->
+	</div>
 
 </div>
 

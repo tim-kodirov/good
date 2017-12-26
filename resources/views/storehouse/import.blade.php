@@ -11,43 +11,7 @@
         $scope.whos = {!! $whos !!},
         $scope.stores = {!! $stores !!},
         $scope.owners = {!! $owners !!},
-//		$scope.imports = [
-//        	{
-//        		id: 1,
-//        		name: 'Audi 02/3421/23',
-//        		store:{
-//        			id: 1,
-//        			name: 'Store 1',
-//        			owner: 'Temur'
-//        		},
-//        		who: 'Saidmurod',
-//        		number: 30,
-//        		date: '01.08.2016',
-//
-//        	},
-//
-//        	{
-//        		id: 2,
-//        		name: 'Audi 02/3421/23',
-//        		store:{
-//        			id: 1,
-//        			name: 'Store 1',
-//        			owner: 'Temur'
-//        		},
-//        		who: 'Saidmurod',
-//        		number: 50,
-//        		date: '02.08.2016',
-//
-//        	}
-//        ];
-//
-//        $scope.whos = [
-//       		'Sulton',
-//       		'Saidmurod',
-//       		'Shox',
-//       		'Sunnat',
-//       		'Alisher'
-//       	];
+
         $scope.importChosen = {};
 
         $scope.chooseImport = function(imp)

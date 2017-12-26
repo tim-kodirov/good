@@ -10,60 +10,7 @@
         $scope.whos = {!! $whos !!},
         $scope.stores = {!! $stores !!},
         $scope.owners = {!! $owners !!},
-//        $scope.exports = [
-//        	{
-//        		id: 1,
-//        		name: 'Audi 02/3421/23',
-//        		store:{
-//        			id: 1,
-//        			name: 'Store 1',
-//        			owner: 'Temur'
-//        		},
-//        		who: 'Saidmurod',
-//        		number: 30,
-//        		date: '02.08.2016',
-//        		returns: [
-//        			{
-//        				number: 5,
-//        				date: '02.08.2016',
-//        			},
-//        			{
-//        				number: 10,
-//        				date: '03.08.2016',
-//        			},
-//        			{
-//        				number: 12,
-//        				date: '03.08.2016'
-//        			},
-//        			{
-//        				number: 14,
-//        				date: '03.08.2016'
-//        			}
-//        		]
-//        	},
-//        	{
-//        		id: 3,
-//        		name: 'Audi 02/3421/23',
-//        		store:{
-//        			id: 1,
-//        			name: 'Store 1',
-//        			owner: 'Temur'
-//        		},
-//        		who: 'Sulton',
-//        		number: 50,
-//        		date: '03.08.2016',
-//        		returns: false
-//        	}
-//        ];
-//
-//        $scope.whos = [
-//       		'Sulton',
-//       		'Saidmurod',
-//       		'Shox',
-//       		'Sunnat',
-//       		'Alisher'
-//       	];
-        $scope.exportChosen = {};
+		$scope.exportChosen = {};
 
         $scope.chooseExport = function(exp)
         {
@@ -121,7 +68,7 @@
 			</td>
 		</tr>
 	</tbody>
-</table><!-- end of main table -->
+</table>
 
 <div class="modal fade" id="returnModal">
 	<div class="modal-dialog">
@@ -177,7 +124,7 @@
 			</form>
 		</div>
 	</div>
-</div><!-- end of return modal-->
+</div>
 
 <div class="modal fade" id="edit">
 	<div class="modal-dialog">
@@ -244,5 +191,5 @@
 			</form>
 		</div>
 	</div>
-</div><!-- end of edit modal-->
+</div>
 @endsection

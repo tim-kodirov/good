@@ -7,49 +7,6 @@
         app.controller('myCtrl', function($scope) {
 
         	$scope.imports = {!! $imports !!},
-          //   $scope.imports = [
-          //   	{
-	        	// 	id: 1,
-	        	// 	name: 'Audi 02/3421/23',
-	        	// 	store:{
-	        	// 		id: 1,
-	        	// 		name: 'Store 1',
-	        	// 		owner: 'Temur'
-	        	// 	},
-	        	// 	who: 'Saidmurod',
-	        	// 	number: 30,
-	        	// 	date: '01.08.2016',
-	        		
-	        	// },
-
-	        	// {
-	        	// 	id: 2,
-	        	// 	name: 'Audi 02/3421/23',
-	        	// 	store:{
-	        	// 		id: 1,
-	        	// 		name: 'Store 1',
-	        	// 		owner: 'Temur'
-	        	// 	},
-	        	// 	who: 'Saidmurod',
-	        	// 	number: 50,
-	        	// 	date: '02.08.2016',
-	        		
-	        	// },
-
-	        	// {
-	        	// 	id: 3,
-	        	// 	name: 'Toyota 02/3421/23',
-	        	// 	store:{
-	        	// 		id: 2,
-	        	// 		name: 'Store 2',
-	        	// 		owner: 'Erkin'
-	        	// 	},
-	        	// 	who: 'Sulton',
-	        	// 	number: 24,
-	        	// 	date: '03.08.2016',
-	        		
-	        	// },
-          //   ],
             $scope.stores = {!! $stores !!},
             $scope.owners = {!! $owners !!}
 
@@ -89,5 +46,5 @@
 			<td>@{{ import.date | date: "dd.MM.yyyy" }}</td>
 		</tr>
 		</tbody>
-	</table><!-- end of main table -->
+	</table>
 @endsection
