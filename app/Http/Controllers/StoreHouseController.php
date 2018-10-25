@@ -13,6 +13,7 @@ use App\Request as OfficeRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StoreHouseController extends Controller
 {
@@ -370,6 +371,28 @@ class StoreHouseController extends Controller
         return back();
     }
 
+    public function createProductFromExcel(Request $request)
+    {
+        if($request->hasFile('file')){
+            $path = $request->file('file')->getRealPath();
+            $data = Excel::load($path, function($reader){})->get();
+            if(!empty($data) && $data->count()){
+                foreach($data as $key => $value){
+                    if(!empty($value->store_name) && !empty($value->product_name) && !empty($value->product_quantity)) {
+                        $storehouse = Auth::user()->storehouses()->where('name', $value->store_name)->first();
+                        $product = new Product;
+                        $product->name = $value->product_name;
+                        $product->save();
+                        $storehouse->products()->attach($product->id);
+                        $product2 = $storehouse->products()->findOrFail($product->id);
+                        $product2->remainder->quantity = $value->product_quantity;
+                        $product2->remainder->save();
+                    }
+                }
+            }
+        }
+        return back();
+    }
     public function returnExport(Request $request)
     {
         if(!empty($request->return_quantity)) {

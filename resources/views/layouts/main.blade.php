@@ -179,7 +179,39 @@
             <div class = "new-good">
                 <button class = "my-btn btn btn-primary btn-lg" data-toggle="modal" data-target="#addGood"><span class = "fa fa-cart-plus"></span></button>
             </div>
-
+            @if(Auth::guard('owner')->check())
+                <div class = "new-good-excel">
+                    <button class = "my-btn btn btn-success btn-lg" data-toggle="modal" data-target="#addGoodExcel"><span class = "fa fa-file-excel-o"></span></button>
+                </div>
+            @endif
+            <div class="modal fade" id="addGoodExcel">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title text-center">Добавить товар</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('store.product.create.excel')}}" method="post" enctype="multipart/form-data">
+                                {{csrf_field()}}
+                                <p>Excel should be like that</p>
+                                <image src="{{asset('images/excel_template.png')}}"></image>
+                                <br>
+                                <input type="file" id="file" name="file">
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-info btn-block" >Создать</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Отмена</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal fade" id="addGood">
                 <div class="modal-dialog">
                     <div class="modal-content">

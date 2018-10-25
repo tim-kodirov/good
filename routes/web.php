@@ -30,6 +30,8 @@ Route::prefix('store')->group(function () {
 
     Route::post('product/create', 'StoreHouseController@createProduct')->name('store.product.create');
 
+    Route::post('product/create/excel', 'StoreHouseController@createProductFromExcel')->name('store.product.create.excel');
+
     Route::post('product/export', 'StoreHouseController@productExport')->name('store.product.export');
 
     Route::post('product/import', 'StoreHouseController@productImport')->name('store.product.import');

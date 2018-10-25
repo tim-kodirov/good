@@ -118,8 +118,8 @@ return [
     */
 
     'passwords' => [
-        'storehouses' => [
-            'provider' => 'storehouses',
+        'owners' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
         ],
