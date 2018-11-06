@@ -101,10 +101,10 @@
                     @{{ store.number }}
                 </td>
                 <td>
-                    <button ng-click = "chooseGood(good,store)" class = "my-btn btn btn-default btn-sm" data-toggle="modal" data-target="#download"><span  class = "glyphicon glyphicon-arrow-down"></span></button>
+                    <button ng-click = "chooseGood(good,store)" class = "my-btn btn btn-default btn-sm btn-primary" data-toggle="modal" data-target="#download"><span  class = "glyphicon glyphicon-arrow-down"></span></button>
                     
 
-                    <button ng-click = "chooseGood(good,store)" class = "my-btn btn btn-default btn-sm" data-toggle="modal" data-target="#upload"><span class = "glyphicon glyphicon-arrow-up"></span></button>
+                    <button ng-click = "chooseGood(good,store)" class = "my-btn btn btn-default btn-sm btn-danger" data-toggle="modal" data-target="#upload"><span class = "glyphicon glyphicon-arrow-up"></span></button>
 
                     <span ng-if = "store.requests.down">
                         <button ng-click = "chooseGood(good,store)" class = "my-btn btn btn-default btn-sm" data-toggle = "modal" href = "#modal-requestsDown">

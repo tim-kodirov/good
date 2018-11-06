@@ -18,7 +18,10 @@
         {
         	$scope.importChosen = imp;
         };
-		
+
+        $scope.imports.forEach(function(imp){
+            imp.dateObj = new Date(imp.date);
+        })
 
     });
 </script>
@@ -45,7 +48,7 @@
 	</thead>
 
 	<tbody>
-		<tr ng-repeat = "import in imports | filter: search | orderBy : 'date' : true">
+		<tr ng-repeat = "import in imports | filter: search | orderBy : '-dateObj'">
 			<td>@{{ import.name }}</td>
 			<td>@{{ import.number }}</td>
 			<td>@{{ import.who }}</td>

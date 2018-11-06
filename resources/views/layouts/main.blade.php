@@ -78,6 +78,7 @@
             @if(Auth::guard('office')->check())
                 <div class = "new-store">
                     <button class = "my-btn btn btn-danger btn-lg" data-toggle="modal" data-target="#addStore"><span class = "fa fa-home"></span></button>
+                    <span><b>Создать новый склад</b></span>
                 </div>
 
                 <div class="modal fade" id="addStore">
@@ -125,6 +126,7 @@
 
                 <div class = "new-owner">
                     <button class = "my-btn btn btn-success btn-lg" data-toggle="modal" data-target="#addOwner"><span class = "fa fa-user-plus"></span></button>
+                    <span><b>Добавить нового владельца</b></span>
                 </div>
 
                 <div class="modal fade" id="addOwner">
@@ -178,10 +180,12 @@
 
             <div class = "new-good">
                 <button class = "my-btn btn btn-primary btn-lg" data-toggle="modal" data-target="#addGood"><span class = "fa fa-cart-plus"></span></button>
+                <span><b>Добавить товар</b></span>
             </div>
             @if(Auth::guard('owner')->check())
                 <div class = "new-good-excel">
                     <button class = "my-btn btn btn-success btn-lg" data-toggle="modal" data-target="#addGoodExcel"><span class = "fa fa-file-excel-o"></span></button>
+                    <span><b>Добавить товар из Excel</b></span>
                 </div>
             @endif
             <div class="modal fade" id="addGoodExcel">

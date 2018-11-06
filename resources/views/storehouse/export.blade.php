@@ -16,6 +16,10 @@
         {
         	$scope.exportChosen = exp;
         };
+
+        $scope.exports.forEach(function(exp){
+            exp.dateObj = new Date(exp.date);
+        })
     });
 </script>
 
@@ -47,12 +51,12 @@
 	</thead>
 
 	<tbody>
-		<tr ng-repeat = "export in exports | filter : search | orderBy: 'date' : true">
+		<tr ng-repeat = "export in exports | filter : search | orderBy: '-dateObj'">
 			<td>@{{ export.name }}</td>
 			<td>@{{ export.number - export.returns[export.returns.length - 1].number }}</td>
 			<td>@{{ export.store.name }}</td>
 			<td>@{{ export.who }}</td>
-			<td>@{{ export.date | date: "dd.MM.yyyy" }}</td>
+			<td>@{{ export.date | date: "dd.MM.yyyy"}}</td>
 			<td>
 				<span ng-if = "export.returns">
 					@{{ export.returns[export.returns.length-1].number }}

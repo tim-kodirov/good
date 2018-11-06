@@ -47,8 +47,8 @@ tr[id^='request']
 	.new-good-excel
 	{
 		position: fixed;
-		bottom: 50px;
-		left: 120px;
+		bottom: 100px;
+		left: 50px;
 		display: inline;
 	}
 	.new-store
