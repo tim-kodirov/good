@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Request as OfficeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OfficeController extends Controller
 {
@@ -346,5 +347,32 @@ class OfficeController extends Controller
             $user->save();
         }
         return back();
+    }
+
+    public function remainderExportToExcel()
+    {
+//        $owner = Auth::user();
+//        $products = $owner->storehouses->pluck('products')->collapse()->unique();
+
+        $products = Product::all();
+        Excel::create('Kama', function($excel) use ($products) {
+            $excel->sheet('Остаток', function($sheet) use ($products) {
+                $sheet->row(1, array(
+                    'Товар', 'Склад', 'Количество'
+                ));
+                $row = 2;
+                foreach($products as $product)
+                {
+                    foreach($product->storehouses as $storehouse) {
+                        $sheet->appendRow($row, array(
+                            $product->name, $storehouse->name, $storehouse->remainder->quantity
+                        ));
+                        $row++;
+                    }
+                }
+            });
+        })->save('xlsx', storage_path('excel/exports'));
+
+        return response()->download(storage_path('excel/exports/Kama.xlsx'))->deleteFileAfterSend(true);
     }
 }

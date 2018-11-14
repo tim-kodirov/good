@@ -47,6 +47,8 @@ Route::prefix('store')->group(function () {
     Route::post('export/edit','StoreHouseController@editExport')->name('store.export.edit');
 
     Route::post('import/edit','StoreHouseController@editImport')->name('store.import.edit');
+
+    Route::get('remainder/export/excel','StoreHouseController@remainderExportToExcel')->name('store.remainder.export.excel');
 });
 
 Route::prefix('admin')->group(function () {
@@ -76,4 +78,6 @@ Route::prefix('office')->group(function(){
     Route::post('request/delete', 'OfficeController@deleteRequest')->name('office.request.delete');
 
     Route::post('owner/create', 'OFficeController@createOwner')->name('office.owner.create');
+
+    Route::get('remainder/export/excel','OfficeController@remainderExportToExcel')->name('office.remainder.export.excel');
 });

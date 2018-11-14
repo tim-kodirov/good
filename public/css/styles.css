@@ -1,6 +1,7 @@
 .my-btn
 {
-	border-radius: 50%;
+	border-radius: 100%;
+	padding: 8px 14px;
 
 }
 .my-btn:focus
@@ -40,7 +41,7 @@ tr[id^='request']
 	.new-good
 	{
 		position: fixed;
-		bottom: 50px;
+		bottom: 53px;
 		left: 50px;
 		display: inline;
 	}
@@ -62,7 +63,15 @@ tr[id^='request']
 	.new-owner
 	{
 		position: fixed;
-		bottom: 150px;
+		bottom: 148px;
+		left: 50px;
+		display: inline;
+	}
+
+	.excel-download
+	{
+		position: fixed;
+		bottom: 6px;
 		left: 50px;
 		display: inline;
 	}

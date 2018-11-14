@@ -8,7 +8,6 @@ use App\Import;
 use App\Product;
 use App\Remainder;
 use App\Returning;
-use App\Storehouse;
 use App\Request as OfficeRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -464,5 +463,31 @@ class StoreHouseController extends Controller
             $import->save();
         }
         return back();
+    }
+
+    public function remainderExportToExcel()
+    {
+        $owner = Auth::user();
+        $products = $owner->storehouses->pluck('products')->collapse()->unique();
+
+        Excel::create('Kama', function($excel) use ($products) {
+            $excel->sheet('Остаток', function($sheet) use ($products) {
+                $sheet->row(1, array(
+                    'Товар', 'Склад', 'Количество'
+                ));
+                $row = 2;
+                foreach($products as $product)
+                {
+                    foreach($product->storehouses as $storehouse) {
+                        $sheet->appendRow($row, array(
+                            $product->name, $storehouse->name, $storehouse->remainder->quantity
+                        ));
+                        $row++;
+                    }
+                }
+            });
+        })->save('xlsx', storage_path('excel/exports'));
+
+        return response()->download(storage_path('excel/exports/Kama.xlsx'))->deleteFileAfterSend(true);
     }
 }
