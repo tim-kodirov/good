@@ -10,6 +10,10 @@
         $scope.stores = {!! $stores !!},
         $scope.owners = {!! $owners !!},
         $scope.returns = [],
+
+		$scope.exports.forEach(function(exp){
+			exp.dateObj = new Date(exp.date);
+		});
         
         $scope.chooseExport = function(export_returns)
         {
@@ -49,7 +53,7 @@
 		</thead>
 
 		<tbody>
-			<tr class = "requests" ng-click =  "chooseExport(export.returns)" ng-repeat = "export in exports | filter : search  | orderBy: 'date' : true ">
+			<tr class = "requests" ng-click =  "chooseExport(export.returns)" ng-repeat = "export in exports | filter : search  | orderBy: '-dateObj'">
 				<td>@{{ export.name }}</td>
 				<td>@{{ export.number - export.returns[export.returns.length - 1].number }}</td>
 				<td>@{{ export.store.name }} (@{{ export.store.owner}})</td>

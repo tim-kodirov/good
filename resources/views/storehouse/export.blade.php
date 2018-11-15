@@ -19,7 +19,7 @@
 
         $scope.exports.forEach(function(exp){
             exp.dateObj = new Date(exp.date);
-        })
+        });
     });
 </script>
 

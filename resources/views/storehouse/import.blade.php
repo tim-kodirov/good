@@ -21,7 +21,7 @@
 
         $scope.imports.forEach(function(imp){
             imp.dateObj = new Date(imp.date);
-        })
+        });
 
     });
 </script>
