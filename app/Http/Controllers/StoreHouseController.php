@@ -377,14 +377,17 @@ class StoreHouseController extends Controller
             $data = Excel::load($path, function($reader){})->get();
             if(!empty($data) && $data->count()){
                 foreach($data as $key => $value){
-                    if(!empty($value->store_name) && !empty($value->product_name) && !empty($value->product_quantity)) {
+                    if(!empty($value->store_name) && !empty($value->product_name)) {
                         $storehouse = Auth::user()->storehouses()->where('name', $value->store_name)->first();
                         $product = new Product;
                         $product->name = $value->product_name;
                         $product->save();
                         $storehouse->products()->attach($product->id);
                         $product2 = $storehouse->products()->findOrFail($product->id);
-                        $product2->remainder->quantity = $value->product_quantity;
+                        if(empty($value->product_quantity))
+                            $product2->remainder->quantity = 0;
+                        else
+                            $product2->remainder->quantity = $value->product_quantity;
                         $product2->remainder->save();
                     }
                 }
