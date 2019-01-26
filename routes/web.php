@@ -77,7 +77,7 @@ Route::prefix('office')->group(function(){
 
     Route::post('request/delete', 'OfficeController@deleteRequest')->name('office.request.delete');
 
-    Route::post('owner/create', 'OFficeController@createOwner')->name('office.owner.create');
+    Route::post('owner/create', 'OfficeController@createOwner')->name('office.owner.create');
 
     Route::get('remainder/export/excel','OfficeController@remainderExportToExcel')->name('office.remainder.export.excel');
 });

@@ -379,9 +379,9 @@ class StoreHouseController extends Controller
                 foreach($data as $key => $value){
                     if(!empty($value->store_name) && !empty($value->product_name)) {
                         $storehouse = Auth::user()->storehouses()->where('name', $value->store_name)->first();
-                        $product = new Product;
-                        $product->name = $value->product_name;
-                        $product->save();
+                        $product = Product::firstOrCreate(['name' => $value->product_name]);
+//                        $product->name = $value->product_name;
+//                        $product->save();
                         $storehouse->products()->attach($product->id);
                         $product2 = $storehouse->products()->findOrFail($product->id);
                         if(empty($value->product_quantity))
